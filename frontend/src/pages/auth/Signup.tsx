@@ -218,64 +218,64 @@ export default function Signup() {
                 <form onSubmit={handleSignup} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
+                      <Label htmlFor="firstName" className="text-sm font-bold text-slate-700 ml-1">First Name</Label>
                       <Input
                         id="firstName"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder="John"
-                        className={errors.firstName ? "border-destructive" : ""}
+                        className={`h-14 px-6 rounded-2xl bg-slate-500/5 border-slate-200 focus:bg-white focus:border-primary transition-all text-slate-900 font-medium ${errors.firstName ? "border-destructive focus-visible:ring-destructive" : ""}`}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
+                      <Label htmlFor="lastName" className="text-sm font-bold text-slate-700 ml-1">Last Name</Label>
                       <Input
                         id="lastName"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         placeholder="Doe"
-                        className={errors.lastName ? "border-destructive" : ""}
+                        className={`h-14 px-6 rounded-2xl bg-slate-500/5 border-slate-200 focus:bg-white focus:border-primary transition-all text-slate-900 font-medium ${errors.lastName ? "border-destructive focus-visible:ring-destructive" : ""}`}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="company">Company Name</Label>
+                    <Label htmlFor="company" className="text-sm font-bold text-slate-700 ml-1">Company Name</Label>
                     <Input
                       id="company"
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="My Awesome Store"
-                      className={errors.company ? "border-destructive" : ""}
+                      className={`h-14 px-6 rounded-2xl bg-slate-500/5 border-slate-200 focus:bg-white focus:border-primary transition-all text-slate-900 font-medium ${errors.company ? "border-destructive focus-visible:ring-destructive" : ""}`}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-sm font-bold text-slate-700 ml-1">Email</Label>
                     <Input
                       id="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value.toLowerCase())}
                       placeholder="john@example.com"
-                      className={errors.email ? "border-destructive" : ""}
+                      className={`h-14 px-6 rounded-2xl bg-slate-500/5 border-slate-200 focus:bg-white focus:border-primary transition-all text-slate-900 font-medium ${errors.email ? "border-destructive focus-visible:ring-destructive" : ""}`}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-sm font-bold text-slate-700 ml-1">Password</Label>
                     <div className="relative">
                       <Input
                         id="password"
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className={errors.password ? "border-destructive" : ""}
+                        className={`h-14 px-6 pr-14 rounded-2xl bg-slate-500/5 border-slate-200 focus:bg-white focus:border-primary transition-all text-slate-900 font-medium ${errors.password ? "border-destructive focus-visible:ring-destructive" : ""}`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-primary transition-colors focus:outline-none"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -283,18 +283,18 @@ export default function Signup() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="mobile">Mobile Number</Label>
+                    <Label htmlFor="mobile" className="text-sm font-bold text-slate-700 ml-1">Mobile Number</Label>
                     <Input
                       id="mobile"
                       type="tel"
                       value={mobileNumber}
                       onChange={(e) => setMobileNumber(e.target.value.replace(/[^0-9+]/g, ""))}
                       placeholder="+1234567890"
-                      className={errors.mobileNumber ? "border-destructive" : ""}
+                      className={`h-14 px-6 rounded-2xl bg-slate-500/5 border-slate-200 focus:bg-white focus:border-primary transition-all text-slate-900 font-medium ${errors.mobileNumber ? "border-destructive focus-visible:ring-destructive" : ""}`}
                     />
                   </div>
 
-                  <Button type="submit" className="w-full h-12 text-lg font-bold" disabled={loading}>
+                  <Button type="submit" className="w-full glossy-button-primary rounded-2xl h-14 text-lg font-bold shadow-xl shadow-primary/20" disabled={loading}>
                     {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Sign Up"}
                   </Button>
                 </form>
@@ -310,9 +310,10 @@ export default function Signup() {
 
                 <Button
                   variant="outline"
-                  className="h-12 w-full font-bold"
+                  className="h-14 w-full rounded-2xl border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all font-bold text-slate-700"
                   onClick={() => handleGoogleSignup()}
                   disabled={googleLoading}
+                  type="button"
                 >
                   {googleLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : (
                     <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
@@ -338,15 +339,16 @@ export default function Signup() {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="mobile-modal">Mobile Number</Label>
+              <Label htmlFor="mobile-modal" className="text-sm font-bold text-slate-700 ml-1">Mobile Number</Label>
               <Input
                 id="mobile-modal"
                 value={mobileNumber}
                 onChange={(e) => setMobileNumber(e.target.value.replace(/[^0-9+]/g, ""))}
                 placeholder="+1234567890"
+                className="h-14 px-6 rounded-2xl bg-slate-500/5 border-slate-200 focus:bg-white focus:border-primary transition-all text-slate-900 font-medium"
               />
             </div>
-            <Button onClick={submitGoogleSignup} disabled={googleLoading} className="w-full h-12 font-bold">
+            <Button onClick={submitGoogleSignup} disabled={googleLoading} className="w-full glossy-button-primary rounded-2xl h-14 text-lg font-bold shadow-xl shadow-primary/20">
               {googleLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Complete Registration"}
             </Button>
           </div>
