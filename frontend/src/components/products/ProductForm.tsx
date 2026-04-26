@@ -190,7 +190,21 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="sku"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-slate-400">SKU</FormLabel>
+                    <FormLabel className="flex justify-between items-center text-[10px] uppercase tracking-widest font-black text-slate-400">
+                      SKU
+                      <Button 
+                        type="button" 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 text-[10px] font-black uppercase tracking-wider text-primary hover:text-primary/80"
+                        onClick={() => {
+                          const randomSku = `SKU-${Math.floor(100000 + Math.random() * 900000)}`;
+                          form.setValue('sku', randomSku);
+                        }}
+                      >
+                        Generate
+                      </Button>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="Unique ID" className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white" {...field} />
                     </FormControl>
