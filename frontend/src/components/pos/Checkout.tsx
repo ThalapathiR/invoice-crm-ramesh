@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,7 +35,10 @@ const Checkout: React.FC = () => {
   const [customerName, setCustomerName] = useState('');
   const [customer, setCustomer] = useState<any>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+   const [errors, setErrors] = useState<{ phone?: boolean; name?: boolean }>({});
   const { user } = useAuth();
+  const phoneRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const fetchBanks = async () => {
@@ -51,6 +54,7 @@ const Checkout: React.FC = () => {
   const handlePhoneChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setPhone(val);
+    setErrors(prev => ({ ...prev, phone: false }));
     if (val.length === 10) {
       try {
         const storeId = (user as any)?.company?.id;
@@ -179,6 +183,25 @@ const Checkout: React.FC = () => {
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
+    
+    const newErrors = {
+      phone: !phone.trim(),
+      name: !customerName.trim() && !customer?.name
+    };
+
+    setErrors(newErrors);
+
+    if (newErrors.phone || newErrors.name) {
+      if (newErrors.phone) {
+        phoneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (newErrors.name) {
+        nameRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      const msg = newErrors.phone ? "Phone number is required" : "Customer name is required";
+      toast.error(msg);
+      return;
+    }
+
     setIsProcessing(true);
 
     try {
@@ -234,7 +257,7 @@ const Checkout: React.FC = () => {
         </div>
 
         {/* Customer Section */}
-        <div className="space-y-3">
+        <div className="space-y-3" ref={phoneRef}>
           <Label htmlFor="phone" className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-black">Customer Connection</Label>
           <div className="relative">
             <Input 
@@ -242,15 +265,22 @@ const Checkout: React.FC = () => {
               placeholder="Enter mobile number..." 
               value={phone}
               onChange={handlePhoneChange}
-              className="h-12 px-5 rounded-xl bg-slate-900 border-slate-800 focus:bg-slate-950 transition-all text-white"
+              className={`h-12 px-5 rounded-xl bg-slate-900 border-slate-800 focus:bg-slate-950 transition-all text-white ${errors.phone ? 'border-red-500 ring-2 ring-red-500/20' : ''}`}
             />
+            {errors.phone && <p className="text-[10px] text-red-500 font-bold mt-1 ml-1 animate-in fade-in slide-in-from-top-1">Phone number is mandatory</p>}
           </div>
-          <Input 
-            placeholder="Customer name (optional)" 
-            value={customerName}
-            onChange={(e) => setCustomerName(e.target.value)}
-            className="h-10 px-5 rounded-xl bg-slate-900 border-slate-800 focus:bg-slate-950 transition-all text-sm text-white"
-          />
+          <div className="space-y-1" ref={nameRef}>
+            <Input 
+              placeholder="Customer Name" 
+              value={customerName || customer?.name || ''}
+              onChange={(e) => {
+                setCustomerName(e.target.value);
+                setErrors(prev => ({ ...prev, name: false }));
+              }}
+              className={`h-10 px-5 rounded-xl bg-slate-900 border-slate-800 focus:bg-slate-950 transition-all text-sm text-white ${errors.name ? 'border-red-500 ring-2 ring-red-500/20' : ''}`}
+            />
+            {errors.name && <p className="text-[10px] text-red-500 font-bold ml-1 animate-in fade-in slide-in-from-top-1">Customer name is mandatory</p>}
+          </div>
           {customer && (
             <div className="p-4 bg-primary/5 rounded-2xl border border-primary/10 animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center gap-3">
