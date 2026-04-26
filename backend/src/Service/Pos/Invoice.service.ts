@@ -227,6 +227,7 @@ export class InvoiceService {
 
   async GetAll(storeId?: string) {
     const query = invoice.createQueryBuilder('invoice')
+      .addSelect('invoice.created_on')
       .leftJoinAndSelect('invoice.customer', 'customer')
       .leftJoinAndSelect('invoice.items', 'items')
       .leftJoinAndSelect('items.product', 'product');
@@ -239,14 +240,18 @@ export class InvoiceService {
   }
 
   async GetById(id: string) {
-    return await invoice.findOne({ 
-      where: { id }, 
-      relations: ['customer', 'items', 'items.product'] 
-    });
+    return await invoice.createQueryBuilder('invoice')
+      .addSelect('invoice.created_on')
+      .leftJoinAndSelect('invoice.customer', 'customer')
+      .leftJoinAndSelect('invoice.items', 'items')
+      .leftJoinAndSelect('items.product', 'product')
+      .where('invoice.id = :id', { id })
+      .getOne();
   }
 
   async GetByCustomer(customerId: string) {
     return await invoice.createQueryBuilder('invoice')
+      .addSelect('invoice.created_on')
       .leftJoinAndSelect('invoice.items', 'items')
       .leftJoinAndSelect('items.product', 'product')
       .where('invoice.customer_id = :customerId', { customerId })

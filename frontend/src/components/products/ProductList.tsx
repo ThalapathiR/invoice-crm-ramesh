@@ -80,7 +80,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDelete })
                     onClick={() => {
                       toast.promise(StickerService.generateProductSticker(product), {
                         loading: 'Generating label...',
-                        success: 'Label downloaded!',
+                        success: 'Opening print dialog!',
                         error: 'Failed to generate label'
                       });
                     }}

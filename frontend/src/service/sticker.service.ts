@@ -38,8 +38,11 @@ export const StickerService = {
 
       doc.addImage(img, 'PNG', 5, 13, 40, 10);
 
-      // Save the PDF
-      doc.save(`Barcode_${product.barcode}.pdf`);
+      // Open print dialog directly
+      doc.autoPrint();
+      const blob = doc.output('blob');
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
     } catch (err) {
       console.error("Failed to generate Barcode sticker", err);
       throw new Error("Barcode generation failed");
