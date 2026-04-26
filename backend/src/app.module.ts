@@ -74,7 +74,7 @@ import { GoogleSheetsService } from "./Service/GoogleSheets.service";
     ClsModule,
     ServeStaticModule.forRoot({
       rootPath: __dirname + "/client",
-      exclude: ["/api/(.*)", "/swagger/(.*)"],
+      exclude: ["/api/{*path}", "/swagger/{*path}"],
     }),
     EventEmitterModule.forRoot({ maxListeners: 0 }),
     ConfigModule.forRoot({ isGlobal: true, load: [Configuration] }),

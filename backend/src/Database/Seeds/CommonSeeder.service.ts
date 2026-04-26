@@ -8,6 +8,7 @@ import { product_category } from '../Table/Pos/product_category';
 import { product_size } from '../Table/Pos/product_size';
 import { Injectable } from '@nestjs/common';
 import { EncryptionService } from '@Service/Encryption.service';
+import { expense_category } from '../Table/Admin/expense_category';
 
 @Injectable()
 export class CommonSeederService {
@@ -69,6 +70,9 @@ export class CommonSeederService {
     try {
       await this.ProductSizeSeed();
       console.log('✅ Product Size seeding completed');
+      
+      await this.ExpenseCategorySeed();
+      console.log('✅ Expense Category seeding completed');
     }
     catch (e) {
       console.error('❌ Product Size seeding failed:', e.message);
@@ -227,6 +231,31 @@ export class CommonSeederService {
         await product_size.save({
           name: sizeName,
           store_id: CompanyData.id,
+          created_by_id: "0",
+          created_on: new Date()
+        } as any);
+      }
+    }
+  }
+
+  ExpenseCategorySeed = async () => {
+    const categories = [
+      { name: 'Rent', description: 'Monthly store/office rent' },
+      { name: 'Electricity Bill', description: 'Utility - Electricity' },
+      { name: 'Water Bill', description: 'Utility - Water' },
+      { name: 'Internet / Phone', description: 'Communication expenses' },
+      { name: 'Salary', description: 'Employee wages and salaries' },
+      { name: 'Maintenance', description: 'Repair and maintenance' },
+      { name: 'Supplies', description: 'Office or store supplies' },
+      { name: 'Marketing', description: 'Advertising and promotion' },
+      { name: 'Others', description: 'Miscellaneous expenses' }
+    ];
+
+    for (const cat of categories) {
+      const exists = await expense_category.findOne({ where: { name: cat.name } });
+      if (!exists) {
+        await expense_category.save({
+          ...cat,
           created_by_id: "0",
           created_on: new Date()
         } as any);

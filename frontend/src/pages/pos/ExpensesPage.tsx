@@ -54,15 +54,15 @@ const ExpensesPage: React.FC = () => {
     try {
       const storeId = (user as any)?.company?.id;
       const [expRes, catRes, bankRes] = await Promise.all([
-        ExpenseService.GetAll(storeId),
-        ExpenseCategoryService.GetAll(),
+        ExpenseService.GetList(storeId),
+        ExpenseCategoryService.GetList(),
         BankService.GetAll(storeId)
       ]);
       
-      setItems(expRes.result || []);
-      setFilteredItems(expRes.result || []);
-      setCategories(catRes.result || []);
-      setBanks(bankRes.result || []);
+      setItems(Array.isArray(expRes) ? expRes : expRes.result || []);
+      setFilteredItems(Array.isArray(expRes) ? expRes : expRes.result || []);
+      setCategories(Array.isArray(catRes) ? catRes : catRes.result || []);
+      setBanks(Array.isArray(bankRes) ? bankRes : bankRes.result || []);
     } catch (err) {
       toast.error("Failed to fetch expenses");
     } finally {

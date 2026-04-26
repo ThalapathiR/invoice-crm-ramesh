@@ -51,7 +51,7 @@ const CustomerLedgerPage: React.FC = () => {
     try {
       const storeId = (user as any)?.company?.id;
       const res = await CustomerService.GetList(storeId);
-      setCustomers(res.result || []);
+      setCustomers(Array.isArray(res) ? res : res.result || []);
     } catch (err) {
       toast.error("Failed to fetch customers");
     }
@@ -61,7 +61,7 @@ const CustomerLedgerPage: React.FC = () => {
     try {
       const storeId = (user as any)?.company?.id;
       const res = await BankService.GetAll(storeId);
-      setBanks(res.result || []);
+      setBanks(Array.isArray(res) ? res : res.result || []);
     } catch (err) {}
   };
 
@@ -70,7 +70,7 @@ const CustomerLedgerPage: React.FC = () => {
     setIsLoading(true);
     try {
       const res = await CustomerLedgerService.GetHistory(cid);
-      setLedger(res.result || []);
+      setLedger(Array.isArray(res) ? res : res.result || []);
     } catch (err) {
       toast.error("Failed to fetch ledger");
     } finally {

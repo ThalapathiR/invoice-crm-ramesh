@@ -1,15 +1,15 @@
 import { CommonService } from "./commonservice.page";
 
 export class ExpenseService extends CommonService {
-  public static async GetAll(storeId: string) {
-    return this.GetAll(`Expense/List?storeId=${storeId}`);
+  public static async GetList(storeId: string) {
+    return super.GetAll(`Expense/List?storeId=${storeId}`);
   }
 
   public static async Insert(data: any) {
-    return this.Post("Expense/Insert", data);
+    return super.CommonPost(data, "Expense/Insert");
   }
 
   public static async Delete(id: string) {
-    return this.DeleteById(`Expense/Delete/${id}`);
+    return super.CommonDelete(`Expense/Delete/${id}`);
   }
 }

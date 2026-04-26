@@ -1,19 +1,19 @@
 import { CommonService } from "./commonservice.page";
 
 export class ExpenseCategoryService extends CommonService {
-  public static async GetAll() {
-    return this.GetAll("ExpenseCategory/List");
+  public static async GetList() {
+    return super.GetAll("ExpenseCategory/List");
   }
 
   public static async Insert(data: any) {
-    return this.Post("ExpenseCategory/Insert", data);
+    return super.CommonPost(data, "ExpenseCategory/Insert");
   }
 
   public static async Update(id: string, data: any) {
-    return this.Put(`ExpenseCategory/Update/${id}`, data);
+    return super.CommonPut(data, `ExpenseCategory/Update/${id}`);
   }
 
   public static async Delete(id: string) {
-    return this.DeleteById(`ExpenseCategory/Delete/${id}`);
+    return super.CommonDelete(`ExpenseCategory/Delete/${id}`);
   }
 }

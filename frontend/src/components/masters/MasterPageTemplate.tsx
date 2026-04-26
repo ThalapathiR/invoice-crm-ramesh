@@ -48,7 +48,11 @@ const MasterPageTemplate: React.FC<MasterPageTemplateProps> = ({
     setIsLoading(true);
     try {
       const storeId = (user as any)?.company?.id;
-      const fetchMethod = service.GetList || service.GetAll;
+      const fetchMethod = service.GetList;
+      if (!fetchMethod) {
+        console.error(`Service ${service.name} is missing GetList method! Falling back to GetAll is unsafe.`);
+        throw new Error(`Service ${service.name} is missing GetList method`);
+      }
       const data = await fetchMethod.call(service, storeId);
       const list = Array.isArray(data) ? data : (data?.data || data?.result || []);
       setItems(list);

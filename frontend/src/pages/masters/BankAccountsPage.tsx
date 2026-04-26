@@ -43,7 +43,7 @@ const BankAccountsPage: React.FC = () => {
     try {
       const storeId = (user as any)?.company?.id;
       const res = await BankService.GetAll(storeId);
-      const list = res.result || [];
+      const list = Array.isArray(res) ? res : res.result || [];
       setItems(list);
       setFilteredItems(list);
     } catch (err) {
