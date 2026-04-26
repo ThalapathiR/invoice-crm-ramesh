@@ -3,10 +3,14 @@ import { product } from '@Database/Table/Pos/product';
 import { ProductModel } from '@Model/Pos/Product.model';
 import { AuditLogService } from '../Admin/AuditLog.service';
 import { LogActionEnum } from '@Helper/Enum/AuditLogEnum';
+import { GoogleSheetsService } from '../GoogleSheets.service';
 
 @Injectable()
 export class ProductService {
-  constructor(private _AuditLogService: AuditLogService) {}
+  constructor(
+    private _AuditLogService: AuditLogService,
+    private _GoogleSheetsService: GoogleSheetsService
+  ) {}
 
   async GetAll(storeId?: string) {
     if (storeId && storeId !== "undefined" && storeId !== "null") {
@@ -51,6 +55,19 @@ export class ProductService {
     _product.created_on = new Date();
     await _product.save();
     this._AuditLogService.AuditEmitEvent({ PerformedType: product.name, ActionType: LogActionEnum.Insert, PrimaryId: [_product.id] });
+    
+    // Sync to Google Sheets
+    this._GoogleSheetsService.appendData('Products', [
+      new Date().toLocaleString(),
+      _product.barcode,
+      _product.sku,
+      _product.name,
+      _product.category,
+      _product.selling_price,
+      _product.quantity_in_stock,
+      userId
+    ]);
+
     return _product;
   }
 

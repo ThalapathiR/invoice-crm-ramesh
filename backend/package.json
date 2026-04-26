@@ -41,6 +41,7 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "errorhandler": "^1.5.1",
+    "googleapis": "^171.4.0",
     "ioredis": "^5.7.0",
     "json-diff": "^1.0.6",
     "mysql": "^2.18.1",

@@ -66,6 +66,8 @@ import { CustomerLedgerService } from "./Service/Pos/CustomerLedger.service";
 import { ExpenseCategoryController } from "./Controller/Pos/ExpenseCategory.controller";
 import { TenantUserRoleController } from "./Controller/Pos/TenantUserRole.controller";
 import { EmployeeController } from "./Controller/Pos/Employee.controller";
+import { SyncController } from "./Controller/Pos/Sync.controller";
+import { GoogleSheetsService } from "./Service/GoogleSheets.service";
 
 @Module({
   imports: [
@@ -139,6 +141,7 @@ import { EmployeeController } from "./Controller/Pos/Employee.controller";
     ExpenseCategoryController,
     TenantUserRoleController,
     EmployeeController,
+    SyncController,
   ],
   providers: [
     AuthService,
@@ -166,6 +169,7 @@ import { EmployeeController } from "./Controller/Pos/Employee.controller";
     BankService,
     ExpenseService,
     CustomerLedgerService,
+    GoogleSheetsService,
     {
       provide: APP_FILTER,
       useClass: ExceptionHelper,

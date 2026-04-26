@@ -4,12 +4,14 @@ import { expense } from '@Database/Table/Pos/expense';
 import { bank_account } from '@Database/Table/Pos/bank_account';
 import { AuditLogService } from '../Admin/AuditLog.service';
 import { LogActionEnum } from '@Helper/Enum/AuditLogEnum';
+import { GoogleSheetsService } from '../GoogleSheets.service';
 
 @Injectable()
 export class ExpenseService {
   constructor(
     private _DataSource: DataSource,
-    private _AuditLogService: AuditLogService
+    private _AuditLogService: AuditLogService,
+    private _GoogleSheetsService: GoogleSheetsService
   ) {}
 
   async GetAll(storeId: string) {
@@ -43,6 +45,16 @@ export class ExpenseService {
 
       await queryRunner.commitTransaction();
       this._AuditLogService.AuditEmitEvent({ PerformedType: expense.name, ActionType: LogActionEnum.Insert, PrimaryId: [result.id] });
+      
+      // Sync to Google Sheets
+      this._GoogleSheetsService.appendData('Expenses', [
+        new Date().toLocaleString(),
+        result.notes || 'NA',
+        result.amount,
+        result.expense_date,
+        userId
+      ]);
+
       return result;
     } catch (err) {
       await queryRunner.rollbackTransaction();

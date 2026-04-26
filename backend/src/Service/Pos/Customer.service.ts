@@ -3,10 +3,14 @@ import { customer } from '@Database/Table/Pos/customer';
 import { CustomerModel } from '@Model/Pos/Customer.model';
 import { AuditLogService } from '../Admin/AuditLog.service';
 import { LogActionEnum } from '@Helper/Enum/AuditLogEnum';
+import { GoogleSheetsService } from '../GoogleSheets.service';
 
 @Injectable()
 export class CustomerService {
-  constructor(private _AuditLogService: AuditLogService) {}
+  constructor(
+    private _AuditLogService: AuditLogService,
+    private _GoogleSheetsService: GoogleSheetsService
+  ) {}
 
   async GetAll(storeId?: string) {
     if (storeId) {
@@ -30,6 +34,17 @@ export class CustomerService {
     _customer.created_on = new Date();
     await _customer.save();
     this._AuditLogService.AuditEmitEvent({ PerformedType: customer.name, ActionType: LogActionEnum.Insert, PrimaryId: [_customer.id] });
+    
+    // Sync to Google Sheets
+    this._GoogleSheetsService.appendData('Customers', [
+      new Date().toLocaleString(),
+      _customer.name,
+      _customer.phone,
+      _customer.email || 'NA',
+      _customer.address || 'NA',
+      userId
+    ]);
+
     return _customer;
   }
 

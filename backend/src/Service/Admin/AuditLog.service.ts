@@ -112,10 +112,10 @@ export class AuditLogService {
     // Create JSON object data for all columns
     const json_object = JsonObjectFilter.map(
       (o: { columns: string }) =>
-        `'${o.columns}', COALESCE(main.${o.columns}, '')`
+        `'${o.columns}', COALESCE(main.${o.columns}::text, '')`
     );
 
-    const json_object_query = `json_object(${json_object.join(", ")})`;
+    const json_object_query = `jsonb_build_object(${json_object.join(", ")})`;
 
     const tableIdentifier = this.LogTableIdentifierName?.[table];
     if (!tableIdentifier) {
@@ -148,9 +148,9 @@ export class AuditLogService {
         ${table} AS main
     LEFT JOIN
         "user" AS usr
-    ON usr.id = COALESCE(main.updated_by_id, main.created_by_id)
+    ON usr.id::text = COALESCE(main.updated_by_id, main.created_by_id)::text
     WHERE
-        main.id IN (${ids.map((id) => `'${id}'::uuid`).join(",")});
+        main.id IN (${ids.map((id) => `'${id}'`).join(",")});
 `;
 
     return DynamicQuery;

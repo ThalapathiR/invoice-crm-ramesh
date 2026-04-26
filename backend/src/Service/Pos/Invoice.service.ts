@@ -12,12 +12,14 @@ import { customer_ledger, LedgerType } from '@Database/Table/Pos/customer_ledger
 import { CreateInvoiceModel } from '@Model/Pos/Invoice.model';
 import { AuditLogService } from '../Admin/AuditLog.service';
 import { LogActionEnum } from '@Helper/Enum/AuditLogEnum';
+import { GoogleSheetsService } from '../GoogleSheets.service';
 
 @Injectable()
 export class InvoiceService {
   constructor(
     private _DataSource: DataSource,
-    private _AuditLogService: AuditLogService
+    private _AuditLogService: AuditLogService,
+    private _GoogleSheetsService: GoogleSheetsService
   ) {}
 
   async CreateInvoice(data: CreateInvoiceModel, userId: string) {
@@ -216,6 +218,22 @@ export class InvoiceService {
 
       await queryRunner.commitTransaction();
       this._AuditLogService.AuditEmitEvent({ PerformedType: invoice.name, ActionType: LogActionEnum.Insert, PrimaryId: [savedInvoice.id] });
+      
+      // Async append to Google Sheets
+      const customerName = data.customer_name || (customerId ? 'Existing Customer' : 'Walk-in');
+      this._GoogleSheetsService.appendInvoiceRow({
+        date: new Date().toLocaleString(),
+        invoice_number: savedInvoice.invoice_number,
+        customer_name: customerName,
+        customer_phone: data.customer_phone || 'NA',
+        total_amount: savedInvoice.total_amount,
+        payment_method: savedInvoice.payment_method,
+        operator: userId
+      });
+
+      // Update Daily/Weekly/Monthly reports
+      this._GoogleSheetsService.syncReports();
+
       return savedInvoice;
     } catch (err) {
       await queryRunner.rollbackTransaction();
