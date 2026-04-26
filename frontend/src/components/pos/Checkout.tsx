@@ -137,9 +137,9 @@ const Checkout: React.FC = () => {
       head: [['Item Description', 'Price', 'QTY/Unit', 'Net.Amt']],
       body: items.map(item => [
         { content: `${item.name}\nHSN: ${item.barcode || '62034990'}`, styles: { halign: 'left' } },
-        `₹${item.price.toLocaleString()}`,
+        `Rs. ${item.price.toLocaleString()}`,
         `${item.quantity} PC`,
-        `₹${(item.price * item.quantity).toLocaleString()}`
+        `Rs. ${(item.price * item.quantity).toLocaleString()}`
       ]),
       theme: 'plain',
       headStyles: { 
@@ -160,11 +160,11 @@ const Checkout: React.FC = () => {
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.text(`Gross Total:`, 140, finalY + 10);
-    doc.text(`₹${totalAmount.toLocaleString()}`, 190, finalY + 10, { align: "right" });
+    doc.text(`Rs. ${totalAmount.toLocaleString()}`, 190, finalY + 10, { align: "right" });
     
     doc.setFontSize(12);
     doc.text(`Total Invoice Amount:`, 140, finalY + 18);
-    doc.text(`₹${finalTotal.toLocaleString()}`, 190, finalY + 18, { align: "right" });
+    doc.text(`Rs. ${finalTotal.toLocaleString()}`, 190, finalY + 18, { align: "right" });
 
     // 5. Footer (Terms & Conditions)
     doc.setFontSize(7);
