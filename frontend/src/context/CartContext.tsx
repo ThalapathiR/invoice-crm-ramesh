@@ -5,6 +5,7 @@ export interface CartItem {
   name: string;
   quantity: number;
   price: number;
+  purchase_price: number;
   gst_percentage: number;
   discount_type?: 'PERCENTAGE' | 'FIXED';
   discount_value?: number;
@@ -40,6 +41,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         name: product.name, 
         quantity, 
         price: product.selling_price, 
+        purchase_price: product.purchase_price || 0,
         gst_percentage: product.gst_percentage,
         discount_type: 'PERCENTAGE',
         discount_value: 0

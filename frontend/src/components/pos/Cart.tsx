@@ -33,7 +33,6 @@ const Cart: React.FC = () => {
             <TableHead>Product</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Quantity</TableHead>
-            <TableHead>Discount</TableHead>
             <TableHead>Total</TableHead>
             <TableHead className="w-[50px]"></TableHead>
           </TableRow>
@@ -49,6 +48,7 @@ const Cart: React.FC = () => {
               }
             }
             const itemTotal = (item.price * item.quantity) - itemDiscount;
+            const currentProfit = ((item.price - item.purchase_price) * item.quantity) - itemDiscount;
 
             return (
               <TableRow key={item.id} className="border-slate-800 hover:bg-white/5 transition-colors">
@@ -81,26 +81,22 @@ const Cart: React.FC = () => {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-2">
-                    <input 
-                      type="number"
-                      value={item.discount_value || ''}
-                      onChange={(e) => updateDiscount(item.id, item.discount_type || 'PERCENTAGE', parseFloat(e.target.value) || 0)}
-                      className="w-16 h-8 px-2 text-xs font-bold bg-slate-900 border border-slate-800 rounded-lg focus:border-primary outline-none text-white"
-                      placeholder="0"
-                    />
-                    <select 
-                      value={item.discount_type}
-                      onChange={(e) => updateDiscount(item.id, e.target.value as any, item.discount_value || 0)}
-                      className="h-8 text-[10px] font-black border border-slate-800 rounded-lg bg-slate-900 text-slate-400 px-1 outline-none"
-                    >
-                      <option value="PERCENTAGE">%</option>
-                      <option value="FIXED">₹</option>
-                    </select>
+                  <div className="flex flex-col gap-1">
+                    <span className="font-black text-primary text-base">₹{itemTotal.toLocaleString()}</span>
+                    {currentProfit > 0 ? (
+                      <span className="text-[9px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full w-max">
+                        + ₹{currentProfit.toLocaleString()} Profit
+                      </span>
+                    ) : currentProfit < 0 ? (
+                      <span className="text-[9px] font-black uppercase tracking-widest text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full w-max">
+                        - ₹{Math.abs(currentProfit).toLocaleString()} Loss
+                      </span>
+                    ) : (
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 bg-slate-500/10 px-2 py-0.5 rounded-full w-max">
+                        Break Even
+                      </span>
+                    )}
                   </div>
-                </TableCell>
-                <TableCell className="font-black text-primary">
-                  ₹{itemTotal.toLocaleString()}
                 </TableCell>
                 <TableCell>
                   <Button 
