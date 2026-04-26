@@ -30,18 +30,25 @@ export class ExpenseService {
     try {
       const exp = new expense();
       Object.assign(exp, data);
+      
+      // Handle "CASH" or empty string as null for UUID field
+      if (exp.bank_account_id === 'CASH' || !exp.bank_account_id) {
+        exp.bank_account_id = null;
+      }
+
       exp.created_by_id = userId;
       exp.created_on = new Date();
       const result = await queryRunner.manager.save(exp);
 
       // Deduct from bank balance
-      if (data.bank_account_id) {
-        const bank = await queryRunner.manager.findOne(bank_account, { where: { id: data.bank_account_id } });
+      if (exp.bank_account_id) {
+        const bank = await queryRunner.manager.findOne(bank_account, { where: { id: exp.bank_account_id } });
         if (bank) {
           bank.current_balance = Number(bank.current_balance) - Number(data.amount);
           await queryRunner.manager.save(bank);
         }
       }
+
 
       await queryRunner.commitTransaction();
       this._AuditLogService.AuditEmitEvent({ PerformedType: expense.name, ActionType: LogActionEnum.Insert, PrimaryId: [result.id] });
