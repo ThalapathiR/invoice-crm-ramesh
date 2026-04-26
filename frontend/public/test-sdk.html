@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharyx Voice Bot SDK Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #0a0a0f;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #f80759, #bc4e9c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { color: #888; margin-bottom: 40px; }
+        
+        #bot-parent {
+            width: 320px;
+            height: 380px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-radius: 24px;
+        }
+
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        input {
+            background: #1a1a24;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            width: 250px;
+        }
+        button {
+            background: #f80759;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Voice SDK Test</h1>
+        <p>Enter your Agent ID below and click "Initialize" to test the standalone widget.</p>
+        
+        <div id="bot-parent">
+            <!-- SDK will render here -->
+        </div>
+
+        <div class="controls">
+            <input type="text" id="agent-id-input" placeholder="Paste Agent UUID here..." value="">
+            <button onclick="initBot()">Initialize Bot</button>
+        </div>
+    </div>
+
+    <!-- Load our local SDK script -->
+    <script src="/scripts/web.js"></script>
+
+    <script>
+        let currentBot = null;
+
+        function initBot() {
+            const agentId = document.getElementById('agent-id-input').value.trim();
+            if (!agentId) {
+                alert("Please enter a valid Agent ID");
+                return;
+            }
+
+            // Cleanup previous instance if any
+            if (currentBot) {
+                currentBot.handleCleanup();
+            }
+
+            document.getElementById('bot-parent').innerHTML = '';
+
+            console.log("Initializing bot for agent:", agentId);
+            
+            // @ts-ignore
+            currentBot = new HoomanVoiceBot({
+                agentId: agentId,
+                parent: document.getElementById('bot-parent'),
+                accent: "#f80759",
+                bg: "#141414",
+                onCallId: (id) => {
+                    console.log("Call started! ID:", id);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

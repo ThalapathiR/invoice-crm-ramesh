@@ -1,0 +1,169 @@
+/* Login page specific styles */
+.login-page {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #fdfcfb;
+}
+
+/* Premium glass card */
+.login-page .glass-card {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shadow-3xl {
+  box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Inputs */
+.login-page .glass-input {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  height: 3rem;
+  padding: 0 1rem;
+  font-size: 0.95rem;
+  color: #1e293b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+}
+
+.login-page .glass-input:focus {
+  background: white;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+/* Tabs Styling */
+.login-page [data-state="active"].rounded-xl {
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+}
+
+/* Buttons */
+.login-page .glossy-button-primary {
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  border: none !important;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: 0 8px 20px -6px rgba(124, 58, 237, 0.4);
+  color: white;
+}
+
+.login-page .glossy-button-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 12px 25px -8px rgba(124, 58, 237, 0.5);
+}
+
+.login-page .glossy-button-primary:active {
+  transform: translateY(0);
+}
+
+/* Social Buttons */
+.login-page .glass-button {
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.login-page .glass-button:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+/* Auth Specific Glassmorphism (Forced Light) */
+.glass-card-auth {
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 40px;
+}
+
+.glass-input-auth {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid #f0e8e2;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+
+.glass-input-auth:focus {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-color: #7c3aed;
+  /* primary color */
+}
+
+.glass-button-auth {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid #f0e8e2;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.2s ease;
+  color: #1e293b;
+}
+
+.glass-button-auth:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Orchestrated Entrance Animation with Long Pause */
+.animate-center-to-left {
+  animation: center-to-left 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-slide-from-behind-staggered {
+  animation: slide-right-from-behind 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+@keyframes center-to-left {
+  0% {
+    opacity: 0;
+    transform: translateX(65%) scale(1.05);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translateX(65%) scale(1);
+  }
+
+  /* Wait in center until 85% mark (~5s) */
+  85% {
+    opacity: 1;
+    transform: translateX(65%) scale(1);
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right-from-behind {
+
+  0%,
+  85% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
