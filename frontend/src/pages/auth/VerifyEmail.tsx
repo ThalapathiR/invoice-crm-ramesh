@@ -58,7 +58,7 @@ export default function VerifyEmail() {
       <div className="w-full max-w-md animate-in fade-in zoom-in duration-500">
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-3xl bg-linear-to-br from-primary to-accent flex items-center justify-center text-white shadow-2xl shadow-primary/20 rotate-3">
+            <div className="h-16 w-16 rounded-3xl bg-linear-to-br from-primary to-accent flex items-center justify-center text-foreground shadow-2xl shadow-primary/20 rotate-3">
               <ShieldCheck className="h-9 w-9" />
             </div>
             <span className="text-3xl font-extrabold tracking-tight bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">

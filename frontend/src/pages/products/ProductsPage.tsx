@@ -129,11 +129,11 @@ const ProductsPage: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto min-h-screen">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Product Inventory</h1>
+          <h1 className="text-3xl font-black text-foreground tracking-tight">Product Inventory</h1>
           <p className="text-blue-100/80 font-medium">Manage your clothing items, stock levels, and barcodes</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchProducts} disabled={isLoading}>
+          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchProducts} disabled={isLoading}>
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
           <Button className="btn-brand bg-white text-slate-900 hover:bg-slate-100 border-none h-12 px-6 rounded-2xl font-black shadow-lg shadow-black/5" onClick={handleAddProduct}>
@@ -148,7 +148,7 @@ const ProductsPage: React.FC = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input 
             placeholder="Search by name, SKU or barcode..." 
-            className="pl-10 border-none bg-slate-900 rounded-2xl h-12 font-bold text-white placeholder:text-slate-600"
+            className="pl-10 border-none bg-card rounded-2xl h-12 font-bold text-foreground placeholder:text-slate-600"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

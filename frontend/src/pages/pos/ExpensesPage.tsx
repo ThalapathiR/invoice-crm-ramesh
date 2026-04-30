@@ -129,16 +129,16 @@ const ExpensesPage: React.FC = () => {
     <div className="p-6 max-w-6xl mx-auto min-h-screen">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-black text-foreground tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-              <Receipt className="w-6 h-6 text-white" />
+              <Receipt className="w-6 h-6 text-foreground" />
             </div>
             Business Expenses
           </h1>
           <p className="text-blue-100/80 font-medium ml-1">Track all business outflows for accurate net profit</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchData} disabled={isLoading}>
+          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchData} disabled={isLoading}>
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
           <Button className="btn-brand bg-white text-slate-900 hover:bg-slate-100 border-none h-12 px-6 rounded-2xl font-black shadow-lg shadow-black/5" onClick={handleAddItem}>
@@ -153,7 +153,7 @@ const ExpensesPage: React.FC = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <Input 
             placeholder="Search expenses by category or notes..." 
-            className="pl-10 border-none bg-slate-900 rounded-2xl h-12 font-bold text-white placeholder:text-slate-600"
+            className="pl-10 border-none bg-card rounded-2xl h-12 font-bold text-foreground placeholder:text-slate-600"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -162,8 +162,8 @@ const ExpensesPage: React.FC = () => {
 
       <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-900/50">
-            <TableRow className="hover:bg-transparent border-slate-800">
+          <TableHeader className="bg-card/50">
+            <TableRow className="hover:bg-transparent border-border">
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 pl-8">Date</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4">Category</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4">Source Account</TableHead>
@@ -178,9 +178,9 @@ const ExpensesPage: React.FC = () => {
               <TableRow><TableCell colSpan={5} className="text-center py-20 text-muted-foreground font-bold">No expenses recorded yet</TableCell></TableRow>
             ) : (
               filteredItems.map((item) => (
-                <TableRow key={item.id} className="hover:bg-white/5 border-slate-800 transition-colors group">
+                <TableRow key={item.id} className="hover:bg-white/5 border-border transition-colors group">
                   <TableCell className="py-5 pl-8">
-                    <div className="font-black text-white">{format(new Date(item.expense_date), 'dd MMM yyyy')}</div>
+                    <div className="font-black text-foreground">{format(new Date(item.expense_date), 'dd MMM yyyy')}</div>
                   </TableCell>
                   <TableCell className="py-5">
                     <span className="px-3 py-1 bg-amber-500/10 text-amber-500 rounded-full text-[10px] font-black uppercase tracking-wider border border-amber-500/20">
@@ -191,7 +191,7 @@ const ExpensesPage: React.FC = () => {
                   <TableCell className="py-5">
                     <div className="flex items-center gap-2">
                       <Wallet className="w-3 h-3 text-slate-500" />
-                      <div className="text-xs font-bold text-slate-400">
+                      <div className="text-xs font-bold text-muted-foreground">
                         {item.bank_account ? `${item.bank_account.bank_name} (...${item.bank_account.account_number.slice(-4)})` : 'Cash / Hand'}
                       </div>
                     </div>
@@ -212,9 +212,9 @@ const ExpensesPage: React.FC = () => {
       </div>
 
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="max-w-xl rounded-[40px] p-10 border-slate-800 bg-slate-900 shadow-2xl">
+        <DialogContent className="max-w-xl rounded-[40px] p-10 border-border bg-card shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-black text-white flex items-center gap-3">
+            <DialogTitle className="text-3xl font-black text-foreground flex items-center gap-3">
               <div className="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500">
                 <Receipt className="w-6 h-6" />
               </div>
@@ -232,7 +232,7 @@ const ExpensesPage: React.FC = () => {
                     required
                     value={formData.expense_date}
                     onChange={(e) => setFormData({...formData, expense_date: e.target.value})}
-                    className="h-12 pl-10 rounded-2xl bg-slate-950 border-slate-800 text-base font-bold text-white focus:border-primary"
+                    className="h-12 pl-10 rounded-2xl bg-background border-border text-base font-bold text-foreground focus:border-primary"
                   />
                 </div>
               </div>
@@ -243,7 +243,7 @@ const ExpensesPage: React.FC = () => {
                   required
                   value={formData.amount}
                   onChange={(e) => setFormData({...formData, amount: parseFloat(e.target.value) || 0})}
-                  className="h-12 rounded-2xl bg-slate-950 border-slate-800 text-xl font-black text-red-400 focus:border-primary"
+                  className="h-12 rounded-2xl bg-background border-border text-xl font-black text-red-400 focus:border-primary"
                 />
               </div>
             </div>
@@ -252,10 +252,10 @@ const ExpensesPage: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest font-black text-slate-500 ml-1">Category</label>
                 <Select value={formData.category_id} onValueChange={(val) => setFormData({...formData, category_id: val})}>
-                  <SelectTrigger className="h-12 rounded-2xl bg-slate-950 border-slate-800 font-bold text-white">
+                  <SelectTrigger className="h-12 rounded-2xl bg-background border-border font-bold text-foreground">
                     <SelectValue placeholder="Choose Category..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-900 border-slate-800">
+                  <SelectContent className="bg-card border-border">
                     {categories.map(cat => (
                       <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
                     ))}
@@ -265,10 +265,10 @@ const ExpensesPage: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest font-black text-slate-500 ml-1">Source Account</label>
                 <Select value={formData.bank_account_id} onValueChange={(val) => setFormData({...formData, bank_account_id: val})}>
-                  <SelectTrigger className="h-12 rounded-2xl bg-slate-950 border-slate-800 font-bold text-white">
+                  <SelectTrigger className="h-12 rounded-2xl bg-background border-border font-bold text-foreground">
                     <SelectValue placeholder="Select Source..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-900 border-slate-800">
+                  <SelectContent className="bg-card border-border">
                     <SelectItem value="CASH">Cash / Hand</SelectItem>
                     {banks.map(bank => (
                       <SelectItem key={bank.id} value={bank.id}>{bank.bank_name} (...{bank.account_number.slice(-4)})</SelectItem>
@@ -284,7 +284,7 @@ const ExpensesPage: React.FC = () => {
                 value={formData.notes}
                 onChange={(e) => setFormData({...formData, notes: e.target.value})}
                 placeholder="e.g. Monthly rent for shop"
-                className="h-12 rounded-2xl bg-slate-950 border-slate-800 focus:bg-slate-950 text-sm font-medium text-white placeholder:text-slate-600"
+                className="h-12 rounded-2xl bg-background border-border focus:bg-background text-sm font-medium text-foreground placeholder:text-slate-600"
               />
             </div>
 

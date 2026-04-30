@@ -50,7 +50,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDelete })
               <TableCell className="font-bold text-slate-500 uppercase tracking-tighter">{product.sku}</TableCell>
               <TableCell>
                 <div>
-                  <div className="font-black text-slate-900">{product.name}</div>
+                  <div className="font-black text-adaptive-elite">{product.name}</div>
                   <div className="text-xs text-muted-foreground font-medium">{product.size} / {product.color}</div>
                 </div>
               </TableCell>

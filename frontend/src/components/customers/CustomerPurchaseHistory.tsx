@@ -77,12 +77,12 @@ const CustomerPurchaseHistory: React.FC<PurchaseHistoryProps> = ({ isOpen, onClo
                 <div className="bg-slate-50 p-4 flex justify-between items-center border-b">
                   <div className="flex items-center gap-4">
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Invoice #</span>
+                      <span className="text-[10px] font-black uppercase text-muted-foreground tracking-wider">Invoice #</span>
                       <span className="text-sm font-black text-slate-900">{inv.invoice_number}</span>
                     </div>
                     <div className="w-px h-8 bg-slate-200" />
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Date</span>
+                      <span className="text-[10px] font-black uppercase text-muted-foreground tracking-wider">Date</span>
                       <div className="flex items-center gap-1.5 text-sm font-bold text-slate-600">
                         <Calendar className="w-3.5 h-3.5" />
                         {new Date(inv.created_on).toLocaleDateString()}
@@ -94,7 +94,7 @@ const CustomerPurchaseHistory: React.FC<PurchaseHistoryProps> = ({ isOpen, onClo
                       {inv.payment_method}
                     </Badge>
                     <div className="text-right">
-                      <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">Total Amount</span>
+                      <span className="text-[10px] font-black uppercase text-muted-foreground tracking-wider block">Total Amount</span>
                       <span className="text-lg font-black text-primary">₹{Number(inv.total_amount).toLocaleString()}</span>
                     </div>
                   </div>
@@ -114,7 +114,7 @@ const CustomerPurchaseHistory: React.FC<PurchaseHistoryProps> = ({ isOpen, onClo
                         <TableRow key={item.id} className="hover:bg-slate-50/30">
                           <TableCell className="py-3">
                             <div className="font-bold text-slate-800">{item.product?.name}</div>
-                            <div className="text-[10px] text-slate-400 font-medium">SKU: {item.product?.barcode}</div>
+                            <div className="text-[10px] text-muted-foreground font-medium">SKU: {item.product?.barcode}</div>
                           </TableCell>
                           <TableCell className="text-center font-bold text-slate-600">{item.quantity}</TableCell>
                           <TableCell className="text-right font-medium text-slate-600">₹{Number(item.unit_price).toLocaleString()}</TableCell>

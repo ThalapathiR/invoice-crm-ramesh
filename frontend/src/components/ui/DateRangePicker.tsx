@@ -100,7 +100,7 @@ export function DateRangePicker({
           {/* Start-Date Pod: Hard-coded height for Radical Slimming */}
           <div className="flex-1 h-12 md:h-14 relative p-2 md:px-4 rounded-lg md:rounded-xl bg-primary/5 border border-primary/10 transition-colors hover:bg-primary/10 flex items-end">
              <p className="absolute top-1 md:top-1.5 left-2 md:left-4 text-[7px] md:text-[8px] font-black uppercase text-primary/50 tracking-widest">Start</p>
-             <p className="text-[11px] md:text-sm font-black text-slate-900 dark:text-white truncate pb-0.5">
+             <p className="text-[11px] md:text-sm font-black text-slate-900 dark:text-foreground truncate pb-0.5">
                {tempDate?.from ? format(tempDate.from, "MMM dd, yyyy") : "—"}
              </p>
           </div>
@@ -112,7 +112,7 @@ export function DateRangePicker({
           {/* End-Date Pod: Hard-coded height for Radical Slimming */}
           <div className="flex-1 h-12 md:h-14 relative p-2 md:px-4 rounded-lg md:rounded-xl bg-primary/5 border border-primary/10 transition-colors hover:bg-primary/10 text-right flex flex-col justify-end">
              <p className="absolute top-1 md:top-1.5 right-2 md:right-4 text-[7px] md:text-[8px] font-black uppercase text-primary/50 tracking-widest">End</p>
-             <p className="text-[11px] md:text-sm font-black text-slate-900 dark:text-white truncate pb-0.5">
+             <p className="text-[11px] md:text-sm font-black text-slate-900 dark:text-foreground truncate pb-0.5">
                {tempDate?.to ? format(tempDate.to, "MMM dd, yyyy") : "—"}
              </p>
           </div>
@@ -136,7 +136,7 @@ export function DateRangePicker({
                   className={cn(
                     "whitespace-nowrap md:whitespace-normal flex-none justify-start text-[9.5px] md:text-[10px] font-black uppercase tracking-tight h-7 md:h-8 px-2.5 rounded-md transition-all gap-2.5 group relative border border-transparent",
                     isSelected
-                      ? "bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary/95 border-primary/30"
+                      ? "bg-primary text-foreground shadow-md shadow-primary/20 hover:bg-primary/95 border-primary/30"
                       : "hover:bg-primary/5 hover:text-primary text-muted-foreground/60 hover:border-primary/5"
                   )}
                   onClick={() => handlePresetClick(preset.value)}
@@ -145,7 +145,7 @@ export function DateRangePicker({
                     "h-4 w-4 rounded flex items-center justify-center transition-colors shrink-0",
                     isSelected ? "bg-white/20" : "bg-primary/10 group-hover:bg-primary/20"
                   )}>
-                    <Icon className={cn("h-2.5 w-2.5", isSelected ? "text-white" : "text-primary")} />
+                    <Icon className={cn("h-2.5 w-2.5", isSelected ? "text-foreground" : "text-primary")} />
                   </div>
                   {preset.label}
                 </Button>
@@ -252,7 +252,7 @@ const TriggerButton = React.forwardRef<
       {...props}
     >
       <div className="bg-primary shadow-lg shadow-primary/30 rounded-full h-7 w-7 flex items-center justify-center mr-3 animate-pulse-slow shrink-0">
-        <CalendarIcon className="h-3.5 w-3.5 text-white" />
+        <CalendarIcon className="h-3.5 w-3.5 text-foreground" />
       </div>
       <span className="truncate text-[11px] font-bold tracking-tight">
         {date?.from ? (

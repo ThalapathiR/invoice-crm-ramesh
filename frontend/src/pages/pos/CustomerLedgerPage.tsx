@@ -117,9 +117,9 @@ const CustomerLedgerPage: React.FC = () => {
     <div className="p-6 max-w-6xl mx-auto min-h-screen">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-black text-foreground tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-              <History className="w-6 h-6 text-white" />
+              <History className="w-6 h-6 text-foreground" />
             </div>
             Customer Khata Ledger
           </h1>
@@ -132,7 +132,7 @@ const CustomerLedgerPage: React.FC = () => {
               Receive Payment
             </Button>
           )}
-          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={() => fetchLedger(selectedCustomerId)} disabled={isLoading || !selectedCustomerId}>
+          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={() => fetchLedger(selectedCustomerId)} disabled={isLoading || !selectedCustomerId}>
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
         </div>
@@ -144,10 +144,10 @@ const CustomerLedgerPage: React.FC = () => {
           <div className="bg-card rounded-[32px] border border-border shadow-sm p-6">
             <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Select Customer</h3>
             <Select value={selectedCustomerId} onValueChange={setSelectedCustomerId}>
-              <SelectTrigger className="h-14 rounded-2xl bg-slate-900 border-slate-800 font-bold text-lg text-white">
+              <SelectTrigger className="h-14 rounded-2xl bg-card border-border font-bold text-lg text-foreground">
                 <SelectValue placeholder="Choose a customer..." />
               </SelectTrigger>
-              <SelectContent className="bg-slate-900 border-slate-800 text-white">
+              <SelectContent className="bg-card border-border text-foreground">
                 {customers.map(c => (
                   <SelectItem key={c.id} value={c.id}>
                     {c.name} ({c.phone})
@@ -157,7 +157,7 @@ const CustomerLedgerPage: React.FC = () => {
             </Select>
 
             {selectedCustomer && (
-              <div className="mt-8 p-6 bg-slate-900 rounded-[28px] text-white">
+              <div className="mt-8 p-6 bg-card rounded-[28px] text-foreground">
                 <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-1">Current Balance</div>
                 <div className={`text-4xl font-black ${selectedCustomer.current_balance > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
                   ₹{selectedCustomer.current_balance.toLocaleString()}
@@ -187,8 +187,8 @@ const CustomerLedgerPage: React.FC = () => {
               </div>
             ) : (
               <Table>
-                <TableHeader className="bg-slate-900/50">
-                  <TableRow className="hover:bg-transparent border-slate-800">
+                <TableHeader className="bg-card/50">
+                  <TableRow className="hover:bg-transparent border-border">
                     <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 pl-8">Date</TableHead>
                     <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4">Transaction</TableHead>
                     <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 text-right">Debit</TableHead>
@@ -203,9 +203,9 @@ const CustomerLedgerPage: React.FC = () => {
                     <TableRow><TableCell colSpan={5} className="text-center py-20 text-muted-foreground font-bold">No transactions found</TableCell></TableRow>
                   ) : (
                     ledger.map((entry) => (
-                      <TableRow key={entry.id} className="hover:bg-white/5 border-slate-800 transition-colors">
+                      <TableRow key={entry.id} className="hover:bg-white/5 border-border transition-colors">
                         <TableCell className="py-5 pl-8">
-                          <div className="font-bold text-white text-xs">{format(new Date(entry.created_on), 'dd MMM yyyy')}</div>
+                          <div className="font-bold text-foreground text-xs">{format(new Date(entry.created_on), 'dd MMM yyyy')}</div>
                           <div className="text-[8px] text-slate-500 font-bold uppercase">{format(new Date(entry.created_on), 'hh:mm a')}</div>
                         </TableCell>
                         <TableCell className="py-5">
@@ -221,7 +221,7 @@ const CustomerLedgerPage: React.FC = () => {
                         <TableCell className="py-5 text-right font-bold text-emerald-500">
                           {entry.credit > 0 ? `- ₹${entry.credit.toLocaleString()}` : '-'}
                         </TableCell>
-                        <TableCell className="py-5 text-right font-black text-white pr-8">
+                        <TableCell className="py-5 text-right font-black text-foreground pr-8">
                           ₹{entry.balance.toLocaleString()}
                         </TableCell>
                       </TableRow>
@@ -235,9 +235,9 @@ const CustomerLedgerPage: React.FC = () => {
       </div>
 
       <Dialog open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
-        <DialogContent className="max-w-md rounded-[40px] p-10 border-slate-800 bg-slate-900 shadow-2xl">
+        <DialogContent className="max-w-md rounded-[40px] p-10 border-border bg-card shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-white">Receive Payment</DialogTitle>
+            <DialogTitle className="text-2xl font-black text-foreground">Receive Payment</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleRecordPayment} className="space-y-6 pt-4">
             <div className="space-y-2">
@@ -247,7 +247,7 @@ const CustomerLedgerPage: React.FC = () => {
                 required
                 value={paymentForm.amount}
                 onChange={(e) => setPaymentForm({...paymentForm, amount: parseFloat(e.target.value) || 0})}
-                className="h-14 rounded-2xl bg-slate-950 border-slate-800 focus:border-emerald-500 text-3xl font-black text-emerald-400"
+                className="h-14 rounded-2xl bg-background border-border focus:border-emerald-500 text-3xl font-black text-emerald-400"
               />
             </div>
             
@@ -255,10 +255,10 @@ const CustomerLedgerPage: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest font-black text-slate-500 ml-1">Method</label>
                 <Select value={paymentForm.payment_method} onValueChange={(val) => setPaymentForm({...paymentForm, payment_method: val})}>
-                  <SelectTrigger className="h-12 rounded-xl bg-slate-950 border-slate-800 font-bold text-white">
+                  <SelectTrigger className="h-12 rounded-xl bg-background border-border font-bold text-foreground">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-900 border-slate-800">
+                  <SelectContent className="bg-card border-border">
                     <SelectItem value="Cash">Cash</SelectItem>
                     <SelectItem value="UPI">UPI</SelectItem>
                     <SelectItem value="Card">Card</SelectItem>
@@ -268,10 +268,10 @@ const CustomerLedgerPage: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest font-black text-slate-500 ml-1">Bank (Optional)</label>
                 <Select value={paymentForm.bank_account_id} onValueChange={(val) => setPaymentForm({...paymentForm, bank_account_id: val})}>
-                  <SelectTrigger className="h-12 rounded-xl bg-slate-950 border-slate-800 font-bold text-white">
+                  <SelectTrigger className="h-12 rounded-xl bg-background border-border font-bold text-foreground">
                     <SelectValue placeholder="No Bank" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-900 border-slate-800">
+                  <SelectContent className="bg-card border-border">
                     {banks.map(bank => (
                       <SelectItem key={bank.id} value={bank.id}>{bank.bank_name}</SelectItem>
                     ))}
@@ -286,13 +286,13 @@ const CustomerLedgerPage: React.FC = () => {
                 value={paymentForm.notes}
                 onChange={(e) => setPaymentForm({...paymentForm, notes: e.target.value})}
                 placeholder="e.g. Partial payment for due bills"
-                className="h-12 rounded-2xl bg-slate-950 border-slate-800 focus:bg-slate-950 text-sm font-medium text-white placeholder:text-slate-600"
+                className="h-12 rounded-2xl bg-background border-border focus:bg-background text-sm font-medium text-foreground placeholder:text-slate-600"
               />
             </div>
 
             <DialogFooter className="pt-4">
               <Button type="button" variant="ghost" onClick={() => setIsPaymentModalOpen(false)} className="rounded-2xl h-12 px-8 font-black uppercase tracking-widest text-slate-500 hover:bg-white/5 transition-colors">Cancel</Button>
-              <Button type="submit" className="rounded-2xl h-14 px-8 font-black uppercase tracking-widest bg-emerald-600 text-white shadow-xl shadow-emerald-600/20 hover:bg-emerald-500 transition-colors">Confirm Payment</Button>
+              <Button type="submit" className="rounded-2xl h-14 px-8 font-black uppercase tracking-widest bg-emerald-600 text-foreground shadow-xl shadow-emerald-600/20 hover:bg-emerald-500 transition-colors">Confirm Payment</Button>
             </DialogFooter>
           </form>
         </DialogContent>

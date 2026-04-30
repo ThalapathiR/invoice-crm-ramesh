@@ -95,21 +95,21 @@ const POSContent: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6 max-w-[1600px] mx-auto animate-in fade-in duration-500">
+    <div className="flex flex-col gap-6 max-w-[1600px] mx-auto animate-in fade-in duration-500 bg-background min-h-screen p-6">
       {/* POS Top Control Panel */}
-      <div className="bg-card p-6 rounded-[28px] border border-border shadow-sm flex flex-wrap justify-between items-center gap-4">
+      <div className="bg-card p-6 rounded-xl border border-border shadow-sm flex flex-wrap justify-between items-center gap-4">
         <div className="flex items-center gap-6">
           <div>
-            <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2">
+            <h1 className="text-2xl font-black text-foreground tracking-tight flex items-center gap-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground">
                 <ScanBarcode className="w-4 h-4" />
               </div>
               POS Terminal
             </h1>
-            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Operator: {user?.name || 'User'}</p>
+            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">Operator: {user?.name || 'User'}</p>
           </div>
 
-          <div className="h-10 w-[1px] bg-slate-800" />
+          <div className="h-10 w-[1px] bg-border" />
 
           {/* Held Carts quick access */}
           <div className="flex gap-3 overflow-x-auto py-1 max-w-[400px] no-scrollbar">
@@ -117,14 +117,14 @@ const POSContent: React.FC = () => {
               <button 
                 key={cart.id}
                 onClick={() => handleResumeCart(cart)}
-                className="px-4 py-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-2xl text-[10px] font-black hover:bg-amber-500/20 transition-all flex items-center gap-2 whitespace-nowrap"
+                className="px-4 py-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-xl text-[10px] font-black hover:bg-amber-500/20 transition-all flex items-center gap-2 whitespace-nowrap"
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
                 HELD #{idx + 1}
               </button>
             ))}
             {heldCarts.length === 0 && (
-              <span className="text-[10px] text-slate-300 font-bold uppercase tracking-widest">No Active Holds</span>
+              <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">No Active Holds</span>
             )}
           </div>
         </div>
@@ -135,7 +135,7 @@ const POSContent: React.FC = () => {
             size="sm" 
             onClick={handleHoldCart} 
             disabled={items.length === 0} 
-            className="rounded-xl border-slate-800 bg-slate-900 text-white font-bold text-xs h-10 px-6 hover:bg-slate-800"
+            className="rounded-xl border-border bg-card text-foreground font-bold text-xs h-10 px-6 hover:bg-muted"
           >
             Hold Cart
           </Button>
@@ -155,12 +155,12 @@ const POSContent: React.FC = () => {
         <div className="lg:col-span-8 flex flex-col gap-6">
           {/* Scanner Overlay */}
           {showScanner && (
-            <div className="bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl relative border-4 border-slate-800 aspect-video max-w-2xl mx-auto ring-1 ring-slate-800 animate-in zoom-in-95 duration-300">
+            <div className="bg-card rounded-xl overflow-hidden shadow-2xl relative border-4 border-border aspect-video max-w-2xl mx-auto ring-1 ring-border animate-in zoom-in-95 duration-300">
               <BarcodeScanner onScan={handleProductFound} />
               <div className="absolute inset-0 border-[40px] border-black/20 pointer-events-none" />
               <button 
                 onClick={() => setShowScanner(false)}
-                className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition-colors"
+                className="absolute top-4 right-4 bg-black/10 hover:bg-black/20 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition-colors"
               >
                 ✕
               </button>
@@ -168,27 +168,27 @@ const POSContent: React.FC = () => {
           )}
 
           {/* Search Section */}
-          <div className="bg-card p-8 rounded-[32px] border border-border shadow-sm relative overflow-visible">
+          <div className="bg-card p-8 rounded-xl border border-border shadow-sm relative overflow-visible">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                 <Search className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-xl font-black text-white">Product Search</h2>
-                <p className="text-xs text-slate-400 font-medium">Add items by name, barcode or SKU</p>
+                <h2 className="text-xl font-black text-foreground">Product Search</h2>
+                <p className="text-xs text-muted-foreground font-medium">Add items by name, barcode or SKU</p>
               </div>
             </div>
             <ProductSearch onProductFound={handleProductFound} />
           </div>
           
           {/* Cart Section */}
-          <div className="bg-card rounded-[32px] border border-border shadow-sm flex flex-col overflow-hidden">
-            <div className="px-8 py-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
-              <h2 className="text-lg font-black text-white flex items-center gap-2">
+          <div className="bg-card rounded-xl border border-border shadow-sm flex flex-col overflow-hidden">
+            <div className="px-8 py-6 border-b border-border flex justify-between items-center bg-muted/30">
+              <h2 className="text-lg font-black text-foreground flex items-center gap-2">
                 Cart Items 
                 <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">{items.length}</span>
               </h2>
-              <Button variant="ghost" size="sm" onClick={clearCart} className="text-slate-500 hover:text-red-400 hover:bg-red-500/10 font-bold text-[10px] uppercase tracking-widest">
+              <Button variant="ghost" size="sm" onClick={clearCart} className="text-muted-foreground hover:text-red-400 hover:bg-red-500/10 font-bold text-[10px] uppercase tracking-widest">
                 Clear All
               </Button>
             </div>

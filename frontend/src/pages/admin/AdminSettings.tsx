@@ -350,7 +350,7 @@ export default function AdminSettings() {
         <Button
           onClick={handleSave}
           disabled={saving}
-          className="gap-2 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full"
+          className="gap-2 bg-gradient-to-r from-red-600 to-orange-500 text-foreground rounded-full"
           data-testid="button-save-settings"
         >
           {saving ? "Saving..." : "Save All Settings"}

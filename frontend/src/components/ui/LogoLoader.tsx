@@ -55,7 +55,7 @@ export function LogoLoader({ fullScreen = true }: LogoLoaderProps) {
             transition={{ duration: 0.5 }}
             className="h-full w-full relative z-10 p-4 bg-white/10 backdrop-blur-md rounded-full border border-[#f0e8e2] shadow-2xl flex items-center justify-center overflow-hidden"
           >
-            <ScrollText className="h-1/2 w-1/2 text-white" />
+            <ScrollText className="h-1/2 w-1/2 text-foreground" />
           </motion.div>
         </div>
 

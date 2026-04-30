@@ -37,11 +37,11 @@ const GSTReport: React.FC<GSTReportProps> = ({ data = [] }) => {
           </TableHeader>
           <TableBody>
             {safeData.map((item, idx) => (
-              <TableRow key={idx} className="hover:bg-white/5 border-slate-800">
-                <TableCell className="font-bold text-white">{item.gst_percentage}% GST</TableCell>
-                <TableCell className="text-slate-400">₹{(item.taxable_value || 0).toLocaleString()}</TableCell>
+              <TableRow key={idx} className="hover:bg-white/5 border-border">
+                <TableCell className="font-bold text-foreground">{item.gst_percentage}% GST</TableCell>
+                <TableCell className="text-muted-foreground">₹{(item.taxable_value || 0).toLocaleString()}</TableCell>
                 <TableCell className="text-amber-500 font-medium">₹{(item.gst_amount || 0).toLocaleString()}</TableCell>
-                <TableCell className="text-right font-bold text-white">₹{(item.total || 0).toLocaleString()}</TableCell>
+                <TableCell className="text-right font-bold text-foreground">₹{(item.total || 0).toLocaleString()}</TableCell>
               </TableRow>
             ))}
             {safeData.length === 0 && (

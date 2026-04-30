@@ -40,10 +40,10 @@ const BatchReportPage: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto min-h-screen">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Batch Tracking (FIFO)</h1>
+          <h1 className="text-3xl font-black text-foreground tracking-tight">Batch Tracking (FIFO)</h1>
           <p className="text-blue-100/80 font-medium">Inventory segmented by purchase lots and individual cost prices</p>
         </div>
-        <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchData}>
+        <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchData}>
           <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
         </Button>
       </div>
@@ -55,7 +55,7 @@ const BatchReportPage: React.FC = () => {
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-widest font-black text-slate-500">Active Batches</p>
-            <h3 className="text-4xl font-black text-white">{data.filter(b => b.current_quantity > 0).length}</h3>
+            <h3 className="text-4xl font-black text-foreground">{data.filter(b => b.current_quantity > 0).length}</h3>
           </div>
         </div>
 
@@ -65,15 +65,15 @@ const BatchReportPage: React.FC = () => {
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-widest font-black text-slate-500">Total Stock in Batches</p>
-            <h3 className="text-4xl font-black text-white">{data.reduce((sum, b) => sum + b.current_quantity, 0).toLocaleString()}</h3>
+            <h3 className="text-4xl font-black text-foreground">{data.reduce((sum, b) => sum + b.current_quantity, 0).toLocaleString()}</h3>
           </div>
         </div>
       </div>
 
       <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-900/50">
-            <TableRow className="hover:bg-transparent border-slate-800">
+          <TableHeader className="bg-card/50">
+            <TableRow className="hover:bg-transparent border-border">
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 pl-6">Product / Batch #</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4">Purchase Date</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 text-right">Cost Price</TableHead>
@@ -88,27 +88,27 @@ const BatchReportPage: React.FC = () => {
               <TableRow><TableCell colSpan={5} className="text-center py-20 text-muted-foreground">No batches found</TableCell></TableRow>
             ) : (
               data.map((batch) => (
-                <TableRow key={batch.id} className={`hover:bg-white/5 border-slate-800 transition-colors ${batch.current_quantity === 0 ? 'opacity-40 grayscale' : ''}`}>
+                <TableRow key={batch.id} className={`hover:bg-white/5 border-border transition-colors ${batch.current_quantity === 0 ? 'opacity-40 grayscale' : ''}`}>
                   <TableCell className="py-4 pl-6">
-                    <div className="font-black text-white">{batch.product?.name}</div>
-                    <div className="inline-flex items-center gap-1 bg-slate-800 px-1.5 py-0.5 rounded text-[10px] font-black text-slate-400 mt-1">
+                    <div className="font-black text-foreground">{batch.product?.name}</div>
+                    <div className="inline-flex items-center gap-1 bg-muted px-1.5 py-0.5 rounded text-[10px] font-black text-muted-foreground mt-1">
                       BATCH: {batch.batch_number}
                     </div>
                   </TableCell>
                   <TableCell className="py-4">
-                    <div className="flex items-center gap-2 text-xs font-bold text-slate-400">
+                    <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
                       <Calendar size={14} className="text-slate-500" />
                       {format(new Date(batch.purchase_date), 'dd MMM yyyy')}
                     </div>
                   </TableCell>
-                  <TableCell className="text-right py-4 font-bold text-white">₹{batch.cost_price.toLocaleString()}</TableCell>
+                  <TableCell className="text-right py-4 font-bold text-foreground">₹{batch.cost_price.toLocaleString()}</TableCell>
                   <TableCell className="text-center py-4">
                     <div className="text-[10px] font-black text-slate-500">{batch.initial_quantity} TOTAL</div>
                     <div className={`text-sm font-black ${batch.current_quantity > 0 ? 'text-blue-400' : 'text-slate-500'}`}>
                       {batch.current_quantity} LEFT
                     </div>
                   </TableCell>
-                  <TableCell className="text-right pr-6 py-4 font-black text-white">
+                  <TableCell className="text-right pr-6 py-4 font-black text-foreground">
                     ₹{(batch.current_quantity * batch.cost_price).toLocaleString()}
                   </TableCell>
                 </TableRow>

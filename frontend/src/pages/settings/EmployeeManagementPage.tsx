@@ -269,7 +269,7 @@ const EmployeeManagementPage: React.FC = () => {
                   <TableCell className="py-4">
                     <div className="flex items-center gap-3">
                       <div className={cn(
-                        "h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-inner",
+                        "h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold text-foreground shadow-inner",
                         emp.status ? "bg-gradient-to-br from-primary to-blue-600" : "bg-slate-400"
                       )}>
                         {emp.first_name?.charAt(0) || emp.email?.charAt(0)}

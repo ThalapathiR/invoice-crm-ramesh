@@ -109,7 +109,7 @@ export default function Login() {
         <Card className="glass-card-auth border-white/80 shadow-3xl p-8">
           <CardHeader className="p-0 mb-8">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-full bg-linear-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-white">
+              <div className="h-14 w-14 rounded-full bg-linear-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-foreground">
                 <Shield className="h-7 w-7" />
               </div>
               <h1 className="text-2xl font-black text-slate-900 tracking-tight">Welcome Back</h1>
@@ -128,7 +128,7 @@ export default function Login() {
                   <TabsList className="grid grid-cols-2 w-full bg-transparent border-none p-0 h-10">
                     <TabsTrigger
                       value="login"
-                      className="rounded-full h-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white shadow-lg transition-all font-bold"
+                      className="rounded-full h-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-foreground shadow-lg transition-all font-bold"
                     >
                       Sign In
                     </TabsTrigger>
@@ -235,7 +235,7 @@ export default function Login() {
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-primary transition-colors focus:outline-none"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-primary transition-colors focus:outline-none"
                         >
                           {showPassword ? (
                             <EyeOff className="h-5 w-5" />
@@ -269,7 +269,7 @@ export default function Login() {
                       <span className="w-full border-t border-slate-200" />
                     </div>
                     <div className="relative flex justify-center text-xs font-bold uppercase tracking-widest">
-                      <span className="bg-white px-4 text-slate-400">
+                      <span className="bg-white px-4 text-muted-foreground">
                         Or sign in with
                       </span>
                     </div>

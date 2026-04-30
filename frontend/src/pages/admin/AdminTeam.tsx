@@ -234,11 +234,11 @@ export default function AdminTeam() {
                             <table className="w-full text-sm text-left">
                                 <thead className="text-xs uppercase bg-white/40 dark:bg-white/10 border-b border-[#f0e8e2]">
                                     <tr>
-                                        <th className="px-6 py-4 font-bold text-black dark:text-white">Member</th>
-                                        <th className="px-6 py-4 font-bold text-black dark:text-white">Role</th>
-                                        <th className="px-6 py-4 font-bold text-black dark:text-white">Status</th>
-                                        <th className="px-6 py-4 font-bold text-black dark:text-white">Joined On</th>
-                                        <th className="px-6 py-4 font-bold text-right text-black dark:text-white">Actions</th>
+                                        <th className="px-6 py-4 font-bold text-black dark:text-foreground">Member</th>
+                                        <th className="px-6 py-4 font-bold text-black dark:text-foreground">Role</th>
+                                        <th className="px-6 py-4 font-bold text-black dark:text-foreground">Status</th>
+                                        <th className="px-6 py-4 font-bold text-black dark:text-foreground">Joined On</th>
+                                        <th className="px-6 py-4 font-bold text-right text-black dark:text-foreground">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -358,13 +358,13 @@ export default function AdminTeam() {
                     <form onSubmit={handleInvite}>
                         <div className="px-8 pt-8 pb-4">
                             <DialogHeader>
-                                <DialogTitle className="flex items-center gap-3 text-2xl font-bold text-slate-900 dark:text-white">
+                                <DialogTitle className="flex items-center gap-3 text-2xl font-bold text-slate-900 dark:text-foreground">
                                     <div className="h-10 w-10 rounded-2xl bg-primary/10 flex items-center justify-center">
                                         <Mail className="h-6 w-6 text-primary" />
                                     </div>
                                     Invite Team Member
                                 </DialogTitle>
-                                <DialogDescription className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-2">
+                                <DialogDescription className="text-sm font-medium text-slate-500 dark:text-muted-foreground mt-2">
                                     Send an invitation email to add a new member to your current context.
                                 </DialogDescription>
                             </DialogHeader>
@@ -372,12 +372,12 @@ export default function AdminTeam() {
                         <div className="px-8 space-y-5 py-4">
                             {canSelectTenant && (
                                 <div className="space-y-2">
-                                    <Label htmlFor="tenant" className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 pl-1">Target Tenant</Label>
+                                    <Label htmlFor="tenant" className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground pl-1">Target Tenant</Label>
                                     <Select value={selectedTenant} onValueChange={setSelectedTenant} required>
-                                        <SelectTrigger className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-[#f0e8e2] dark:border-slate-700 text-slate-900 dark:text-white">
+                                        <SelectTrigger className="h-12 rounded-xl bg-slate-50 dark:bg-muted/50 border-[#f0e8e2] dark:border-slate-700 text-slate-900 dark:text-foreground">
                                             <SelectValue placeholder="Select a tenant" />
                                         </SelectTrigger>
-                                        <SelectContent className="rounded-2xl border-[#f0e8e2] dark:border-slate-800 bg-white dark:bg-slate-900">
+                                        <SelectContent className="rounded-2xl border-[#f0e8e2] dark:border-border bg-white dark:bg-card">
                                             {tenants.map((t) => (
                                                 <SelectItem key={t.id} value={t.id} className="rounded-xl mx-1">{t.name}</SelectItem>
                                             ))}
@@ -386,24 +386,24 @@ export default function AdminTeam() {
                                 </div>
                             )}
                             <div className="space-y-2">
-                                <Label htmlFor="email" className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 pl-1">Email Address</Label>
+                                <Label htmlFor="email" className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground pl-1">Email Address</Label>
                                 <Input
                                     id="email"
                                     type="email"
                                     placeholder="colleague@company.com"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-[#f0e8e2] dark:border-slate-700 focus:ring-2 focus:ring-violet-500/20 transition-all font-medium text-slate-900 dark:text-white"
+                                    className="h-12 rounded-xl bg-slate-50 dark:bg-muted/50 border-[#f0e8e2] dark:border-slate-700 focus:ring-2 focus:ring-violet-500/20 transition-all font-medium text-slate-900 dark:text-foreground"
                                     required
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="role" className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 pl-1">Role</Label>
+                                <Label htmlFor="role" className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground pl-1">Role</Label>
                                 <Select value={selectedRole} onValueChange={setSelectedRole} required>
-                                    <SelectTrigger className="h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 border-[#f0e8e2] dark:border-slate-700 text-slate-900 dark:text-white">
+                                    <SelectTrigger className="h-12 rounded-xl bg-slate-50 dark:bg-muted/50 border-[#f0e8e2] dark:border-slate-700 text-slate-900 dark:text-foreground">
                                         <SelectValue placeholder="Select a role" />
                                     </SelectTrigger>
-                                    <SelectContent className="rounded-2xl border-[#f0e8e2] dark:border-slate-800 bg-white dark:bg-slate-900">
+                                    <SelectContent className="rounded-2xl border-[#f0e8e2] dark:border-border bg-white dark:bg-card">
                                         {roles.map((r) => (
                                             <SelectItem key={r.id} value={r.id} className="rounded-xl mx-1">{r.name}</SelectItem>
                                         ))}
@@ -414,8 +414,8 @@ export default function AdminTeam() {
                                 {selectedRole && (
                                     roles.find(r => r.id === selectedRole)?.name === "Workspace Admin" ? (
                                         <>
-                                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 pl-1">Assign to Organizations</Label>
-                                            <div className="grid gap-2 mt-1 max-h-[160px] overflow-y-auto p-3 border border-[#f0e8e2] dark:border-slate-800 rounded-2xl bg-slate-50/50 dark:bg-slate-900/50 scrollbar-premium">
+                                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground pl-1">Assign to Organizations</Label>
+                                            <div className="grid gap-2 mt-1 max-h-[160px] overflow-y-auto p-3 border border-[#f0e8e2] dark:border-border rounded-2xl bg-slate-50/50 dark:bg-card/50 scrollbar-premium">
                                                 {organizations.map((org) => (
                                                     <div key={org.id} className="flex items-center space-x-3 p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 transition-all">
                                                         <input
@@ -443,8 +443,8 @@ export default function AdminTeam() {
                                         </>
                                     ) : (
                                         <>
-                                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 pl-1">Assign to Workspaces</Label>
-                                            <div className="grid gap-2 mt-1 max-h-[160px] overflow-y-auto p-3 border border-[#f0e8e2] dark:border-slate-800 rounded-2xl bg-slate-50/50 dark:bg-slate-900/50 scrollbar-premium">
+                                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground pl-1">Assign to Workspaces</Label>
+                                            <div className="grid gap-2 mt-1 max-h-[160px] overflow-y-auto p-3 border border-[#f0e8e2] dark:border-border rounded-2xl bg-slate-50/50 dark:bg-card/50 scrollbar-premium">
                                                 {workspaces.map((ws) => (
                                                     <div key={ws.id} className="flex items-center space-x-3 p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 transition-all">
                                                         <input

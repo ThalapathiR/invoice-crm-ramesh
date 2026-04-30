@@ -82,7 +82,7 @@ export const NavItem = ({ item, isActive, isCollapsed = false, isMobile = false,
       "group flex items-center rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-300 relative overflow-hidden",
       isActive
         ? "bg-primary/10 text-primary"
-        : "text-slate-400 hover:bg-white/5 hover:text-white",
+        : "text-muted-foreground hover:bg-white/5 hover:text-foreground",
       isCollapsed ? "justify-center" : "",
       isMobile ? "py-3 px-4" : ""
     )}
@@ -92,7 +92,7 @@ export const NavItem = ({ item, isActive, isCollapsed = false, isMobile = false,
         "shrink-0 transition-all duration-300",
         isActive
           ? "text-primary scale-110"
-          : "text-slate-500 group-hover:text-white group-hover:scale-110",
+          : "text-slate-500 group-hover:text-foreground group-hover:scale-110",
         isCollapsed ? "h-6 w-6" : "mr-3 h-4 w-4",
         isMobile ? "h-5 w-5 mr-4" : ""
       )}
@@ -109,7 +109,7 @@ export const NavItem = ({ item, isActive, isCollapsed = false, isMobile = false,
           {item.name}
         </motion.span>
         {badgeCount > 0 && (
-          <span className="bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full animate-pulse">
+          <span className="bg-red-500 text-foreground text-[10px] font-black px-1.5 py-0.5 rounded-full animate-pulse">
             {badgeCount}
           </span>
         )}
@@ -175,7 +175,7 @@ export function Sidebar() {
       <motion.div
         initial={false}
         animate={{ width: isCollapsed ? 80 : 256 }}
-        className="flex h-screen flex-col bg-slate-950 border-r border-slate-900/50 backdrop-blur-xl pt-6 pb-4 relative transition-all duration-300 ease-in-out z-50"
+        className="flex h-screen flex-col bg-background border-r border-slate-900/50 backdrop-blur-xl pt-6 pb-4 relative transition-all duration-300 ease-in-out z-50"
       >
         <Button
           variant="ghost"
@@ -211,7 +211,7 @@ export function Sidebar() {
                 <motion.h2
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="px-3 mb-3 text-[15px]  font-black text-white/60"
+                  className="px-3 mb-3 text-[15px]  font-black text-foreground/60"
                 >
                   {section.label}
                 </motion.h2>
@@ -259,11 +259,11 @@ export function Sidebar() {
                 href="/admin"
                 className={cn(
                   "group flex items-center rounded-xl px-3 py-2.5 text-sm font-bold transition-all duration-300 relative overflow-hidden",
-                  "bg-blue-500 text-white hover:bg-blue-400 border-[#f0e8e2] shadow-[0_0_15px_rgba(236,72,153,0.1)]",
+                  "bg-blue-500 text-foreground hover:bg-blue-400 border-[#f0e8e2] shadow-[0_0_15px_rgba(236,72,153,0.1)]",
                   isCollapsed ? "justify-center" : "",
                 )}
               >
-                <Crown className={cn("shrink-0 text-white", isCollapsed ? "h-6 w-6" : "mr-3 h-5 w-5")} />
+                <Crown className={cn("shrink-0 text-foreground", isCollapsed ? "h-6 w-6" : "mr-3 h-5 w-5")} />
                 {!isCollapsed && <span className="whitespace-nowrap">Admin Portal</span>}
               </Link>
             </>

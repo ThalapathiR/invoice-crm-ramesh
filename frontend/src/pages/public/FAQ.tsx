@@ -152,7 +152,7 @@ export default function FAQ() {
             <div className="relative max-w-xl mx-auto group">
               <div className="absolute inset-0 bg-primary/10 blur-xl opacity-50 group-hover:opacity-100 transition-opacity rounded-full"></div>
               <div className="relative">
-                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search questions or keywords..."
@@ -193,7 +193,7 @@ export default function FAQ() {
                     >
                       <AccordionTrigger className="text-left font-black text-lg hover:no-underline tracking-tight text-slate-800 py-5 md:py-6 border-b border-transparent data-[state=open]:border-slate-50 transition-colors">
                         <span className="flex items-center gap-4 group/trigger">
-                          <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-primary group-hover/trigger:bg-primary group-hover/trigger:text-white transition-all duration-300 shadow-sm shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-primary group-hover/trigger:bg-primary group-hover/trigger:text-foreground transition-all duration-300 shadow-sm shrink-0">
                             <span className="text-sm font-bold">?</span>
                           </div>
                           <span className="group-hover/trigger:text-primary transition-colors duration-300">{faq.q}</span>
@@ -224,7 +224,7 @@ export default function FAQ() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-32 bg-slate-900 overflow-hidden relative">
+      <section className="py-32 bg-card overflow-hidden relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
 
         <div className="container mx-auto px-4 max-w-7xl relative z-10">
@@ -232,7 +232,7 @@ export default function FAQ() {
             <Badge variant="outline" className="mb-6 border-white/20 text-blue-400 uppercase text-[11px] font-black tracking-[0.25em] px-4 py-1.5 rounded-full bg-white/5">
               Pricing & Plans
             </Badge>
-            <h2 className="text-4xl md:text-4xl font-black text-white mb-8 tracking-tighter">Choose Your Path to Efficiency</h2>
+            <h2 className="text-4xl md:text-4xl font-black text-foreground mb-8 tracking-tighter">Choose Your Path to Efficiency</h2>
             <p className="text-xl text-blue-100/60 max-w-2xl mx-auto font-medium">
               Transparent plans designed to scale with your business needs.
             </p>
@@ -248,11 +248,11 @@ export default function FAQ() {
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 className={`relative flex flex-col p-8 rounded-[40px] border h-full transition-all duration-300 group ${plan.popular
                   ? "bg-white border-primary shadow-[0_20px_50px_-20px_rgba(134,75,239,0.3)] scale-105 z-10"
-                  : "bg-slate-800/50 border-white/5 hover:border-white/20"
+                  : "bg-muted/50 border-white/5 hover:border-white/20"
                   }`}
               >
                 {plan.popular && (
-                  <div className="absolute top-0 right-10 -translate-y-1/2 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
+                  <div className="absolute top-0 right-10 -translate-y-1/2 bg-primary text-foreground text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
                     Most Popular
                   </div>
                 )}
@@ -262,7 +262,7 @@ export default function FAQ() {
                     }`}>
                     <plan.icon className="w-7 h-7" />
                   </div>
-                  <h3 className={`text-2xl font-black tracking-tight mb-3 ${plan.popular ? "text-slate-900" : "text-white"}`}>
+                  <h3 className={`text-2xl font-black tracking-tight mb-3 ${plan.popular ? "text-slate-900" : "text-foreground"}`}>
                     {plan.name}
                   </h3>
                   <p className={`text-sm font-semibold leading-relaxed ${plan.popular ? "text-slate-500" : "text-blue-100/40"}`}>
@@ -272,11 +272,11 @@ export default function FAQ() {
 
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className={`${plan.price === "Custom" ? "text-4xl" : "text-5xl"} font-black tracking-tighter ${plan.popular ? "text-slate-900" : "text-white"}`}>
+                    <span className={`${plan.price === "Custom" ? "text-4xl" : "text-5xl"} font-black tracking-tighter ${plan.popular ? "text-slate-900" : "text-foreground"}`}>
                       {plan.price === "Custom" ? "Custom" : `$${plan.price}`}
                     </span>
                     {plan.price !== "Custom" && (
-                      <span className={`text-sm font-bold uppercase tracking-widest ${plan.popular ? "text-slate-400" : "text-blue-100/20"}`}>/mo</span>
+                      <span className={`text-sm font-bold uppercase tracking-widest ${plan.popular ? "text-muted-foreground" : "text-blue-100/20"}`}>/mo</span>
                     )}
                   </div>
                 </div>
@@ -294,8 +294,8 @@ export default function FAQ() {
 
                 <Link href="/signup" className="mt-auto">
                   <Button className={`w-full rounded-2xl h-12 font-black uppercase tracking-widest text-[11px] transition-all ${plan.popular
-                    ? "bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20"
-                    : "bg-white/10 hover:bg-white/20 text-white border-0"
+                    ? "bg-primary hover:bg-primary/90 text-foreground shadow-lg shadow-primary/20"
+                    : "bg-white/10 hover:bg-white/20 text-foreground border-0"
                     }`}>
                     Get Started
                   </Button>
@@ -325,7 +325,7 @@ export default function FAQ() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/signup">
-              <Button size="lg" className="h-16 px-10 text-lg font-black bg-primary hover:bg-primary/90 text-white rounded-2xl shadow-xl shadow-primary/20">
+              <Button size="lg" className="h-16 px-10 text-lg font-black bg-primary hover:bg-primary/90 text-foreground rounded-2xl shadow-xl shadow-primary/20">
                 Talk to an Expert
               </Button>
             </Link>

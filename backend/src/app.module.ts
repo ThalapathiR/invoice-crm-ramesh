@@ -102,13 +102,13 @@ import { GoogleSheetsService } from "./Service/GoogleSheets.service";
     }),
     PassportModule.register({
       defaultStrategy: "jwt",
-      session: true,
+      session: false,
       property: "user",
     }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (_ConfigService: ConfigService) => ({
-        secret: _ConfigService.get("JWT.SecertToken"),
+        secret: _ConfigService.get("JWT.SecretToken"),
         signOptions: { expiresIn: _ConfigService.get("JWT.ExpiresIn") },
       }),
       inject: [ConfigService],

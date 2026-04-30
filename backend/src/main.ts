@@ -24,7 +24,6 @@ async function bootstrap() {
   app.use(errorHandler());
   app.use(urlencoded({ limit: "500mb", extended: true }));
   app.use(json({ limit: "500mb" }));
-  app.use(passport.initialize());
 
   // app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true, forbidUnknownValues: true }));
   app.useGlobalPipes(new ValidationPipe({ transform: true }));

@@ -127,16 +127,16 @@ const BankAccountsPage: React.FC = () => {
     <div className="p-6 max-w-6xl mx-auto min-h-screen bg-brand-bg">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-black text-foreground tracking-tight flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-              <Building2 className="w-6 h-6 text-white" />
+              <Building2 className="w-6 h-6 text-foreground" />
             </div>
             Bank Accounts
           </h1>
           <p className="text-blue-100/80 font-medium ml-1">Manage your business bank accounts and UPI IDs</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchItems} disabled={isLoading}>
+          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchItems} disabled={isLoading}>
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
           <Button className="btn-brand bg-white text-slate-900 hover:bg-slate-100 border-none h-12 px-6 rounded-2xl font-black shadow-lg shadow-black/5" onClick={handleAddItem}>
@@ -151,7 +151,7 @@ const BankAccountsPage: React.FC = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <Input 
             placeholder="Search by bank name or account number..." 
-            className="pl-10 border-none bg-slate-900 rounded-2xl h-12 font-bold text-white placeholder:text-slate-600"
+            className="pl-10 border-none bg-card rounded-2xl h-12 font-bold text-foreground placeholder:text-slate-600"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -160,8 +160,8 @@ const BankAccountsPage: React.FC = () => {
 
       <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-900/50">
-            <TableRow className="hover:bg-transparent border-slate-800">
+          <TableHeader className="bg-card/50">
+            <TableRow className="hover:bg-transparent border-border">
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 pl-8">Bank Details</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4">Account Info</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 text-right">Balance</TableHead>
@@ -175,13 +175,13 @@ const BankAccountsPage: React.FC = () => {
               <TableRow><TableCell colSpan={4} className="text-center py-20 text-muted-foreground font-bold">No bank accounts found</TableCell></TableRow>
             ) : (
               filteredItems.map((item) => (
-                <TableRow key={item.id} className="hover:bg-white/5 border-slate-800 transition-colors group">
+                <TableRow key={item.id} className="hover:bg-white/5 border-border transition-colors group">
                   <TableCell className="py-6 pl-8">
-                    <div className="font-black text-white text-lg">{item.bank_name}</div>
+                    <div className="font-black text-foreground text-lg">{item.bank_name}</div>
                     <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">UPI ID: {item.upi_id || 'Not set'}</div>
                   </TableCell>
                   <TableCell className="py-6">
-                    <div className="font-bold text-slate-400">{item.account_number}</div>
+                    <div className="font-bold text-muted-foreground">{item.account_number}</div>
                     <div className="text-[10px] text-slate-500 font-bold uppercase">IFSC: {item.ifsc_code || 'NA'}</div>
                   </TableCell>
                   <TableCell className="py-6 text-right">
@@ -207,9 +207,9 @@ const BankAccountsPage: React.FC = () => {
       </div>
 
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="max-w-xl rounded-[40px] p-10 border-slate-800 bg-slate-900 shadow-2xl">
+        <DialogContent className="max-w-xl rounded-[40px] p-10 border-border bg-card shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-black text-white flex items-center gap-3">
+            <DialogTitle className="text-3xl font-black text-foreground flex items-center gap-3">
               <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                 <Plus className="w-6 h-6" />
               </div>
@@ -225,7 +225,7 @@ const BankAccountsPage: React.FC = () => {
                   value={formData.bank_name}
                   onChange={(e) => setFormData({...formData, bank_name: e.target.value})}
                   placeholder="e.g. State Bank of India"
-                  className="h-12 rounded-2xl bg-slate-950 border-slate-800 focus:border-primary text-base font-bold text-white placeholder:text-slate-600"
+                  className="h-12 rounded-2xl bg-background border-border focus:border-primary text-base font-bold text-foreground placeholder:text-slate-600"
                 />
               </div>
               <div className="space-y-2">
@@ -235,7 +235,7 @@ const BankAccountsPage: React.FC = () => {
                   value={formData.account_number}
                   onChange={(e) => setFormData({...formData, account_number: e.target.value})}
                   placeholder="Enter account number"
-                  className="h-12 rounded-2xl bg-slate-950 border-slate-800 focus:border-primary text-base font-bold text-white placeholder:text-slate-600"
+                  className="h-12 rounded-2xl bg-background border-border focus:border-primary text-base font-bold text-foreground placeholder:text-slate-600"
                 />
               </div>
             </div>
@@ -247,7 +247,7 @@ const BankAccountsPage: React.FC = () => {
                   value={formData.ifsc_code}
                   onChange={(e) => setFormData({...formData, ifsc_code: e.target.value})}
                   placeholder="SBIN0001234"
-                  className="h-12 rounded-2xl bg-slate-950 border-slate-800 focus:border-primary text-base font-bold text-white placeholder:text-slate-600"
+                  className="h-12 rounded-2xl bg-background border-border focus:border-primary text-base font-bold text-foreground placeholder:text-slate-600"
                 />
               </div>
               <div className="space-y-2">
@@ -256,7 +256,7 @@ const BankAccountsPage: React.FC = () => {
                   value={formData.upi_id}
                   onChange={(e) => setFormData({...formData, upi_id: e.target.value})}
                   placeholder="name@okaxis"
-                  className="h-12 rounded-2xl bg-slate-950 border-slate-800 focus:border-primary text-base font-bold text-white placeholder:text-slate-600"
+                  className="h-12 rounded-2xl bg-background border-border focus:border-primary text-base font-bold text-foreground placeholder:text-slate-600"
                 />
               </div>
             </div>
@@ -268,7 +268,7 @@ const BankAccountsPage: React.FC = () => {
                   type="number"
                   value={formData.current_balance}
                   onChange={(e) => setFormData({...formData, current_balance: parseFloat(e.target.value) || 0})}
-                  className="h-12 rounded-2xl bg-slate-950 border-slate-800 focus:border-emerald-500 text-xl font-black text-emerald-400"
+                  className="h-12 rounded-2xl bg-background border-border focus:border-emerald-500 text-xl font-black text-emerald-400"
                 />
               </div>
             )}

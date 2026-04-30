@@ -72,7 +72,7 @@ export default function ForgotPassword() {
         <Card className="glass-card-auth border-white/80 shadow-3xl shadow-primary/5 overflow-hidden p-8">
           <CardHeader className="p-0 mb-8 border-none bg-transparent">
             <div className="flex items-center gap-4 ml-1">
-              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-white shadow-lg shadow-indigo-950/20">
+              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-foreground shadow-lg shadow-indigo-950/20">
                 <KeyRound className="h-7 w-7" />
               </div>
               <div className="flex flex-col">

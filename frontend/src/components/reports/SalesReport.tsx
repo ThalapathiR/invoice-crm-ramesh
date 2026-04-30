@@ -21,18 +21,18 @@ const SalesReport: React.FC<SalesReportProps> = ({ data = [] }) => {
       <div className="bg-cyan-500/10 p-6 rounded-2xl border border-cyan-500/20 flex justify-between items-center">
         <div>
           <div className="text-sm text-cyan-500 font-bold uppercase tracking-widest">Total Sales Volume</div>
-          <div className="text-4xl font-black text-white">₹{total.toLocaleString()}</div>
+          <div className="text-4xl font-black text-foreground">₹{total.toLocaleString()}</div>
         </div>
         <div className="text-right">
-          <div className="text-sm text-slate-400 font-medium">Transaction Count</div>
-          <div className="text-2xl font-bold text-white">{safeData.length}</div>
+          <div className="text-sm text-muted-foreground font-medium">Transaction Count</div>
+          <div className="text-2xl font-bold text-foreground">{safeData.length}</div>
         </div>
       </div>
 
-      <div className="rounded-xl border border-slate-800 overflow-hidden bg-card">
+      <div className="rounded-xl border border-border overflow-hidden bg-card">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-900/50 border-slate-800">
+            <TableRow className="bg-card/50 border-border">
               <TableHead className="text-slate-500 font-black text-[10px] uppercase tracking-widest">Invoice #</TableHead>
               <TableHead className="text-slate-500 font-black text-[10px] uppercase tracking-widest">Customer</TableHead>
               <TableHead className="text-slate-500 font-black text-[10px] uppercase tracking-widest">Payment</TableHead>
@@ -43,16 +43,16 @@ const SalesReport: React.FC<SalesReportProps> = ({ data = [] }) => {
           </TableHeader>
           <TableBody>
             {safeData.map((invoice) => (
-              <TableRow key={invoice.id} className="hover:bg-white/5 border-slate-800">
+              <TableRow key={invoice.id} className="hover:bg-white/5 border-border">
                 <TableCell className="font-mono text-[10px] font-black text-slate-500">{invoice.invoice_number}</TableCell>
                 <TableCell className="text-slate-300 font-bold">{invoice.customer?.name || 'Walk-in'}</TableCell>
                 <TableCell>
-                  <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[10px] font-black uppercase tracking-wider border border-slate-700">
+                  <span className="px-2 py-0.5 rounded-full bg-muted text-muted-foreground text-[10px] font-black uppercase tracking-wider border border-slate-700">
                     {invoice.payment_method}
                   </span>
                 </TableCell>
-                <TableCell className="text-slate-400">₹{(invoice.subtotal || 0).toLocaleString()}</TableCell>
-                <TableCell className="text-slate-400">₹{(invoice.tax_amount || 0).toLocaleString()}</TableCell>
+                <TableCell className="text-muted-foreground">₹{(invoice.subtotal || 0).toLocaleString()}</TableCell>
+                <TableCell className="text-muted-foreground">₹{(invoice.tax_amount || 0).toLocaleString()}</TableCell>
                 <TableCell className="text-right font-black text-cyan-400">₹{(invoice.total_amount || 0).toLocaleString()}</TableCell>
               </TableRow>
             ))}

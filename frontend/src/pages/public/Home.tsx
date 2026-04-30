@@ -137,7 +137,7 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/signup">
-                  <Button size="lg" className="h-16 px-10 text-lg font-black bg-gradient-to-r from-primary to-accent text-white rounded-full shadow-lg border-0 group">
+                  <Button size="lg" className="h-16 px-10 text-lg font-black bg-gradient-to-r from-primary to-accent text-foreground rounded-full shadow-lg border-0 group">
                     Register Your Store
                     <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1.5 transition-transform" />
                   </Button>
@@ -224,7 +224,7 @@ export default function Home() {
                 )}
               >
                 {plan.popular && (
-                  <div className="absolute top-0 right-0 bg-primary text-white text-[10px] font-black px-4 py-1.5 rounded-bl-2xl uppercase tracking-widest">
+                  <div className="absolute top-0 right-0 bg-primary text-foreground text-[10px] font-black px-4 py-1.5 rounded-bl-2xl uppercase tracking-widest">
                     Most Popular
                   </div>
                 )}
@@ -234,7 +234,7 @@ export default function Home() {
                 <h3 className="text-2xl font-black mb-1">{plan.name}</h3>
                 <div className="flex items-baseline gap-1 mb-4">
                   <span className="text-4xl font-black">{plan.price === "Custom" ? "Custom" : `$${plan.price}`}</span>
-                  {plan.price !== "Custom" && <span className="text-slate-400 text-sm font-bold">/mo</span>}
+                  {plan.price !== "Custom" && <span className="text-muted-foreground text-sm font-bold">/mo</span>}
                 </div>
                 <p className="text-slate-500 font-medium mb-8 text-sm">{plan.desc}</p>
                 <Link href="/signup">
@@ -247,7 +247,7 @@ export default function Home() {
           </div>
 
           {/* Final CTA */}
-          <div className="relative bg-slate-900 rounded-[64px] p-12 md:p-24 overflow-hidden text-center text-white">
+          <div className="relative bg-card rounded-[64px] p-12 md:p-24 overflow-hidden text-center text-foreground">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20"></div>
             <div className="relative z-10">
               <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-8 leading-tight">
@@ -264,7 +264,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/login">
-                  <Button variant="outline" size="lg" className="h-16 px-12 text-xl font-bold rounded-full border-white/20 text-white hover:bg-white/10">
+                  <Button variant="outline" size="lg" className="h-16 px-12 text-xl font-bold rounded-full border-white/20 text-foreground hover:bg-white/10">
                     Live Demo
                   </Button>
                 </Link>

@@ -58,7 +58,7 @@ export default function AdminDashboard() {
       <motion.div variants={container} initial="hidden" animate="show" className="grid gap-4 grid-cols-1 sm:grid-cols-3">
         {kpis.map((kpi, i) => (
           <motion.div variants={item} key={i}>
-            <Card className="glass-card glass-card-hover group border-slate-800 bg-card">
+            <Card className="glass-card glass-card-hover group border-border bg-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">{kpi.title}</CardTitle>
                 <div className={`h-9 w-9 rounded-lg ${kpi.bg} flex items-center justify-center`}>
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
 
       <div className="grid grid-cols-1 gap-6">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-          <Card className="glass-card border-slate-800 bg-card">
+          <Card className="glass-card border-border bg-card">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Recent Users</CardTitle>
               <Link href="/admin/users">

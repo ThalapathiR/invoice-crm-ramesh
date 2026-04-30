@@ -30,7 +30,7 @@ const CustomerList: React.FC<CustomerListProps> = ({ customers, onEdit, onShowHi
     <div className="rounded-[32px] border bg-card overflow-hidden shadow-sm">
       <Table>
         <TableHeader>
-          <TableRow className="bg-slate-900/50 hover:bg-slate-900/50 border-slate-800">
+          <TableRow className="bg-card/50 hover:bg-card/50 border-border">
             <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-5">Name</TableHead>
             <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-5">Phone</TableHead>
             <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-5">Email</TableHead>
@@ -43,14 +43,14 @@ const CustomerList: React.FC<CustomerListProps> = ({ customers, onEdit, onShowHi
           {customers.map((customer) => (
             <TableRow 
               key={customer.id} 
-              className="group cursor-pointer hover:bg-white/5 border-slate-800 transition-colors"
+              className="group cursor-pointer hover:bg-white/5 border-border transition-colors"
               onClick={() => onShowHistory(customer)}
             >
-              <TableCell className="py-4 font-black text-white">{customer.name}</TableCell>
-              <TableCell className="py-4 font-bold text-slate-400">{customer.phone}</TableCell>
+              <TableCell className="py-4 font-black text-foreground">{customer.name}</TableCell>
+              <TableCell className="py-4 font-bold text-muted-foreground">{customer.phone}</TableCell>
               <TableCell className="py-4 text-slate-500">{customer.email || '-'}</TableCell>
               <TableCell className="py-4">
-                <span className="bg-slate-800 text-cyan-400 px-3 py-1 rounded-full text-xs font-black border border-cyan-500/20">
+                <span className="bg-muted text-cyan-400 px-3 py-1 rounded-full text-xs font-black border border-cyan-500/20">
                   {customer.total_invoices || 0}
                 </span>
               </TableCell>

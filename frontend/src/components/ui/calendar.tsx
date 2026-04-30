@@ -87,17 +87,17 @@ function Calendar({
           defaultClassNames.day_button
         ),
         range_start: cn(
-          "!bg-primary !text-white !rounded-l-[24px] !rounded-r-none glow-selection-primary relative z-10",
+          "!bg-primary !text-foreground !rounded-l-[24px] !rounded-r-none glow-selection-primary relative z-10",
           defaultClassNames.range_start
         ),
         range_middle: "range-middle-elite [&_button]:!text-primary",
         range_end: cn(
-          "!bg-primary !text-white !rounded-r-[24px] !rounded-l-none glow-selection-primary relative z-10",
+          "!bg-primary !text-foreground !rounded-r-[24px] !rounded-l-none glow-selection-primary relative z-10",
           defaultClassNames.range_end
         ),
         selected: cn(
           /* When a button is inside a selected cell, ensure the text adapts */
-          "[&_button]:!text-white",
+          "[&_button]:!text-foreground",
           defaultClassNames.selected
         ),
         today: cn(

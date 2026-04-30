@@ -63,7 +63,7 @@ export const NavItem = ({ item, isActive, isCollapsed = false, isMobile = false 
       "group flex items-center rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-300 relative overflow-hidden",
       isActive
         ? "bg-[#31203d] text-[#E04FB2]"
-        : "text-white/60 hover:bg-[#252541] hover:text-white",
+        : "text-foreground/60 hover:bg-[#252541] hover:text-foreground",
       isCollapsed ? "justify-center" : "",
       isMobile ? "py-3 px-4" : ""
     )}
@@ -82,7 +82,7 @@ export const NavItem = ({ item, isActive, isCollapsed = false, isMobile = false 
         "shrink-0 transition-all z-10",
         isActive
           ? "text-[#E04FB2] scale-110 drop-shadow-[0_0_8px_rgba(150,100,250,0.5)]"
-          : "text-white/40 group-hover:text-white group-hover:scale-110",
+          : "text-foreground/40 group-hover:text-foreground group-hover:scale-110",
         isCollapsed ? "h-6 w-6" : "mr-3 h-4 w-4",
         isMobile ? "h-5 w-5 mr-4" : ""
       )}
@@ -169,7 +169,7 @@ export function AdminSidebar() {
                 <motion.h2
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="px-3 mb-3 text-[15px]  font-black text-white/60"
+                  className="px-3 mb-3 text-[15px]  font-black text-foreground/60"
                 >
                   {section.label}
                 </motion.h2>
@@ -203,11 +203,11 @@ export function AdminSidebar() {
 
           <Link
             href="/dashboard"
-            className="group flex items-center rounded-xl px-3 py-2.5 text-sm font-bold transition-all duration-300 bg-blue-500/10 dark:bg-blue-500/20 text-blue-400 hover:bg-blue-500 hover:text-white border border-blue-500/20"
+            className="group flex items-center rounded-xl px-3 py-2.5 text-sm font-bold transition-all duration-300 bg-blue-500/10 dark:bg-blue-500/20 text-blue-400 hover:bg-blue-500 hover:text-foreground border border-blue-500/20"
           >
             <ArrowLeft
               className={cn(
-                "shrink-0 text-blue-400 group-hover:text-white transition-colors",
+                "shrink-0 text-blue-400 group-hover:text-foreground transition-colors",
                 isCollapsed ? "h-6 w-6" : "mr-3 h-5 w-5"
               )}
             />

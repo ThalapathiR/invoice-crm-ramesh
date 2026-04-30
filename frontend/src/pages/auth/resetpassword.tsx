@@ -91,7 +91,7 @@ export default function ResetPassword() {
         <Card className="glass-card-auth border-white/80 shadow-3xl shadow-primary/5 overflow-hidden p-8">
           <CardHeader className="p-0 mb-8 border-none bg-transparent">
             <div className="flex items-center gap-4 ml-1">
-              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-white shadow-lg shadow-indigo-950/20">
+              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-foreground shadow-lg shadow-indigo-950/20">
                 <Lock className="h-7 w-7" />
               </div>
               <div className="flex flex-col">
@@ -135,7 +135,7 @@ export default function ResetPassword() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-primary transition-colors focus:outline-none"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-primary transition-colors focus:outline-none"
                   >
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>

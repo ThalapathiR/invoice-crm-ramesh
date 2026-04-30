@@ -182,7 +182,7 @@ export default function Signup() {
         <Card className="glass-card-auth border-white/80 shadow-3xl p-8">
           <CardHeader className="p-0 mb-8">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-full bg-linear-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-white">
+              <div className="h-14 w-14 rounded-full bg-linear-to-br from-[#1E1B4B] to-[#312E81] flex items-center justify-center text-foreground">
                 <Shield className="h-7 w-7" />
               </div>
               <h1 className="text-2xl font-black text-slate-900 tracking-tight">Create Account</h1>
@@ -207,7 +207,7 @@ export default function Signup() {
                   </TabsTrigger>
                   <TabsTrigger
                     value="signup"
-                    className="rounded-full h-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-white shadow-lg transition-all font-bold"
+                    className="rounded-full h-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-foreground shadow-lg transition-all font-bold"
                   >
                     Sign Up
                   </TabsTrigger>
@@ -275,7 +275,7 @@ export default function Signup() {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-primary transition-colors focus:outline-none"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-primary transition-colors focus:outline-none"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -304,7 +304,7 @@ export default function Signup() {
                     <span className="w-full border-t border-slate-200" />
                   </div>
                   <div className="relative flex justify-center text-xs font-bold uppercase">
-                    <span className="bg-white px-4 text-slate-400">Or continue with</span>
+                    <span className="bg-white px-4 text-muted-foreground">Or continue with</span>
                   </div>
                 </div>
 

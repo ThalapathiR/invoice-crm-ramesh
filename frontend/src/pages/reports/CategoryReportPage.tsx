@@ -43,7 +43,7 @@ const CategoryReportPage: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto min-h-screen">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Category Performance</h1>
+          <h1 className="text-3xl font-black text-foreground tracking-tight">Category Performance</h1>
           <p className="text-blue-100/80 font-medium">Sales and profit analysis grouped by item category</p>
         </div>
         <div className="flex gap-2 bg-white/10 p-2 rounded-2xl backdrop-blur-md border border-white/10">
@@ -51,16 +51,16 @@ const CategoryReportPage: React.FC = () => {
             type="date" 
             value={startDate} 
             onChange={(e) => setStartDate(e.target.value)}
-            className="bg-transparent border-none text-white font-bold h-10 w-40 [color-scheme:dark]"
+            className="bg-transparent border-none text-foreground font-bold h-10 w-40 [color-scheme:dark]"
           />
-          <div className="flex items-center text-white/40 font-black">TO</div>
+          <div className="flex items-center text-foreground/40 font-black">TO</div>
           <Input 
             type="date" 
             value={endDate} 
             onChange={(e) => setEndDate(e.target.value)}
-            className="bg-transparent border-none text-white font-bold h-10 w-40 [color-scheme:dark]"
+            className="bg-transparent border-none text-foreground font-bold h-10 w-40 [color-scheme:dark]"
           />
-          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchData}>
+          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchData}>
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
         </div>
@@ -73,7 +73,7 @@ const CategoryReportPage: React.FC = () => {
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-widest font-black text-slate-500">Best Category</p>
-            <h3 className="text-2xl font-black text-white">{data[0]?.name || 'N/A'}</h3>
+            <h3 className="text-2xl font-black text-foreground">{data[0]?.name || 'N/A'}</h3>
           </div>
         </div>
 
@@ -83,7 +83,7 @@ const CategoryReportPage: React.FC = () => {
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-widest font-black text-slate-500">Total Profit</p>
-            <h3 className="text-2xl font-black text-white">₹{data.reduce((sum, c) => sum + c.profit, 0).toLocaleString()}</h3>
+            <h3 className="text-2xl font-black text-foreground">₹{data.reduce((sum, c) => sum + c.profit, 0).toLocaleString()}</h3>
           </div>
         </div>
 
@@ -93,15 +93,15 @@ const CategoryReportPage: React.FC = () => {
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-widest font-black text-slate-500">Total Units Sold</p>
-            <h3 className="text-2xl font-black text-white">{data.reduce((sum, c) => sum + c.total_quantity, 0).toLocaleString()}</h3>
+            <h3 className="text-2xl font-black text-foreground">{data.reduce((sum, c) => sum + c.total_quantity, 0).toLocaleString()}</h3>
           </div>
         </div>
       </div>
 
       <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-900/50">
-            <TableRow className="hover:bg-transparent border-slate-800">
+          <TableHeader className="bg-card/50">
+            <TableRow className="hover:bg-transparent border-border">
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 pl-6">Category Name</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 text-center">Units Sold</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 text-right">Revenue</TableHead>
@@ -116,12 +116,12 @@ const CategoryReportPage: React.FC = () => {
               <TableRow><TableCell colSpan={5} className="text-center py-20 text-muted-foreground">No data for selected period</TableCell></TableRow>
             ) : (
               data.map((cat) => (
-                <TableRow key={cat.name} className="hover:bg-white/5 border-slate-800 transition-colors">
+                <TableRow key={cat.name} className="hover:bg-white/5 border-border transition-colors">
                   <TableCell className="py-4 pl-6">
-                    <div className="font-black text-white">{cat.name}</div>
+                    <div className="font-black text-foreground">{cat.name}</div>
                   </TableCell>
-                  <TableCell className="text-center font-bold text-slate-400 py-4">{cat.total_quantity}</TableCell>
-                  <TableCell className="text-right font-black text-white py-4">₹{cat.total_sales.toLocaleString()}</TableCell>
+                  <TableCell className="text-center font-bold text-muted-foreground py-4">{cat.total_quantity}</TableCell>
+                  <TableCell className="text-right font-black text-foreground py-4">₹{cat.total_sales.toLocaleString()}</TableCell>
                   <TableCell className="text-right font-medium text-slate-500 py-4">₹{cat.total_cost.toLocaleString()}</TableCell>
                   <TableCell className={`text-right pr-6 py-4 font-black ${cat.profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                     <div className="flex justify-end items-center gap-1">

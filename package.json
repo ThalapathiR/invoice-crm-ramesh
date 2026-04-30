@@ -1,0 +1,12 @@
+{
+  "name": "invoice-crm-desktop",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^31.0.0",
+    "tree-kill": "^1.2.2"
+  }
+}

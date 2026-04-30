@@ -22,7 +22,7 @@ export class LoginController extends AuthBaseController {
     super();
   }
 
-  @Post('Login')
+  @Post('login')
   async UserLogin(@Body() UserLogin: UserLoginModel) {
     const result = await this._AuthService.ValidateUser(UserLogin.email, UserLogin.password);
     return { Type: ResponseEnum.Success, Message: 'Login Successfully', result };

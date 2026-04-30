@@ -99,11 +99,11 @@ const CustomersPage: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Customer Relationship</h1>
+          <h1 className="text-3xl font-black text-foreground tracking-tight">Customer Relationship</h1>
           <p className="text-blue-100/80 font-medium">Manage your customer database and purchase history</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={handleSyncStats} disabled={isLoading} title="Sync Statistics">
+          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={handleSyncStats} disabled={isLoading} title="Sync Statistics">
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
           <Button className="btn-brand bg-white text-slate-900 hover:bg-slate-100 border-none h-12 px-6 rounded-2xl font-black shadow-lg shadow-black/5" onClick={handleAddCustomer}>
@@ -118,7 +118,7 @@ const CustomersPage: React.FC = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <Input 
             placeholder="Search by name, phone or email..." 
-            className="pl-10 h-12 rounded-2xl bg-slate-900 border-none focus:bg-slate-950 text-white font-bold placeholder:text-slate-600"
+            className="pl-10 h-12 rounded-2xl bg-card border-none focus:bg-background text-foreground font-bold placeholder:text-slate-600"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

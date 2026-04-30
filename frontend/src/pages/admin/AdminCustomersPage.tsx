@@ -101,14 +101,14 @@ const AdminCustomersPage: React.FC = () => {
       {/* Header Section */}
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl font-black text-foreground tracking-tight flex items-center gap-3">
             <Users className="w-8 h-8 text-primary animate-pulse" />
             Global Customers
           </h1>
           <p className="text-blue-100/80 font-medium">Super Admin Control: Managing all customers across {stats.totalTenants} tenants</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchGlobalCustomers} disabled={isLoading}>
+          <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchGlobalCustomers} disabled={isLoading}>
             <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
           <Button className="btn-brand bg-white text-slate-900 hover:bg-slate-100 border-none h-12 px-6 rounded-2xl font-black shadow-lg shadow-black/5">
@@ -130,7 +130,7 @@ const AdminCustomersPage: React.FC = () => {
           </div>
           <p className="text-[10px] uppercase tracking-widest font-black text-slate-500 mb-2">Total Global Customers</p>
           <div className="flex items-end gap-3">
-            <h3 className="text-4xl font-black text-white">{stats.totalCustomers.toLocaleString()}</h3>
+            <h3 className="text-4xl font-black text-foreground">{stats.totalCustomers.toLocaleString()}</h3>
             <span className="text-emerald-400 text-xs font-bold mb-1 flex items-center gap-0.5">
               <ArrowUpRight size={14} /> +12%
             </span>
@@ -147,7 +147,7 @@ const AdminCustomersPage: React.FC = () => {
             <UserCheck size={80} />
           </div>
           <p className="text-[10px] uppercase tracking-widest font-black text-slate-500 mb-2">Active Today</p>
-          <h3 className="text-4xl font-black text-white">{stats.activeToday}</h3>
+          <h3 className="text-4xl font-black text-foreground">{stats.activeToday}</h3>
         </motion.div>
 
         <motion.div 
@@ -160,7 +160,7 @@ const AdminCustomersPage: React.FC = () => {
             <Building2 size={80} />
           </div>
           <p className="text-[10px] uppercase tracking-widest font-black text-slate-500 mb-2">Total Tenants</p>
-          <h3 className="text-4xl font-black text-white">{stats.totalTenants}</h3>
+          <h3 className="text-4xl font-black text-foreground">{stats.totalTenants}</h3>
         </motion.div>
       </div>
 
@@ -170,7 +170,7 @@ const AdminCustomersPage: React.FC = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <Input 
             placeholder="Search by customer name, phone, or shop name..." 
-            className="pl-10 border-none bg-slate-900 rounded-2xl h-12 font-bold text-white placeholder:text-slate-600"
+            className="pl-10 border-none bg-card rounded-2xl h-12 font-bold text-foreground placeholder:text-slate-600"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -180,8 +180,8 @@ const AdminCustomersPage: React.FC = () => {
       {/* Main Data Table */}
       <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-900/50">
-            <TableRow className="hover:bg-transparent border-slate-800">
+          <TableHeader className="bg-card/50">
+            <TableRow className="hover:bg-transparent border-border">
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 pl-8">Customer & Shop</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4">Contact Info</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 text-center">Status</TableHead>
@@ -194,25 +194,25 @@ const AdminCustomersPage: React.FC = () => {
               <TableRow>
                 <TableCell colSpan={5} className="text-center py-20">
                   <RefreshCw className="w-10 h-10 text-primary animate-spin mx-auto mb-4" />
-                  <p className="text-slate-400 font-bold">Scanning Global Database...</p>
+                  <p className="text-muted-foreground font-bold">Scanning Global Database...</p>
                 </TableCell>
               </TableRow>
             ) : filteredCustomers.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-20 text-slate-400 font-bold">
+                <TableCell colSpan={5} className="text-center py-20 text-muted-foreground font-bold">
                   No global customers found matching your criteria
                 </TableCell>
               </TableRow>
             ) : (
               filteredCustomers.map((customer) => (
-                <TableRow key={customer.id} className="hover:bg-white/5 border-slate-800 transition-colors group">
+                <TableRow key={customer.id} className="hover:bg-white/5 border-border transition-colors group">
                   <TableCell className="py-6 pl-8">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-white font-black text-xl border border-white/5 shadow-inner">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-foreground font-black text-xl border border-white/5 shadow-inner">
                         {customer.name.charAt(0)}
                       </div>
                       <div>
-                        <div className="font-black text-white text-lg">{customer.name}</div>
+                        <div className="font-black text-foreground text-lg">{customer.name}</div>
                         <div className="flex items-center gap-1.5 text-[10px] text-primary font-black uppercase tracking-wider">
                           <Building2 size={12} />
                           {customer.store_name}
@@ -221,7 +221,7 @@ const AdminCustomersPage: React.FC = () => {
                     </div>
                   </TableCell>
                   <TableCell className="py-6">
-                    <div className="font-bold text-slate-400">{customer.phone}</div>
+                    <div className="font-bold text-muted-foreground">{customer.phone}</div>
                     <div className="text-xs text-slate-500 font-medium">{customer.email || 'No email provided'}</div>
                   </TableCell>
                   <TableCell className="py-6 text-center">
@@ -229,17 +229,17 @@ const AdminCustomersPage: React.FC = () => {
                       {customer.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="py-6 text-right font-bold text-slate-400">
+                  <TableCell className="py-6 text-right font-bold text-muted-foreground">
                     {format(new Date(customer.created_on), 'dd MMM yyyy')}
                   </TableCell>
                   <TableCell className="py-6 text-right pr-8">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl text-slate-500 hover:text-white hover:bg-white/5">
+                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl text-slate-500 hover:text-foreground hover:bg-white/5">
                           <MoreVertical size={18} />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-56 bg-slate-900 border-slate-800 text-white p-2 rounded-2xl shadow-2xl">
+                      <DropdownMenuContent align="end" className="w-56 bg-card border-border text-foreground p-2 rounded-2xl shadow-2xl">
                         <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Customer Actions</DropdownMenuLabel>
                         <DropdownMenuItem className="rounded-xl focus:bg-white/10 cursor-pointer">
                           <ExternalLink className="mr-2 h-4 w-4 text-primary" /> View Details
@@ -247,7 +247,7 @@ const AdminCustomersPage: React.FC = () => {
                         <DropdownMenuItem className="rounded-xl focus:bg-white/10 cursor-pointer">
                           <Building2 className="mr-2 h-4 w-4 text-blue-400" /> Visit Shop Dashboard
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-slate-800" />
+                        <DropdownMenuSeparator className="bg-muted" />
                         {customer.status === 'ACTIVE' ? (
                           <DropdownMenuItem className="rounded-xl focus:bg-red-500/20 text-red-400 cursor-pointer">
                             <Ban className="mr-2 h-4 w-4" /> Deactivate Customer

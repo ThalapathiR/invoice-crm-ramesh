@@ -21,7 +21,7 @@ const InventoryList: React.FC<InventoryListProps> = ({ products, onAdjust, onVie
     <div className="rounded-xl border bg-card overflow-hidden">
       <Table>
         <TableHeader>
-          <TableRow className="bg-slate-900/50 border-slate-800">
+          <TableRow className="bg-card/50 border-border">
             <TableHead>Product</TableHead>
             <TableHead>SKU</TableHead>
             <TableHead>Current Stock</TableHead>
@@ -33,14 +33,14 @@ const InventoryList: React.FC<InventoryListProps> = ({ products, onAdjust, onVie
           {products.map((product) => (
             <TableRow key={product.id}>
               <TableCell>
-                <div className="font-semibold text-white">{product.name}</div>
-                <div className="text-xs text-slate-400">{product.category}</div>
+                <div className="font-semibold text-foreground">{product.name}</div>
+                <div className="text-xs text-muted-foreground">{product.category}</div>
               </TableCell>
               <TableCell className="font-mono text-xs">{product.sku}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
                   <span className={`text-lg font-bold ${
-                    product.quantity_in_stock <= 5 ? 'text-red-500' : 'text-white'
+                    product.quantity_in_stock <= 5 ? 'text-red-500' : 'text-foreground'
                   }`}>
                     {product.quantity_in_stock}
                   </span>

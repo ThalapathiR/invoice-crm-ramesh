@@ -163,16 +163,16 @@ export default function Settings() {
       </div>
 
       <Tabs defaultValue="general" className="w-full">
-        <TabsList className="w-full h-auto p-1 bg-slate-900/50 border-b border-border mb-6 sm:mb-8 flex gap-2 sm:gap-6 overflow-x-auto scrollbar-none justify-start px-1 items-center no-scrollbar">
+        <TabsList className="w-full h-auto p-1 bg-card/50 border-b border-border mb-6 sm:mb-8 flex gap-2 sm:gap-6 overflow-x-auto scrollbar-none justify-start px-1 items-center no-scrollbar">
           <TabsTrigger
             value="general"
-            className="data-[state=active]:bg-zinc-800 rounded-full px-4 py-2.5 text-xs sm:text-sm text-slate-400 data-[state=active]:text-white transition-all flex items-center gap-2 font-bold whitespace-nowrap shadow-sm border border-transparent data-[state=active]:border-primary/20"
+            className="data-[state=active]:bg-zinc-800 rounded-full px-4 py-2.5 text-xs sm:text-sm text-muted-foreground data-[state=active]:text-foreground transition-all flex items-center gap-2 font-bold whitespace-nowrap shadow-sm border border-transparent data-[state=active]:border-primary/20"
           >
             <User className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> General
           </TabsTrigger>
           <TabsTrigger
             value="security"
-            className="data-[state=active]:bg-zinc-800 rounded-full px-4 py-2.5 text-xs sm:text-sm text-slate-400 data-[state=active]:text-white transition-all flex items-center gap-2 font-bold whitespace-nowrap shadow-sm border border-transparent data-[state=active]:border-primary/20"
+            className="data-[state=active]:bg-zinc-800 rounded-full px-4 py-2.5 text-xs sm:text-sm text-muted-foreground data-[state=active]:text-foreground transition-all flex items-center gap-2 font-bold whitespace-nowrap shadow-sm border border-transparent data-[state=active]:border-primary/20"
           >
             <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Security
           </TabsTrigger>
@@ -370,7 +370,7 @@ export default function Settings() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-4 sm:p-6">
-                <div className="flex flex-col sm:flex-row items-center justify-between p-4 rounded-2xl border border-border bg-slate-900/50 gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-between p-4 rounded-2xl border border-border bg-card/50 gap-4">
                   <div className="text-center sm:text-left">
                     <p className="font-bold">2FA Status</p>
                     <p className="text-xs text-muted-foreground font-medium">

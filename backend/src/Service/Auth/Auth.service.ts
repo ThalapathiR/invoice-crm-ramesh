@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { company } from '@Database/Table/Admin/company';
 import { user } from '@Database/Table/Admin/user';
@@ -24,15 +24,15 @@ export class AuthService {
     });
 
     if (!UserData) {
-      throw new Error('Invalid email id');
+      throw new UnauthorizedException('Invalid email id');
     }
 
     if (UserData.status == false) {
-      throw new Error('User suspended, contact administration');
+      throw new UnauthorizedException('User suspended, contact administration');
     }
 
     if (this._EncryptionService.Decrypt(UserData.password) != password) {
-      throw new Error('Invalid password');
+      throw new UnauthorizedException('Invalid password');
     }
 
     // Fetch company from store relation or fallback to system default if store is missing (for super admins)
@@ -46,7 +46,7 @@ export class AuthService {
       email: UserData.email,
       user_id: UserData.id,
       user_role_id: UserData.user_role_id,
-      user_role_name: UserData.user_role.name,
+      user_role_name: UserData.user_role?.name || 'User',
       company: companyData
     };
     const api_token = this._JwtService.sign(payload);
@@ -56,7 +56,7 @@ export class AuthService {
   async Register(data: RegisterModel): Promise<any> {
     const existingUser = await user.findOne({ where: { email: data.email } });
     if (existingUser) {
-      throw new Error('Email already exists');
+      throw new ConflictException('Email already exists');
     }
 
     // 1. Create a default company for the new user
@@ -111,7 +111,7 @@ export class AuthService {
     }
 
     if (!role) {
-        throw new Error('System roles not initialized. Please ensure database seeding is complete.');
+        throw new BadRequestException('System roles not initialized. Please ensure database seeding is complete.');
     }
 
     // 3. Create User

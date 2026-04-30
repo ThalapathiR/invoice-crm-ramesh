@@ -155,7 +155,7 @@ export function TopBar({ isAdmin = false }: { isAdmin?: boolean }) {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className={cn(
-              "w-[280px] p-0 border-none text-white flex flex-col h-full",
+              "w-[280px] p-0 border-none text-foreground flex flex-col h-full",
               isAdmin
                 ? "bg-[linear-gradient(180deg,#2a1e38,#291e38,#281d37,#271d37,#261d36,#251d35,#231c34,#1d1b2f,#1a1a2e)]"
                 : "bg-[linear-gradient(180deg,#2a1e38,#291e38,#281d37,#271d37,#261d36,#251d35,#231c34,#1d1b2f,#1a1a2e)]"
@@ -163,7 +163,7 @@ export function TopBar({ isAdmin = false }: { isAdmin?: boolean }) {
               <SheetHeader className="p-6 border-b border-white/10 text-left">
                 <Link href="/">
                   <div className="flex items-center gap-3 cursor-pointer">
-                    <div className="h-10 w-10 flex items-center justify-center shrink-0 bg-white/10 rounded-xl text-white">
+                    <div className="h-10 w-10 flex items-center justify-center shrink-0 bg-white/10 rounded-xl text-foreground">
                       <ScrollText className="h-6 w-6" />
                     </div>
                     <SheetTitle className="text-xl font-bold bg-gradient-to-r from-white/90 to-white/40 bg-clip-text text-transparent font-display">
@@ -183,7 +183,7 @@ export function TopBar({ isAdmin = false }: { isAdmin?: boolean }) {
                       if (filteredItems.length === 0) return null;
                       return (
                         <div key={section.label}>
-                          <h2 className="px-3 mb-3 text-[10px] uppercase tracking-[0.25em] font-black text-white/40">
+                          <h2 className="px-3 mb-3 text-[10px] uppercase tracking-[0.25em] font-black text-foreground/40">
                             {section.label}
                           </h2>
                           <nav className="space-y-1">
@@ -216,7 +216,7 @@ export function TopBar({ isAdmin = false }: { isAdmin?: boolean }) {
 
                       return (
                         <div key={section.label}>
-                          <h2 className="px-3 mb-3 text-[10px] uppercase tracking-[0.25em] font-black text-white/40">
+                          <h2 className="px-3 mb-3 text-[10px] uppercase tracking-[0.25em] font-black text-foreground/40">
                             {section.label}
                           </h2>
                           <nav className="space-y-1">
@@ -385,7 +385,7 @@ export function TopBar({ isAdmin = false }: { isAdmin?: boolean }) {
                   <img src={user.avatar} alt={user?.firstName || "User avatar"} className="h-full w-full object-cover" />
                 ) : (
                   <div className="h-full w-full flex items-center justify-center bg-white/10 dark:bg-black/20 backdrop-blur-sm">
-                    <User className="h-5 w-5 text-white" />
+                    <User className="h-5 w-5 text-foreground" />
                   </div>
                 )}
               </Button>

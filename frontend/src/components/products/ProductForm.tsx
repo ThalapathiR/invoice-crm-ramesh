@@ -136,7 +136,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl overflow-y-auto max-h-[90vh] rounded-[32px] bg-card border-border">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-black text-white">
+          <DialogTitle className="text-2xl font-black text-foreground">
             {product ? 'Edit Product' : 'Add New Product'}
           </DialogTitle>
         </DialogHeader>
@@ -148,9 +148,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="name"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-slate-400">Product Name</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Product Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Cotton Blue Shirt" className="h-12 rounded-2xl bg-slate-900 border-slate-800 focus:bg-slate-950 text-white" {...field} />
+                      <Input placeholder="e.g. Cotton Blue Shirt" className="h-12 rounded-2xl bg-card border-border focus:bg-background text-foreground" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -162,7 +162,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="barcode"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex justify-between items-center text-[10px] uppercase tracking-widest font-black text-slate-400">
+                    <FormLabel className="flex justify-between items-center text-[10px] uppercase tracking-widest font-black text-muted-foreground">
                       Barcode
                       <Button 
                         type="button" 
@@ -178,7 +178,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                       </Button>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Scan or type barcode" className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white" {...field} />
+                      <Input placeholder="Scan or type barcode" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -190,7 +190,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="sku"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex justify-between items-center text-[10px] uppercase tracking-widest font-black text-slate-400">
+                    <FormLabel className="flex justify-between items-center text-[10px] uppercase tracking-widest font-black text-muted-foreground">
                       SKU
                       <Button 
                         type="button" 
@@ -206,7 +206,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                       </Button>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Unique ID" className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white" {...field} />
+                      <Input placeholder="Unique ID" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -218,9 +218,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="purchase_price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-slate-400">Purchase Price (₹)</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Purchase Price (₹)</FormLabel>
                     <FormControl>
-                      <Input type="number" className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                      <Input type="number" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} onChange={e => field.onChange(Number(e.target.value))} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -232,9 +232,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="selling_price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-slate-400">Selling Price (₹)</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Selling Price (₹)</FormLabel>
                     <FormControl>
-                      <Input type="number" className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                      <Input type="number" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} onChange={e => field.onChange(Number(e.target.value))} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -246,9 +246,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="gst_percentage"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-slate-400">GST %</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">GST %</FormLabel>
                     <FormControl>
-                      <Input type="number" className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                      <Input type="number" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} onChange={e => field.onChange(Number(e.target.value))} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -260,10 +260,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-slate-400">Category</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Category</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white">
+                        <SelectTrigger className="h-12 rounded-2xl bg-card border-border text-foreground">
                           <SelectValue placeholder="Select Category" />
                         </SelectTrigger>
                       </FormControl>
@@ -283,9 +283,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                 name="reorder_level"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-slate-400">Low Stock Threshold</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Low Stock Threshold</FormLabel>
                     <FormControl>
-                      <Input type="number" className="h-12 rounded-2xl bg-slate-900 border-slate-800 text-white" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                      <Input type="number" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} onChange={e => field.onChange(Number(e.target.value))} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -294,7 +294,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
 
               <div className="col-span-2 space-y-4">
                 <div className="flex justify-between items-center">
-                  <Label className="text-[10px] uppercase tracking-[0.2em] font-black text-slate-400">Stock by Size</Label>
+                  <Label className="text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground">Stock by Size</Label>
                   <Button 
                     type="button" 
                     variant="outline" 
@@ -316,7 +316,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                           <FormItem className="flex-1">
                             <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
-                                <SelectTrigger className="h-11 rounded-xl bg-slate-900 border-slate-800 text-white">
+                                <SelectTrigger className="h-11 rounded-xl bg-card border-border text-foreground">
                                   <SelectValue placeholder="Select Size" />
                                 </SelectTrigger>
                               </FormControl>
@@ -336,7 +336,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                         render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormControl>
-                              <Input placeholder="Color" className="h-11 rounded-xl bg-slate-900 border-slate-800 text-white" {...field} />
+                              <Input placeholder="Color" className="h-11 rounded-xl bg-card border-border text-foreground" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -348,7 +348,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                         render={({ field }) => (
                           <FormItem className="w-32">
                             <FormControl>
-                              <Input type="number" placeholder="Qty" className="h-11 rounded-xl bg-slate-900 border-slate-800 text-white" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                              <Input type="number" placeholder="Qty" className="h-11 rounded-xl bg-card border-border text-foreground" {...field} onChange={e => field.onChange(Number(e.target.value))} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -373,7 +373,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
             </div>
             
             <DialogFooter className="pt-4">
-              <Button type="button" variant="ghost" onClick={onClose} className="rounded-2xl h-12 px-8 font-black uppercase tracking-widest text-slate-400">Cancel</Button>
+              <Button type="button" variant="ghost" onClick={onClose} className="rounded-2xl h-12 px-8 font-black uppercase tracking-widest text-muted-foreground">Cancel</Button>
               <Button type="submit" className="rounded-2xl h-12 px-8 font-black uppercase tracking-widest bg-primary shadow-lg shadow-primary/20">Save Product</Button>
             </DialogFooter>
           </form>

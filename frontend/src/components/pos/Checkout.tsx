@@ -253,19 +253,19 @@ const Checkout: React.FC = () => {
           <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
             <ReceiptText className="w-5 h-5" />
           </div>
-          <h3 className="text-xl font-black text-white">Checkout</h3>
+          <h3 className="text-xl font-black text-foreground">Checkout</h3>
         </div>
 
         {/* Customer Section */}
         <div className="space-y-3" ref={phoneRef}>
-          <Label htmlFor="phone" className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-black">Customer Connection</Label>
+          <Label htmlFor="phone" className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black">Customer Connection</Label>
           <div className="relative">
             <Input 
               id="phone" 
               placeholder="Enter mobile number..." 
               value={phone}
               onChange={handlePhoneChange}
-              className={`h-12 px-5 rounded-xl bg-slate-900 border-slate-800 focus:bg-slate-950 transition-all text-white ${errors.phone ? 'border-red-500 ring-2 ring-red-500/20' : ''}`}
+              className={`h-12 px-5 rounded-xl bg-card border-border focus:bg-background transition-all text-foreground ${errors.phone ? 'border-red-500 ring-2 ring-red-500/20' : ''}`}
             />
             {errors.phone && <p className="text-[10px] text-red-500 font-bold mt-1 ml-1 animate-in fade-in slide-in-from-top-1">Phone number is mandatory</p>}
           </div>
@@ -277,18 +277,18 @@ const Checkout: React.FC = () => {
                 setCustomerName(e.target.value);
                 setErrors(prev => ({ ...prev, name: false }));
               }}
-              className={`h-10 px-5 rounded-xl bg-slate-900 border-slate-800 focus:bg-slate-950 transition-all text-sm text-white ${errors.name ? 'border-red-500 ring-2 ring-red-500/20' : ''}`}
+              className={`h-10 px-5 rounded-xl bg-card border-border focus:bg-background transition-all text-sm text-foreground ${errors.name ? 'border-red-500 ring-2 ring-red-500/20' : ''}`}
             />
             {errors.name && <p className="text-[10px] text-red-500 font-bold ml-1 animate-in fade-in slide-in-from-top-1">Customer name is mandatory</p>}
           </div>
           {customer && (
             <div className="p-4 bg-primary/5 rounded-2xl border border-primary/10 animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-foreground font-bold">
                   {customer.name.charAt(0)}
                 </div>
                 <div>
-                  <div className="text-sm font-black text-white">{customer.name}</div>
+                  <div className="text-sm font-black text-foreground">{customer.name}</div>
                   <div className="text-[10px] font-bold text-primary uppercase tracking-wider">Loyalty: ₹{customer.total_purchases?.toLocaleString() || 0}</div>
                 </div>
               </div>
@@ -301,7 +301,7 @@ const Checkout: React.FC = () => {
         {/* Payment & Discount */}
         <div className="space-y-4">
           <div>
-            <Label className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-black mb-3 block">Payment Method</Label>
+            <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-3 block">Payment Method</Label>
             <div className="grid grid-cols-3 gap-2">
               {[
                 { id: 'Cash', icon: Banknote, label: 'Cash' },
@@ -314,7 +314,7 @@ const Checkout: React.FC = () => {
                   className={`flex flex-col items-center justify-center h-20 rounded-2xl border-2 transition-all gap-1 ${
                     paymentMethod === method.id 
                     ? 'border-primary bg-primary/10 text-primary shadow-[0_0_20px_rgba(34,211,238,0.2)]' 
-                    : 'border-slate-800 bg-slate-900 text-slate-500 hover:border-slate-700'
+                    : 'border-border bg-card text-slate-500 hover:border-slate-700'
                   }`}
                 >
                   <method.icon className="w-5 h-5" />
@@ -327,9 +327,9 @@ const Checkout: React.FC = () => {
           {(paymentMethod === 'UPI' || paymentMethod === 'Card') && (
             <div className="space-y-3 animate-in fade-in slide-in-from-top-2">
               <div>
-                <Label className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 block">Settlement Bank</Label>
+                <Label className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-2 block">Settlement Bank</Label>
                 <Select value={bankAccountId} onValueChange={setBankAccountId}>
-                  <SelectTrigger className="rounded-xl bg-slate-900 border-slate-800 text-white">
+                  <SelectTrigger className="rounded-xl bg-card border-border text-foreground">
                     <SelectValue placeholder="Select Bank..." />
                   </SelectTrigger>
                   <SelectContent>
@@ -340,14 +340,14 @@ const Checkout: React.FC = () => {
                 </Select>
               </div>
               <div>
-                <Label className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2 block">Transaction / UPI Ref</Label>
+                <Label className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-2 block">Transaction / UPI Ref</Label>
                 <div className="relative">
                   <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
                   <Input 
                     placeholder="Enter Ref Number..." 
                     value={upiReference}
                     onChange={(e) => setUpiReference(e.target.value)}
-                    className="h-10 pl-10 rounded-xl bg-slate-900 border-slate-800 text-xs text-white"
+                    className="h-10 pl-10 rounded-xl bg-card border-border text-xs text-foreground"
                   />
                 </div>
               </div>
@@ -355,7 +355,7 @@ const Checkout: React.FC = () => {
           )}
 
           <div>
-            <Label className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-black mb-3 block">Payment Received</Label>
+            <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-3 block">Payment Received</Label>
             <div className="relative">
               <Banknote className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
               <Input 
@@ -363,7 +363,7 @@ const Checkout: React.FC = () => {
                 placeholder={`Full Amount (₹${finalTotal.toLocaleString()})`}
                 value={paidAmount || ''}
                 onChange={(e) => setPaidAmount(parseFloat(e.target.value) || 0)}
-                className="h-12 pl-12 rounded-xl bg-slate-900 border-slate-800 font-black text-lg focus:bg-slate-950 text-white"
+                className="h-12 pl-12 rounded-xl bg-card border-border font-black text-lg focus:bg-background text-foreground"
               />
             </div>
             {paidAmount !== null && paidAmount < finalTotal && (
@@ -377,14 +377,14 @@ const Checkout: React.FC = () => {
 
 
           <div>
-            <Label className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-black mb-3 block">Special Discount</Label>
+            <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-3 block">Special Discount</Label>
             <div className="flex gap-2 mb-3">
               {[5, 10, 20].map(pct => (
                 <button 
                   key={pct}
                   onClick={() => { setDiscount(pct); setDiscountAmount(0); }}
                   className={`flex-1 py-2 rounded-xl text-[10px] font-black transition-all ${
-                    discount === pct ? 'bg-primary text-white shadow-[0_0_15px_rgba(34,211,238,0.3)]' : 'bg-slate-900 text-slate-500 hover:bg-slate-800 border border-slate-800'
+                    discount === pct ? 'bg-primary text-foreground shadow-[0_0_15px_rgba(34,211,238,0.3)]' : 'bg-card text-slate-500 hover:bg-muted border border-border'
                   }`}
                 >
                   {pct}% OFF
@@ -392,7 +392,7 @@ const Checkout: React.FC = () => {
               ))}
               <button 
                 onClick={() => { setDiscount(0); setDiscountAmount(0); }}
-                className="px-3 py-2 rounded-xl bg-slate-800 text-slate-400 text-[10px] font-black hover:bg-slate-700 border border-slate-700"
+                className="px-3 py-2 rounded-xl bg-muted text-muted-foreground text-[10px] font-black hover:bg-slate-700 border border-slate-700"
               >
                 Reset
               </button>
@@ -402,16 +402,16 @@ const Checkout: React.FC = () => {
               value={discount || ''}
               onChange={(e) => setDiscount(Number(e.target.value))}
               placeholder="Custom %"
-              className="h-10 rounded-xl bg-slate-900 border-slate-800 text-white mb-3 focus:bg-slate-950"
+              className="h-10 rounded-xl bg-card border-border text-foreground mb-3 focus:bg-background"
             />
-            <Label className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-black mb-2 block">Flat Amount Discount (₹)</Label>
+            <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-2 block">Flat Amount Discount (₹)</Label>
             <div className="flex gap-2 mb-3">
               {[50, 100, 200, 500].map(amt => (
                 <button 
                   key={amt}
                   onClick={() => { setDiscountAmount(amt); setDiscount(0); }}
                   className={`flex-1 py-2 rounded-xl text-[10px] font-black transition-all ${
-                    discountAmount === amt ? 'bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)]' : 'bg-slate-900 text-slate-500 hover:bg-slate-800 border border-slate-800'
+                    discountAmount === amt ? 'bg-emerald-500 text-foreground shadow-[0_0_15px_rgba(16,185,129,0.3)]' : 'bg-card text-slate-500 hover:bg-muted border border-border'
                   }`}
                 >
                   ₹{amt}
@@ -423,22 +423,22 @@ const Checkout: React.FC = () => {
               value={discountAmount || ''}
               onChange={(e) => setDiscountAmount(Number(e.target.value))}
               placeholder="Enter custom amount..."
-              className="h-10 rounded-xl bg-slate-900 border-slate-800 text-white focus:bg-slate-950"
+              className="h-10 rounded-xl bg-card border-border text-foreground focus:bg-background"
             />
           </div>
         </div>
       </div>
 
       {/* Summary Footer */}
-      <div className="bg-slate-900 p-8 space-y-4">
+      <div className="bg-card p-8 space-y-4">
         <div className="space-y-2">
-          <div className="flex justify-between text-xs font-bold text-slate-400 uppercase tracking-widest">
+          <div className="flex justify-between text-xs font-bold text-muted-foreground uppercase tracking-widest">
             <span>Subtotal</span>
-            <span className="text-white">₹{subtotal.toLocaleString()}</span>
+            <span className="text-foreground">₹{subtotal.toLocaleString()}</span>
           </div>
-          <div className="flex justify-between text-xs font-bold text-slate-400 uppercase tracking-widest">
+          <div className="flex justify-between text-xs font-bold text-muted-foreground uppercase tracking-widest">
             <span>GST / Taxes</span>
-            <span className="text-white">₹{taxAmount.toLocaleString()}</span>
+            <span className="text-foreground">₹{taxAmount.toLocaleString()}</span>
           </div>
           {discount > 0 && (
             <div className="flex justify-between text-xs font-bold text-green-400 uppercase tracking-widest">
@@ -454,11 +454,11 @@ const Checkout: React.FC = () => {
           )}
         </div>
         
-        <div className="pt-4 border-t border-slate-800 flex justify-between items-end">
+        <div className="pt-4 border-t border-border flex justify-between items-end">
           <TotalWeightDisplay items={items} />
           <div className="text-right space-y-1">
-            <p className="text-slate-400 font-bold text-xs uppercase tracking-widest">Grand Total</p>
-            <p className="text-5xl font-black text-white leading-none">₹{finalTotal.toLocaleString()}</p>
+            <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest">Grand Total</p>
+            <p className="text-5xl font-black text-foreground leading-none">₹{finalTotal.toLocaleString()}</p>
           </div>
         </div>
 

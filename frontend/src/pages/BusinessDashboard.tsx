@@ -119,45 +119,45 @@ const BusinessDashboard: React.FC = () => {
       title: "Inventory Value", 
       value: `₹${stats?.totalInvestment?.toLocaleString() || 0}`, 
       icon: Box, 
-      color: "bg-slate-500/20 text-slate-400", 
+      color: "bg-slate-500/20 text-muted-foreground", 
       trend: "Current asset", 
       isUp: true 
     },
   ];
 
   return (
-    <div className="p-6 max-w-[1600px] mx-auto space-y-8 pb-20 bg-slate-950 min-h-screen">
+    <div className="p-6 max-w-[1600px] mx-auto space-y-8 pb-20 bg-background min-h-screen">
       {/* Header */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 bg-card/40 backdrop-blur-md p-8 rounded-[40px] border border-border/50 shadow-2xl">
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 bg-card backdrop-blur-md p-8 rounded-xl border border-border shadow-sm">
         <div className="flex items-center gap-6">
-          <div className="bg-primary/20 p-4 rounded-3xl">
+          <div className="bg-primary/10 p-4 rounded-xl">
             <TrendingUp className="w-8 h-8 text-primary" />
           </div>
           <div>
-            <h1 className="text-4xl font-black text-white tracking-tight">Business Intelligence</h1>
-            <p className="text-slate-400 text-sm font-medium mt-1">Deep dive into your store's performance metrics</p>
+            <h1 className="text-4xl font-black text-foreground tracking-tight">Business Intelligence</h1>
+            <p className="text-muted-foreground text-sm font-medium mt-1">Deep dive into your store's performance metrics</p>
           </div>
         </div>
         
         <div className="flex flex-col sm:flex-row items-center gap-4">
-          <div className="flex items-center gap-2 bg-slate-900/50 p-2 rounded-2xl border border-white/5 backdrop-blur-md">
+          <div className="flex items-center gap-2 bg-muted p-2 rounded-xl border border-border backdrop-blur-md">
             <Input 
               type="date" 
               value={startDate} 
               onChange={(e) => setStartDate(e.target.value)}
-              className="bg-transparent border-none text-white font-black h-10 w-36 [color-scheme:dark] text-xs"
+              className="bg-transparent border-none text-foreground font-black h-10 w-36 text-xs"
             />
-            <div className="flex items-center text-slate-600 font-black text-[10px] uppercase tracking-widest">TO</div>
+            <div className="flex items-center text-muted-foreground font-black text-[10px] uppercase tracking-widest">TO</div>
             <Input 
               type="date" 
               value={endDate} 
               onChange={(e) => setEndDate(e.target.value)}
-              className="bg-transparent border-none text-white font-black h-10 w-36 [color-scheme:dark] text-xs"
+              className="bg-transparent border-none text-foreground font-black h-10 w-36 text-xs"
             />
             <Button 
               variant="outline" 
               size="icon" 
-              className="bg-white/5 border-white/10 text-white hover:bg-white/10 rounded-xl w-10 h-10" 
+              className="bg-white/5 border-white/10 text-foreground hover:bg-white/10 rounded-xl w-10 h-10" 
               onClick={fetchDashboardData}
             >
               <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
@@ -175,7 +175,7 @@ const BusinessDashboard: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card/40 backdrop-blur-sm p-6 rounded-[32px] border border-border/50 shadow-lg hover:border-primary/30 transition-all group relative overflow-hidden"
+            className="bg-card p-6 rounded-xl border border-border shadow-sm hover:border-primary/30 transition-all group relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/10 transition-colors" />
             <div className="flex justify-between items-start mb-4 relative z-10">
@@ -188,8 +188,8 @@ const BusinessDashboard: React.FC = () => {
               </div>
             </div>
             <div className="space-y-1 relative z-10">
-              <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">{kpi.title}</div>
-              <div className="text-2xl font-black text-white">{kpi.value}</div>
+              <div className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">{kpi.title}</div>
+              <div className="text-2xl font-black text-foreground">{kpi.value}</div>
             </div>
           </motion.div>
         ))}
@@ -197,11 +197,11 @@ const BusinessDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Sales Trend Chart */}
-        <div className="lg:col-span-2 bg-card/40 backdrop-blur-sm p-8 rounded-[32px] border border-border/50 shadow-lg">
+        <div className="lg:col-span-2 bg-card p-8 rounded-xl border border-border shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h3 className="text-xl font-black text-white">Revenue Analytics</h3>
-              <p className="text-xs text-slate-400 font-medium mt-1">Growth trajectory across selected period</p>
+              <h3 className="text-xl font-black text-foreground">Revenue Analytics</h3>
+              <p className="text-xs text-muted-foreground font-medium mt-1">Growth trajectory across selected period</p>
             </div>
             <div className="bg-primary/10 p-2 rounded-xl">
               <TrendingUp className="w-5 h-5 text-primary" />
@@ -212,33 +212,33 @@ const BusinessDashboard: React.FC = () => {
               <AreaChart data={trend}>
                 <defs>
                   <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#22D3EE" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#22D3EE" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#556EE6" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#556EE6" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" strokeOpacity={0.5} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" strokeOpacity={0.1} />
                 <XAxis 
                   dataKey="date" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fontWeight: 900, fill: '#94a3b8' }}
+                  tick={{ fontSize: 10, fontWeight: 900, fill: 'currentColor', opacity: 0.5 }}
                   dy={10}
                 />
                 <YAxis 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fontWeight: 900, fill: '#94a3b8' }}
+                  tick={{ fontSize: 10, fontWeight: 900, fill: 'currentColor', opacity: 0.5 }}
                   tickFormatter={(val) => `₹${val}`}
                 />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '24px', border: '1px solid #1e293b', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.3)', fontWeight: 'bold' }}
-                  itemStyle={{ color: '#22D3EE' }}
+                  contentStyle={{ backgroundColor: 'var(--color-card)', borderRadius: '12px', border: '1px solid var(--color-border)', fontWeight: 'bold', color: 'var(--color-foreground)' }}
+                  itemStyle={{ color: 'var(--color-primary)' }}
                   formatter={(value) => [`₹${value}`, 'Revenue']}
                 />
                 <Area 
                   type="monotone" 
                   dataKey="amount" 
-                  stroke="#22D3EE" 
+                  stroke="#556EE6" 
                   strokeWidth={4}
                   fillOpacity={1} 
                   fill="url(#colorAmount)" 
@@ -250,11 +250,11 @@ const BusinessDashboard: React.FC = () => {
         </div>
 
         {/* Expense Breakdown Pie Chart */}
-        <div className="bg-card/40 backdrop-blur-sm p-8 rounded-[32px] border border-border/50 shadow-lg">
+        <div className="bg-card p-8 rounded-xl border border-border shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h3 className="text-xl font-black text-white">Expense Profile</h3>
-              <p className="text-xs text-slate-400 font-medium mt-1">Resource allocation by category</p>
+              <h3 className="text-xl font-black text-foreground">Expense Profile</h3>
+              <p className="text-xs text-muted-foreground font-medium mt-1">Resource allocation by category</p>
             </div>
             <div className="bg-rose-500/10 p-2 rounded-xl">
               <Receipt className="w-5 h-5 text-rose-500" />
@@ -275,22 +275,22 @@ const BusinessDashboard: React.FC = () => {
                   {expenses.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="none" />
                   ))}
-                  {expenses.length === 0 && <Cell fill="#1e293b" stroke="none" />}
+                  {expenses.length === 0 && <Cell fill="currentColor" opacity={0.1} stroke="none" />}
                 </Pie>
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '16px', border: '1px solid #1e293b' }}
+                  contentStyle={{ backgroundColor: 'var(--color-card)', borderRadius: '12px', border: '1px solid var(--color-border)' }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
           <div className="grid grid-cols-2 gap-3 mt-6">
             {expenses.slice(0, 4).map((item, i) => (
-              <div key={i} className="p-3 rounded-2xl bg-slate-900/50 border border-white/5 flex flex-col gap-1">
+              <div key={i} className="p-3 rounded-xl bg-muted border border-border flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest truncate">{item.name}</span>
+                  <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest truncate">{item.name}</span>
                 </div>
-                <span className="text-sm font-black text-white">₹{item.value?.toLocaleString()}</span>
+                <span className="text-sm font-black text-foreground">₹{item.value?.toLocaleString()}</span>
               </div>
             ))}
           </div>
@@ -299,11 +299,11 @@ const BusinessDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Top Selling Products */}
-        <div className="bg-card/40 backdrop-blur-sm p-8 rounded-[40px] border border-border/50 shadow-lg">
+        <div className="bg-card p-8 rounded-xl border border-border shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h3 className="text-xl font-black text-white">Market Dominance</h3>
-              <p className="text-xs text-slate-400 font-medium mt-1">Top performing products by revenue</p>
+              <h3 className="text-xl font-black text-foreground">Market Dominance</h3>
+              <p className="text-xs text-muted-foreground font-medium mt-1">Top performing products by revenue</p>
             </div>
             <div className="bg-blue-500/10 p-2 rounded-xl">
               <ShoppingBag className="w-5 h-5 text-blue-500" />
@@ -312,33 +312,33 @@ const BusinessDashboard: React.FC = () => {
           
           <div className="space-y-4">
             {topProducts.length > 0 ? topProducts.map((product, idx) => (
-              <div key={idx} className="group flex items-center justify-between p-4 rounded-3xl bg-slate-900/40 border border-white/5 hover:border-primary/20 hover:bg-slate-900/60 transition-all">
+              <div key={idx} className="group flex items-center justify-between p-4 rounded-xl bg-muted border border-border hover:border-primary/20 hover:bg-slate-50 transition-all">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center font-black text-slate-500 group-hover:text-primary transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center font-black text-muted-foreground group-hover:text-primary transition-colors">
                     {idx + 1}
                   </div>
                   <div>
-                    <div className="text-sm font-black text-white group-hover:text-primary transition-colors">{product.name}</div>
-                    <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{product.sold} Units Sold</div>
+                    <div className="text-sm font-black text-foreground group-hover:text-primary transition-colors">{product.name}</div>
+                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{product.sold} Units Sold</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-black text-emerald-400">₹{product.revenue?.toLocaleString()}</div>
-                  <div className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Revenue</div>
+                  <div className="text-sm font-black text-emerald-500">₹{product.revenue?.toLocaleString()}</div>
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Revenue</div>
                 </div>
               </div>
             )) : (
-              <div className="text-center py-12 text-slate-600 font-black uppercase tracking-widest">No product data available</div>
+              <div className="text-center py-12 text-muted-foreground font-black uppercase tracking-widest">No product data available</div>
             )}
           </div>
         </div>
 
         {/* Top Customers */}
-        <div className="bg-card/40 backdrop-blur-sm p-8 rounded-[40px] border border-border/50 shadow-lg">
+        <div className="bg-card p-8 rounded-xl border border-border shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h3 className="text-xl font-black text-white">Client Value</h3>
-              <p className="text-xs text-slate-400 font-medium mt-1">Top contributing customers</p>
+              <h3 className="text-xl font-black text-foreground">Client Value</h3>
+              <p className="text-xs text-muted-foreground font-medium mt-1">Top contributing customers</p>
             </div>
             <div className="bg-amber-500/10 p-2 rounded-xl">
               <Users className="w-5 h-5 text-amber-500" />
@@ -347,42 +347,42 @@ const BusinessDashboard: React.FC = () => {
           
           <div className="space-y-4">
             {topCustomers.length > 0 ? topCustomers.map((customer, idx) => (
-              <div key={idx} className="group flex items-center justify-between p-4 rounded-3xl bg-slate-900/40 border border-white/5 hover:border-amber-500/20 hover:bg-slate-900/60 transition-all">
+              <div key={idx} className="group flex items-center justify-between p-4 rounded-xl bg-muted border border-border hover:border-amber-500/20 hover:bg-slate-50 transition-all">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center">
-                    <Users className="w-5 h-5 text-slate-500 group-hover:text-amber-500" />
+                  <div className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center">
+                    <Users className="w-5 h-5 text-muted-foreground group-hover:text-amber-500" />
                   </div>
                   <div>
-                    <div className="text-sm font-black text-white group-hover:text-amber-500 transition-colors">{customer.name}</div>
-                    <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{customer.orders} Invoices</div>
+                    <div className="text-sm font-black text-foreground group-hover:text-amber-500 transition-colors">{customer.name}</div>
+                    <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{customer.orders} Invoices</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-black text-emerald-400">₹{customer.spent?.toLocaleString()}</div>
-                  <div className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Spent</div>
+                  <div className="text-sm font-black text-emerald-500">₹{customer.spent?.toLocaleString()}</div>
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Spent</div>
                 </div>
               </div>
             )) : (
-              <div className="text-center py-12 text-slate-600 font-black uppercase tracking-widest">No customer data available</div>
+              <div className="text-center py-12 text-muted-foreground font-black uppercase tracking-widest">No customer data available</div>
             )}
           </div>
         </div>
       </div>
 
       {/* Payment Modes Analysis */}
-      <div className="bg-card/40 backdrop-blur-sm p-8 rounded-[40px] border border-border/50 shadow-lg overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full -mr-48 -mt-48 blur-[100px]" />
+      <div className="bg-card p-8 rounded-xl border border-border shadow-sm overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full -mr-48 -mt-48 blur-[100px]" />
         
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative z-10">
           <div>
-            <h3 className="text-2xl font-black text-white">Payment Distribution</h3>
-            <p className="text-xs text-slate-400 font-medium mt-1">Transaction volume across payment methods</p>
+            <h3 className="text-2xl font-black text-foreground">Payment Distribution</h3>
+            <p className="text-xs text-muted-foreground font-medium mt-1">Transaction volume across payment methods</p>
           </div>
           <div className="flex gap-4">
             {breakdown.map((item, i) => (
               <div key={i} className="flex flex-col items-end">
-                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{item.name}</div>
-                <div className="text-xl font-black text-white">{item.value} <span className="text-[10px] text-slate-500">Tx</span></div>
+                <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">{item.name}</div>
+                <div className="text-xl font-black text-foreground">{item.value} <span className="text-[10px] text-muted-foreground">Tx</span></div>
               </div>
             ))}
           </div>
@@ -391,21 +391,21 @@ const BusinessDashboard: React.FC = () => {
         <div className="h-[200px] w-full relative z-10">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={breakdown}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" strokeOpacity={0.2} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" strokeOpacity={0.1} />
               <XAxis 
                 dataKey="name" 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fontSize: 10, fontBlack: 900, fill: '#94a3b8' }} 
+                tick={{ fontSize: 10, fontBlack: 900, fill: 'currentColor', opacity: 0.5 }} 
               />
               <YAxis hide />
               <Tooltip 
-                cursor={{ fill: '#1e293b', opacity: 0.4 }}
-                contentStyle={{ backgroundColor: '#0f172a', borderRadius: '16px', border: '1px solid #1e293b' }}
+                cursor={{ fill: 'currentColor', opacity: 0.1 }}
+                contentStyle={{ backgroundColor: 'var(--color-card)', borderRadius: '12px', border: '1px solid var(--color-border)' }}
               />
               <Bar 
                 dataKey="value" 
-                radius={[12, 12, 12, 12]} 
+                radius={[6, 6, 6, 6]} 
                 barSize={60}
               >
                 {breakdown.map((entry, index) => (

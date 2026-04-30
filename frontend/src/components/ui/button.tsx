@@ -12,7 +12,7 @@ const buttonVariants = cva(
       variant: {
         default:
            // @replit: no hover, and add primary        default:
-          "glossy-button-primary rounded-full border-none text-white",
+          "glossy-button-primary rounded-full border-none text-foreground",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm border border-destructive-border rounded-xl",
         cancel:

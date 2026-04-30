@@ -20,10 +20,10 @@ export class ExceptionHelper implements ExceptionFilter {
       MessageText = "Cannot delete or update used record";
     } else if (exception.code == "ER_NO_REFERENCED_ROW_2") {
       var matches = exception.message.match("FOREIGN KEY (.*?) REFERENCES");
-      MessageText = `${matches[1].replace("(`", "").replace("`)", "")} is invalid`;
+      MessageText = matches ? `${matches[1].replace("(`", "").replace("`)", "")} is invalid` : "Invalid reference";
     } else if (exception.message?.includes("ER_NO_REFERENCED_ROW_2")) {
       var matches = exception.message.match("FOREIGN KEY (.*?) REFERENCES");
-      MessageText = `${matches[1].replace("(`", "").replace("`)", "")} is invalid`;
+      MessageText = matches ? `${matches[1].replace("(`", "").replace("`)", "")} is invalid` : "Invalid reference";
     } else {
       if (Array.isArray(exception.response?.message)) {
         MessageText = exception.response.message.join("\n");
@@ -35,6 +35,11 @@ export class ExceptionHelper implements ExceptionFilter {
         MessageText = exception.response;
       }
     }
+
+    const status = exception instanceof Error && (exception as any).status 
+      ? (exception as any).status 
+      : (exception.getStatus ? exception.getStatus() : 500);
+
     await error_log.insert({
       url: response.req.url,
       ipaddress: response.req.ip,
@@ -43,8 +48,9 @@ export class ExceptionHelper implements ExceptionFilter {
       created_by_name: (response.req as any)?.user?.["email"] ?? "No User",
       created_on: new Date(),
     });
+
     response
-      .status(500)
+      .status(status)
       .json({ Type: ResponseEnum.Error, Message: MessageText });
   }
 }

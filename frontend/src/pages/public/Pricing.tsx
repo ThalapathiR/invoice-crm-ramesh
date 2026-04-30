@@ -123,7 +123,7 @@ export default function Pricing() {
         {loading ? (
           <div className="grid md:grid-cols-3 gap-8">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-[600px] rounded-3xl bg-slate-100 dark:bg-slate-800/10 animate-pulse border border-border/50"></div>
+              <div key={i} className="h-[600px] rounded-3xl bg-slate-100 dark:bg-muted/10 animate-pulse border border-border/50"></div>
             ))}
           </div>
         ) : (
@@ -152,7 +152,7 @@ export default function Pricing() {
                         {plan.icon ? <plan.icon className="w-6 h-6" /> : <Star className="w-6 h-6" />}
                       </div>
                       {plan.is_popular === "true" && (
-                        <Badge className="bg-primary text-white font-black italic text-[10px] uppercase tracking-wider rounded-full px-3 py-1 animate-bounce">Best Value</Badge>
+                        <Badge className="bg-primary text-foreground font-black italic text-[10px] uppercase tracking-wider rounded-full px-3 py-1 animate-bounce">Best Value</Badge>
                       )}
                     </div>
                     <CardTitle className={cn("text-2xl font-black capitalize tracking-tight", plan.is_popular === "true" && "text-primary")}>
@@ -179,7 +179,7 @@ export default function Pricing() {
                     <ul className="space-y-4">
                       {plan.features?.map((feature: string, i: number) => (
                         <li key={i} className="flex items-start gap-3 text-sm font-semibold">
-                          <div className={cn("mt-1 w-4 h-4 rounded-full flex items-center justify-center shrink-0", plan.is_popular === "true" ? "bg-primary/10 text-primary" : "bg-slate-100 text-slate-400 group-hover:text-primary transition-colors")}>
+                          <div className={cn("mt-1 w-4 h-4 rounded-full flex items-center justify-center shrink-0", plan.is_popular === "true" ? "bg-primary/10 text-primary" : "bg-slate-100 text-muted-foreground group-hover:text-primary transition-colors")}>
                             <Check className="h-3 w-3" strokeWidth={3} />
                           </div>
                           {feature}
@@ -195,7 +195,7 @@ export default function Pricing() {
                           "w-full font-black rounded-2xl h-12  transition-all duration-300",
                           plan.is_popular === "true"
                             ? "glossy-button-primary"
-                            : "bg-white/5 border-2 border-border/60 hover:bg-primary hover:text-white hover:border-primary text-heading"
+                            : "bg-white/5 border-2 border-border/60 hover:bg-primary hover:text-foreground hover:border-primary text-heading"
                         )}
                         variant={plan.is_popular === "true" ? "default" : "outline"}
                       >

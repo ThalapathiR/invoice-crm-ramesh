@@ -115,7 +115,7 @@ export default function AdminErrorLog() {
                     <h1 className="text-3xl font-extrabold tracking-tight">
                         System Error Logs
                     </h1>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                    <p className="text-sm font-medium text-slate-500 dark:text-muted-foreground">
                         Monitor and debug platform-level exceptions and errors across the infrastructure.
                     </p>
                 </motion.div>
@@ -133,44 +133,44 @@ export default function AdminErrorLog() {
                 </div>
             </div>
 
-            <Card className="relative overflow-hidden bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border-[#f0e8e2] dark:border-[#f0e8e2] shadow-xl shadow-black/5 rounded-[32px]">
+            <Card className="relative overflow-hidden bg-white/80 dark:bg-card/40 backdrop-blur-xl border-[#f0e8e2] dark:border-[#f0e8e2] shadow-xl shadow-black/5 rounded-[32px]">
                 <CardContent className="p-8">
                     <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-4">
                         <div className="space-y-2.5">
-                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Search Errors</Label>
+                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground ml-1">Search Errors</Label>
                             <div className="relative group mt-2">
-                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 transition-colors group-focus-within:text-primary" />
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
                                 <Input
                                     placeholder="Message, URL, ID..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="h-12 pl-11 rounded-xl border-[#f0e8e2] dark:border-[#f0e8e2] bg-slate-50 dark:bg-slate-800/50 focus-visible:ring-primary/20 transition-all font-medium"
+                                    className="h-12 pl-11 rounded-xl border-[#f0e8e2] dark:border-[#f0e8e2] bg-slate-50 dark:bg-muted/50 focus-visible:ring-primary/20 transition-all font-medium"
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2.5">
-                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Begin Date</Label>
+                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground ml-1">Begin Date</Label>
                             <div className="relative group mt-2">
-                                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 transition-colors group-focus-within:text-primary" />
+                                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
                                 <Input
                                     type="date"
                                     value={dateRange.start}
                                     onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
-                                    className="h-12 pl-11 rounded-xl border-[#f0e8e2] dark:border-[#f0e8e2] bg-slate-50 dark:bg-slate-800/50 focus-visible:ring-primary/20 transition-all font-medium"
+                                    className="h-12 pl-11 rounded-xl border-[#f0e8e2] dark:border-[#f0e8e2] bg-slate-50 dark:bg-muted/50 focus-visible:ring-primary/20 transition-all font-medium"
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2.5">
-                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Final Date</Label>
+                            <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-muted-foreground ml-1">Final Date</Label>
                             <div className="relative group mt-2">
-                                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 transition-colors group-focus-within:text-primary" />
+                                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
                                 <Input
                                     type="date"
                                     value={dateRange.end}
                                     onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
-                                    className="h-12 pl-11 rounded-xl border-[#f0e8e2] dark:border-[#f0e8e2] bg-slate-50 dark:bg-slate-800/50 focus-visible:ring-primary/20 transition-all font-medium"
+                                    className="h-12 pl-11 rounded-xl border-[#f0e8e2] dark:border-[#f0e8e2] bg-slate-50 dark:bg-muted/50 focus-visible:ring-primary/20 transition-all font-medium"
                                 />
                             </div>
                         </div>
@@ -184,18 +184,18 @@ export default function AdminErrorLog() {
                 </CardContent>
             </Card>
 
-            <Card className="relative overflow-hidden bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border-[#f0e8e2] dark:border-[#f0e8e2] shadow-xl shadow-black/5 rounded-[32px]">
+            <Card className="relative overflow-hidden bg-white/80 dark:bg-card/40 backdrop-blur-xl border-[#f0e8e2] dark:border-[#f0e8e2] shadow-xl shadow-black/5 rounded-[32px]">
                 <CardContent className="p-0">
                     <div className="relative overflow-x-auto">
                         <Table>
                             <TableHeader className="bg-slate-50 dark:bg-white/[0.02] border-b border-slate-100 dark:border-[#f0e8e2]">
                                 <TableRow className="hover:bg-transparent border-none">
-                                    <TableHead className="w-[180px] text-[10px] font-bold uppercase tracking-widest text-black dark:text-white py-5 pl-8">Timestamp</TableHead>
-                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-white py-5">Origin User</TableHead>
-                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-white py-5">Endpoint URL</TableHead>
-                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-white py-5">Network IP</TableHead>
-                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-white py-5">Exception Detail</TableHead>
-                                    <TableHead className="text-right text-[10px] font-bold uppercase tracking-widest text-black dark:text-white py-5 pr-8">Actions</TableHead>
+                                    <TableHead className="w-[180px] text-[10px] font-bold uppercase tracking-widest text-black dark:text-foreground py-5 pl-8">Timestamp</TableHead>
+                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-foreground py-5">Origin User</TableHead>
+                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-foreground py-5">Endpoint URL</TableHead>
+                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-foreground py-5">Network IP</TableHead>
+                                    <TableHead className="text-[10px] font-bold uppercase tracking-widest text-black dark:text-foreground py-5">Exception Detail</TableHead>
+                                    <TableHead className="text-right text-[10px] font-bold uppercase tracking-widest text-black dark:text-foreground py-5 pr-8">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -229,23 +229,23 @@ export default function AdminErrorLog() {
                                 ) : (
                                     logs.map((log) => (
                                         <TableRow key={log.id} className="group hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-all duration-300 border-b border-slate-100 dark:border-[#f0e8e2] last:border-none">
-                                            <TableCell className="text-[11px] font-black text-slate-400 dark:text-slate-500 pl-8">
+                                            <TableCell className="text-[11px] font-black text-muted-foreground dark:text-slate-500 pl-8">
                                                 {format(new Date(log.created_on), "MMM d, HH:mm:ss")}
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-3">
-                                                    <div className="h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-[#f0e8e2]/50 dark:border-[#f0e8e2]">
-                                                        <User className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+                                                    <div className="h-8 w-8 rounded-xl bg-slate-100 dark:bg-muted flex items-center justify-center overflow-hidden border border-[#f0e8e2]/50 dark:border-[#f0e8e2]">
+                                                        <User className="h-4 w-4 text-slate-500 dark:text-muted-foreground" />
                                                     </div>
                                                     <span className="font-bold text-xs text-slate-700 dark:text-slate-300">{log.created_by_name || "System Orchestrator"}</span>
                                                 </div>
                                             </TableCell>
                                             <TableCell className="max-w-[200px] truncate">
-                                                <Badge variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-[10px] font-bold text-slate-500 py-0.5 px-2 rounded-lg border-none">
+                                                <Badge variant="secondary" className="bg-slate-100 dark:bg-muted text-[10px] font-bold text-slate-500 py-0.5 px-2 rounded-lg border-none">
                                                     {log.url || "N/A"}
                                                 </Badge>
                                             </TableCell>
-                                            <TableCell className="text-[11px] font-bold text-slate-400">
+                                            <TableCell className="text-[11px] font-bold text-muted-foreground">
                                                 {log.ipaddress || "0.0.0.0"}
                                             </TableCell>
                                             <TableCell className="max-w-[300px] truncate text-xs font-bold text-red-500/80 group-hover:text-red-500 transition-colors">
@@ -256,9 +256,9 @@ export default function AdminErrorLog() {
                                                     variant="ghost"
                                                     size="icon"
                                                     onClick={() => handleViewDetails(log)}
-                                                    className="h-9 w-9 rounded-xl hover:bg-white dark:hover:bg-slate-800 hover:shadow-lg hover:shadow-black/5 transition-all opacity-0 group-hover:opacity-100"
+                                                    className="h-9 w-9 rounded-xl hover:bg-white dark:hover:bg-muted hover:shadow-lg hover:shadow-black/5 transition-all opacity-0 group-hover:opacity-100"
                                                 >
-                                                    <Eye className="h-4 w-4 text-slate-400" />
+                                                    <Eye className="h-4 w-4 text-muted-foreground" />
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
@@ -356,10 +356,10 @@ export default function AdminErrorLog() {
                                 <AlertCircle className="h-7 w-7 group-hover:scale-110 transition-transform" />
                             </div>
                             <div>
-                                <DialogTitle className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                                <DialogTitle className="text-2xl font-black text-slate-900 dark:text-foreground uppercase tracking-tight">
                                     Error Log Detail
                                 </DialogTitle>
-                                {/* <DialogDescription className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1">
+                                {/* <DialogDescription className="text-xs font-bold text-muted-foreground dark:text-slate-500 uppercase tracking-widest mt-1">
                                     Detailed stack trace and environment metadata
                                 </DialogDescription> */}
                             </div>
@@ -370,13 +370,13 @@ export default function AdminErrorLog() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2.5">
+                                    <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2.5">
                                         <Terminal className="h-4 w-4 text-slate-300" /> Primary Message
                                     </Label>
-                                    <p className="font-bold text-xl leading-snug text-slate-900 dark:text-white">{selectedLog?.message}</p>
+                                    <p className="font-bold text-xl leading-snug text-slate-900 dark:text-foreground">{selectedLog?.message}</p>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2.5">
+                                    <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2.5">
                                         <Globe className="h-4 w-4 text-slate-300" /> System Routing
                                     </Label>
                                     <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-[#f0e8e2]">
@@ -388,24 +388,24 @@ export default function AdminErrorLog() {
                             <Card className="bg-slate-50 dark:bg-black/20 border-[#f0e8e2] dark:border-[#f0e8e2] rounded-3xl shadow-inner">
                                 <CardContent className="p-8 grid grid-cols-2 gap-8">
                                     <div className="space-y-1.5">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 pt-4">Timestamp</p>
+                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pt-4">Timestamp</p>
                                         <p className="font-black text-xs text-slate-700 dark:text-slate-300 uppercase tracking-tight">
                                             {selectedLog?.created_on && format(new Date(selectedLog.created_on), "PPP p")}
                                         </p>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 pt-4">Auth Profile</p>
+                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pt-4">Auth Profile</p>
                                         <Badge className="bg-primary/10 text-primary border-none text-[9px] font-black uppercase tracking-widest h-5 px-2">
                                             {selectedLog?.created_by_name || "System"}
                                         </Badge>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Public IP</p>
+                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Public IP</p>
                                         <p className="font-bold text-[11px] text-slate-700 dark:text-slate-300">{selectedLog?.ipaddress || "0.0.0.0"}</p>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">System Trace ID</p>
-                                        <p className="font-bold text-[10px] text-slate-400 dark:text-slate-500 uppercase">{selectedLog?.id}</p>
+                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">System Trace ID</p>
+                                        <p className="font-bold text-[10px] text-muted-foreground dark:text-slate-500 uppercase">{selectedLog?.id}</p>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -413,23 +413,23 @@ export default function AdminErrorLog() {
 
                         <div className="space-y-4">
                             <div className="flex items-center justify-between px-1">
-                                <Label className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Full Error Description</Label>
-                                <Badge className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-none px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest shadow-xl shadow-black/20">
+                                <Label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Full Error Description</Label>
+                                <Badge className="bg-card dark:bg-white text-foreground dark:text-slate-900 border-none px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest shadow-xl shadow-black/20">
                                     Structured Output
                                 </Badge>
                             </div>
-                            <div className="rounded-[32px] bg-slate-950 dark:bg-black p-8 border border-[#f0e8e2] text-xs leading-relaxed overflow-x-auto shadow-2xl relative group/code">
+                            <div className="rounded-[32px] bg-background dark:bg-black p-8 border border-[#f0e8e2] text-xs leading-relaxed overflow-x-auto shadow-2xl relative group/code">
                                 <div className="absolute top-4 right-4 h-2 w-2 rounded-full bg-red-500/50 animate-pulse" />
                                 <pre className="text-slate-300 whitespace-pre-wrap font-bold">{selectedLog?.message}</pre>
                             </div>
                         </div>
                     </div>
 
-                    <DialogFooter className="p-8 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-100 dark:border-[#f0e8e2]">
+                    <DialogFooter className="p-8 bg-slate-50 dark:bg-card/40 border-t border-slate-100 dark:border-[#f0e8e2]">
                         <Button
                             variant="ghost"
                             onClick={() => setIsDialogOpen(false)}
-                            className="w-full h-14 rounded-2xl font-black uppercase tracking-widest text-slate-400 hover:bg-white dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all shadow-inner"
+                            className="w-full h-14 rounded-2xl font-black uppercase tracking-widest text-muted-foreground hover:bg-white dark:hover:bg-muted hover:text-slate-900 dark:hover:text-foreground transition-all shadow-inner"
                         >
                             Close Viewer
                         </Button>

@@ -224,7 +224,7 @@ export default function AdminUserForm() {
             <Button
               onClick={handleSave}
               disabled={saving}
-              className="bg-primary border border-primary-border min-h-9 px-8 py-2 gap-2 bg-gradient-to-r from-primary to-accent text-white rounded-full transition-all hover:opacity-90 shadow-lg shadow-primary/20"
+              className="bg-primary border border-primary-border min-h-9 px-8 py-2 gap-2 bg-gradient-to-r from-primary to-accent text-foreground rounded-full transition-all hover:opacity-90 shadow-lg shadow-primary/20"
             >
               {saving ? "Saving..." : "Save Changes"}
             </Button>

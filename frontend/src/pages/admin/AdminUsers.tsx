@@ -266,7 +266,7 @@ export default function AdminUsers() {
             </div>
             <div className="flex justify-center gap-3 pt-2">
               <Button variant="cancel" onClick={() => setRoleDialogOpen(false)}>Cancel</Button>
-              <Button onClick={confirmRoleChange} className="bg-orange-600 text-white">Yes, Change Role</Button>
+              <Button onClick={confirmRoleChange} className="bg-orange-600 text-foreground">Yes, Change Role</Button>
             </div>
           </motion.div>
         </DialogContent>

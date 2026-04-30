@@ -1,155 +1,141 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @variant dark (.dark &);
 
 @theme {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Modern SaaS Dark + Cyan Theme */
-  --color-background: #0F172A;
-  --color-foreground: #E5E7EB;
-  --color-heading: #FFFFFF;
-  --color-text-light: #FFFFFF;
+  /* Skote Light Theme Tokens */
+  --color-background: #F8F8FB;
+  --color-foreground: #495057;
+  --color-heading: #495057;
+  --color-text-light: #74788D;
 
-  --color-card: #111C2E;
-  --color-card-foreground: #E5E7EB;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #495057;
 
-  --color-popover: #111C2E;
-  --color-popover-foreground: #E5E7EB;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #495057;
 
-  --color-primary: #22D3EE;
-  --color-primary-foreground: #0F172A;
+  --color-primary: #556EE6;
+  --color-primary-foreground: #FFFFFF;
 
-  --color-secondary: #1E293B;
-  --color-secondary-foreground: #22D3EE;
+  --color-secondary: #F6F6F6;
+  --color-secondary-foreground: #556EE6;
 
-  --color-muted: #1E293B;
-  --color-muted-foreground: #94A3B8;
+  --color-muted: #F6F6F6;
+  --color-muted-foreground: #74788D;
 
-  --color-accent: #22D3EE;
-  --color-accent-foreground: #0F172A;
+  --color-accent: #556EE6;
+  --color-accent-foreground: #FFFFFF;
 
-  --color-success: #22C55E;
-  --color-warning: #FACC15;
-  --color-destructive: #EF4444;
+  --color-success: #34C38F;
+  --color-warning: #F1B44C;
+  --color-destructive: #F46A6A;
   --color-destructive-foreground: #FFFFFF;
 
-  --color-border: #1E293B;
-  --color-input: #1E293B;
-  --color-ring: #22D3EE;
+  --color-border: #EFF2F7;
+  --color-input: #FFFFFF;
+  --color-ring: rgba(85, 110, 230, 0.25);
 
-  /* Chart & Analytics Palette */
-  --color-chart-1: hsl(270 70% 60%);
-  --color-chart-2: hsl(320 80% 65%);
-  --color-chart-3: hsl(190 80% 60%);
-  --color-chart-4: hsl(30 80% 60%);
-  --color-chart-5: hsl(210 60% 50%);
+  /* Chart & Analytics Palette - Skote Style */
+  --color-chart-1: #556EE6;
+  --color-chart-2: #34C38F;
+  --color-chart-3: #F1B44C;
+  --color-chart-4: #50A5F1;
+  --color-chart-5: #F46A6A;
   
-  --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-display: 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'Plus Jakarta Sans', monospace;
+  --font-sans: 'Poppins', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+  --font-mono: 'SFMono-Regular', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* Multi-Theme Design System */
-  --color-brand-primary: #22D3EE;
-  --color-brand-secondary: #0891B2;
-  --color-brand-even: #111C2E;
-  --color-brand-price: #22D3EE;
-  --color-brand-stock-low: #7F1D1D;
-  --color-brand-bg: #0F172A;
-  --color-brand-dark-gray: #E5E7EB;
-  --color-brand-hover: #1E293B;
+  /* Multi-Theme Design System - Adapted for Skote */
+  --color-brand-primary: #556EE6;
+  --color-brand-secondary: #34C38F;
+  --color-brand-even: #FFFFFF;
+  --color-brand-price: #556EE6;
+  --color-brand-stock-low: #F46A6A;
+  --color-brand-bg: #F8F8FB;
+  --color-brand-dark-gray: #495057;
+  --color-brand-hover: #F6F6F6;
   
-  --color-theme-teal: #1D9E75;
-  --color-theme-teal-header: #0d8a63;
-  --color-theme-blue: #185FA5;
-  --color-theme-blue-header: #14508a;
-  --color-theme-purple: #7F77DD;
-  --color-theme-purple-header: #6961c0;
-  --color-theme-coral: #D85A30;
-  --color-theme-coral-header: #bd4c26;
-  --color-theme-amber: #BA7517;
-  --color-theme-amber-header: #9e6312;
-  --color-theme-pink: #D4537E;
-  --color-theme-pink-header: #b64369;
-  --color-theme-green: #639922;
-  --color-theme-green-header: #517e1b;
-  --color-theme-red: #E24B4A;
-  --color-theme-red-header: #c53c3b;
+  --color-theme-teal: #34C38F;
+  --color-theme-teal-header: #2ca97b;
+  --color-theme-blue: #556EE6;
+  --color-theme-blue-header: #495fc7;
+  --color-theme-purple: #74788D;
+  --color-theme-purple-header: #65697a;
+  --color-theme-coral: #F46A6A;
+  --color-theme-coral-header: #d45c5c;
+  --color-theme-amber: #F1B44C;
+  --color-theme-amber-header: #d19d42;
+  --color-theme-pink: #E83E8C;
+  --color-theme-pink-header: #c9367a;
+  --color-theme-green: #34C38F;
+  --color-theme-green-header: #2ca97b;
+  --color-theme-red: #F46A6A;
+  --color-theme-red-header: #d45c5c;
 
   /* Tailwind Color Scale Definitions */
-  --color-teal-50: #f0fdfa;
-  --color-teal-100: #ccfbf1;
-  --color-teal-200: #99f6e4;
-  --color-teal-800: #115e59;
-  --color-teal-900: #134e4a;
+  --color-teal-50: #e6f9f2;
+  --color-teal-100: #ccf3e5;
+  --color-teal-200: #99e7cb;
+  --color-teal-800: #1b6248;
+  --color-teal-900: #154e39;
 
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-200: #bfdbfe;
-  --color-blue-800: #1e40af;
-  --color-blue-900: #1e3a8a;
+  --color-blue-50: #eeeffc;
+  --color-blue-100: #dde0f9;
+  --color-blue-200: #bbc1f3;
+  --color-blue-800: #2b3773;
+  --color-blue-900: #222c5c;
 
-  --color-purple-50: #faf5ff;
-  --color-purple-100: #f3e8ff;
-  --color-purple-200: #e9d5ff;
-  --color-purple-800: #6b21a8;
-  --color-purple-900: #581c87;
+  --color-purple-50: #f1f2f4;
+  --color-purple-100: #e3e4e8;
+  --color-purple-200: #c7c9d1;
+  --color-purple-800: #3a3c47;
+  --color-purple-900: #2e3038;
 
-  --color-coral-50: #fff7ed;
-  --color-coral-100: #ffedd5;
-  --color-coral-200: #fed7aa;
-  --color-coral-800: #9a3412;
-  --color-coral-900: #7c2d12;
+  --color-coral-50: #feefef;
+  --color-coral-100: #fddfdf;
+  --color-coral-200: #fcbfbf;
+  --color-coral-800: #7a3535;
+  --color-coral-900: #622a2a;
 
-  --color-amber-50: #fffbeb;
-  --color-amber-100: #fef3c7;
-  --color-amber-200: #fde68a;
-  --color-amber-800: #92400e;
-  --color-amber-900: #78350f;
+  --color-amber-50: #fef8ed;
+  --color-amber-100: #fdf1db;
+  --color-amber-200: #fbe3b7;
+  --color-amber-800: #795a26;
+  --color-amber-900: #61481f;
 
-  --color-pink-50: #fdf2f8;
-  --color-pink-100: #fce7f3;
-  --color-pink-200: #fbcfe8;
-  --color-pink-800: #9d174d;
-  --color-pink-900: #831843;
-
-  --color-green-50: #f0fdf4;
-  --color-green-100: #dcfce7;
-  --color-green-200: #bbf7d0;
-  --color-green-800: #166534;
-  --color-green-900: #14532d;
-
-  --color-red-50: #fef2f2;
-  --color-red-100: #fee2e2;
-  --color-red-200: #fecaca;
-  --color-red-800: #991b1b;
-  --color-red-900: #7f1d1d;
-
-  --radius: 1.5rem;
+  --radius: 0.25rem;
 }
 
 /* Base styles */
 @layer base {
-  /* Premium Dark Theme Overrides */
+  /* Skote Dark Theme Overrides */
   :root.dark {
-    --color-background: #0F172A;
-    --color-foreground: #E5E7EB;
-    --color-heading: #FFFFFF;
+    --color-background: #222736;
+    --color-foreground: #A6B0CF;
+    --color-heading: #EFF2F7;
 
-    --color-card: #111C2E;
-    --color-card-foreground: #E5E7EB;
+    --color-card: #2A3042;
+    --color-card-foreground: #A6B0CF;
 
-    --color-primary: #22D3EE;
-    --color-primary-foreground: #0F172A;
+    --color-primary: #556EE6;
+    --color-primary-foreground: #FFFFFF;
 
-    --color-accent: #22D3EE;
-    --color-accent-foreground: #0F172A;
+    --color-accent: #556EE6;
+    --color-accent-foreground: #FFFFFF;
 
-    --color-border: #1E293B;
+    --color-border: #32394E;
+    --color-input: #2A3042;
+    --color-ring: rgba(85, 110, 230, 0.5);
+    --color-muted: #32394E;
+    --color-muted-foreground: #74788D;
   }
 
   * {
@@ -165,22 +151,20 @@
   body {
     @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
     
-    /* Advanced Mesh Gradient Definition - Optimized for Performance */
+    /* Subtle background texture for Skote feel */
     background-image: 
-      radial-gradient(at 0% 0%, hsla(260, 80%, 70%, 0.1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(320, 80%, 70%, 0.1) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, rgba(85, 110, 230, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(52, 195, 143, 0.03) 0px, transparent 50%);
     
     background-attachment: fixed;
     background-size: 100% 100%;
-    /* Simplified animation to reduce repaint overhead */
-    animation: mesh-shimmer 30s ease infinite alternate;
   }
 
-  /* Deep space dark mesh */
+  /* Deep Skote dark mesh */
   :root.dark body {
     background-image: 
-      radial-gradient(at 0% 0%, hsla(260, 80%, 60%, 0.1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(320, 80%, 55%, 0.1) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, rgba(85, 110, 230, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(85, 110, 230, 0.02) 0px, transparent 50%);
   }
 
   h1,
@@ -192,46 +176,42 @@
     @apply font-display tracking-tight text-heading font-semibold;
   }
 
-  /* Clothing POS CRM Table Baseline */
+  /* Skote Table Design */
   table {
-    @apply w-full border-collapse overflow-hidden;
+    @apply w-full border-collapse;
   }
 
   thead th {
-    @apply bg-slate-950 text-white font-black py-5 px-6 text-left border-none uppercase tracking-[0.15em] text-[10px];
+    @apply bg-slate-50 text-slate-600 font-semibold py-4 px-6 text-left border-b border-border uppercase tracking-wider text-xs;
   }
   
   :root.dark thead th {
-    @apply bg-slate-900;
+    @apply bg-[#2e3446] text-[#eff2f7];
   }
 
   tbody tr {
-    @apply transition-all duration-200 border-b border-slate-800;
-  }
-
-  tbody tr:nth-child(odd) {
-    @apply bg-transparent;
-  }
-
-  tbody tr:nth-child(even) {
-    @apply bg-white/5;
+    @apply transition-all duration-200 border-b border-border;
   }
 
   tbody tr:hover {
-    @apply bg-white/10;
+    @apply bg-slate-50/50;
+  }
+
+  :root.dark tbody tr:hover {
+    @apply bg-white/5;
   }
 
   td {
-    @apply py-4 px-6 text-sm text-slate-400;
+    @apply py-4 px-6 text-sm text-foreground/80;
   }
 
   /* Price and Stock Specific Styling */
   td.column-price {
-    @apply bg-primary/5 font-black text-primary;
+    @apply font-semibold text-primary;
   }
 
   td.column-stock-low {
-    @apply bg-red-500/10 text-red-400 font-bold;
+    @apply bg-destructive/10 text-destructive font-bold;
   }
 }
 
@@ -286,10 +266,10 @@
     @apply active:scale-95 active:translate-y-0 transition-all duration-150;
   }
   
-  /* Optimized Glassmorphism - lower blur for smoother scrolling */
+  /* Skote Card Design */
   .glass-card {
-    @apply bg-card/80 backdrop-blur-lg border border-border shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
-    transform: translateZ(0); /* Force GPU acceleration */
+    @apply bg-card border border-border shadow-[0_0.75rem_1.5rem_rgba(18,38,63,0.03)];
+    transform: translateZ(0);
   }
   
   /* Premium inner shadow/bevel trick */
@@ -301,15 +281,19 @@
   }
 
   .glass-card-hover {
-    @apply hover:bg-white/5 hover:shadow-[0_12px_40px_0_rgba(34,211,238,0.1)] transition-all duration-500 hover:-translate-y-1;
+    @apply hover:shadow-lg transition-all duration-300 hover:-translate-y-1;
   }
   
   .glass-input {
-    @apply bg-slate-900/50 border border-border focus:bg-slate-900 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 backdrop-blur-xl transition-all duration-300;
+    @apply bg-input border border-border focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300;
   }
   
   .glass-button {
-    @apply relative overflow-hidden bg-white/5 hover:bg-white/10 border border-border backdrop-blur-xl shadow-sm active:scale-95 transition-all text-foreground;
+    @apply relative overflow-hidden bg-slate-50 hover:bg-slate-100 border border-border shadow-sm active:scale-95 transition-all text-foreground;
+  }
+  
+  :root.dark .glass-button {
+    @apply bg-[#32394e] hover:bg-[#3b445d] border-[#3b445d];
   }
 
   .btn-brand {
@@ -317,7 +301,7 @@
   }
 
   .page-header-brand {
-    @apply bg-slate-900 text-white p-8 rounded-[32px] mb-8 shadow-lg border border-slate-800;
+    @apply bg-white dark:bg-[#2a3042] text-foreground dark:text-white p-8 rounded-xl mb-8 shadow-sm border border-border dark:border-[#32394e];
   }
 
   .glossy-button-primary {
@@ -496,11 +480,11 @@
   
   /* Shared Table Base */
   .crm-table-container {
-    @apply rounded-[32px] border border-border bg-card overflow-hidden shadow-sm;
+    @apply rounded-xl border border-border bg-card overflow-hidden shadow-sm;
   }
 
   .crm-table thead th {
-    @apply py-5 px-6 font-black text-[10px] uppercase tracking-[0.2em] text-white;
+    @apply py-5 px-6 font-semibold text-xs uppercase tracking-wider text-slate-600 dark:text-[#eff2f7] border-b border-border;
   }
 
   .crm-table tbody tr {
@@ -508,7 +492,7 @@
   }
 
   .crm-table td {
-    @apply py-5 px-6 text-sm font-bold text-slate-400;
+    @apply py-5 px-6 text-sm font-medium text-foreground/80;
   }
 
   /* Theme: Teal (Inventory) */

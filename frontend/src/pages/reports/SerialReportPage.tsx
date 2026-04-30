@@ -40,7 +40,7 @@ const SerialReportPage: React.FC = () => {
       case 'IN_STOCK': return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
       case 'SOLD': return 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
       case 'RETURNED': return 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
-      default: return 'bg-slate-800 text-slate-400 border border-slate-700';
+      default: return 'bg-muted text-muted-foreground border border-slate-700';
     }
   };
 
@@ -48,10 +48,10 @@ const SerialReportPage: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto min-h-screen">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Unique Serial Tracker</h1>
+          <h1 className="text-3xl font-black text-foreground tracking-tight">Unique Serial Tracker</h1>
           <p className="text-blue-100/80 font-medium">Individual item tracking for premium inventory and warranty management</p>
         </div>
-        <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchData}>
+        <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchData}>
           <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
         </Button>
       </div>
@@ -63,7 +63,7 @@ const SerialReportPage: React.FC = () => {
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-widest font-black text-slate-500">Total Tracked Serials</p>
-            <h3 className="text-4xl font-black text-white">{data.length}</h3>
+            <h3 className="text-4xl font-black text-foreground">{data.length}</h3>
           </div>
         </div>
 
@@ -90,8 +90,8 @@ const SerialReportPage: React.FC = () => {
 
       <div className="bg-card rounded-[32px] border border-border shadow-sm overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-900/50">
-            <TableRow className="hover:bg-transparent border-slate-800">
+          <TableHeader className="bg-card/50">
+            <TableRow className="hover:bg-transparent border-border">
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 pl-6">Serial Number</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4">Product</TableHead>
               <TableHead className="font-black text-[10px] uppercase tracking-widest text-slate-500 py-4 text-center">Status</TableHead>
@@ -105,14 +105,14 @@ const SerialReportPage: React.FC = () => {
               <TableRow><TableCell colSpan={4} className="text-center py-20 text-muted-foreground">No serialized items found</TableCell></TableRow>
             ) : (
               data.map((s) => (
-                <TableRow key={s.id} className="hover:bg-white/5 border-slate-800 transition-colors">
+                <TableRow key={s.id} className="hover:bg-white/5 border-border transition-colors">
                   <TableCell className="py-4 pl-6">
-                    <div className="flex items-center gap-2 font-black text-white">
+                    <div className="flex items-center gap-2 font-black text-foreground">
                       <Hash size={14} className="text-slate-500" />
                       {s.serial_number}
                     </div>
                   </TableCell>
-                  <TableCell className="py-4 font-bold text-slate-400">{s.product?.name}</TableCell>
+                  <TableCell className="py-4 font-bold text-muted-foreground">{s.product?.name}</TableCell>
                   <TableCell className="text-center py-4">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${getStatusColor(s.status)}`}>
                       {s.status}

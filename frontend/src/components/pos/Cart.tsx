@@ -51,29 +51,29 @@ const Cart: React.FC = () => {
             const currentProfit = ((item.price - item.purchase_price) * item.quantity) - itemDiscount;
 
             return (
-              <TableRow key={item.id} className="border-slate-800 hover:bg-white/5 transition-colors">
+              <TableRow key={item.id} className="border-border hover:bg-white/5 transition-colors">
                 <TableCell className="py-4">
                   <div>
-                    <div className="font-semibold text-white">{item.name}</div>
+                    <div className="font-semibold text-foreground">{item.name}</div>
                     <div className="text-[10px] text-slate-500 font-black uppercase tracking-wider">GST: {item.gst_percentage}%</div>
                   </div>
                 </TableCell>
-                <TableCell className="font-medium text-slate-400">₹{item.price.toLocaleString()}</TableCell>
+                <TableCell className="font-medium text-muted-foreground">₹{item.price.toLocaleString()}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <Button 
                       variant="outline" 
                       size="icon" 
-                      className="h-8 w-8 rounded-xl border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all"
+                      className="h-8 w-8 rounded-xl border-border bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-all"
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     >
                       <Minus className="h-3 w-3" />
                     </Button>
-                    <span className="w-4 text-center font-black text-sm text-white">{item.quantity}</span>
+                    <span className="w-4 text-center font-black text-sm text-foreground">{item.quantity}</span>
                     <Button 
                       variant="outline" 
                       size="icon" 
-                      className="h-8 w-8 rounded-xl border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all"
+                      className="h-8 w-8 rounded-xl border-border bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-all"
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
                       <Plus className="h-3 w-3" />
@@ -92,7 +92,7 @@ const Cart: React.FC = () => {
                         - ₹{Math.abs(currentProfit).toLocaleString()} Loss
                       </span>
                     ) : (
-                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 bg-slate-500/10 px-2 py-0.5 rounded-full w-max">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground bg-slate-500/10 px-2 py-0.5 rounded-full w-max">
                         Break Even
                       </span>
                     )}
@@ -113,11 +113,11 @@ const Cart: React.FC = () => {
           })}
         </TableBody>
       </Table>
-      <div className="p-6 bg-slate-900/50 border-t border-slate-800 flex justify-between items-center">
+      <div className="p-6 bg-card/50 border-t border-border flex justify-between items-center">
         <div className="flex gap-6">
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Total Items</p>
-            <p className="text-xl font-black text-white">{items.reduce((acc, item) => acc + item.quantity, 0)}</p>
+            <p className="text-xl font-black text-foreground">{items.reduce((acc, item) => acc + item.quantity, 0)}</p>
           </div>
           <TotalWeightDisplay items={items} />
         </div>

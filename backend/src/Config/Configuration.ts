@@ -14,7 +14,7 @@ export default () => ({
     SecertKey: process.env.SECERT_KEY,
   },
   JWT: {
-    SecertToken: process.env.TOKEN_SECRET,
+    SecretToken: process.env.TOKEN_SECRET,
     ExpiresIn: process.env.ExpiresIn,
   },
   InfluxDB: {

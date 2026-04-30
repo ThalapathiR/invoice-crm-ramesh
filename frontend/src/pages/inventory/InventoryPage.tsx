@@ -78,10 +78,10 @@ const InventoryPage: React.FC = () => {
     <div className="p-6 max-w-7xl mx-auto">
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Stock Control</h1>
+          <h1 className="text-3xl font-black text-foreground tracking-tight">Stock Control</h1>
           <p className="text-blue-100/80 font-medium">Monitor and adjust inventory levels across your store</p>
         </div>
-        <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl" onClick={fetchData} disabled={isLoading}>
+        <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchData} disabled={isLoading}>
           <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
         </Button>
       </div>
@@ -93,17 +93,17 @@ const InventoryPage: React.FC = () => {
           </div>
           <div>
             <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Total SKUs</div>
-            <div className="text-2xl font-black text-white">{products.length}</div>
+            <div className="text-2xl font-black text-foreground">{products.length}</div>
           </div>
         </div>
         
         <div className={`bg-card p-6 rounded-[32px] border border-border shadow-sm flex items-center gap-4 ${lowStockCount > 0 ? 'border-red-500/50 bg-red-500/5' : ''}`}>
-          <div className={`p-3 rounded-xl ${lowStockCount > 0 ? 'bg-red-500/10 text-red-500' : 'bg-slate-900 text-slate-500'}`}>
+          <div className={`p-3 rounded-xl ${lowStockCount > 0 ? 'bg-red-500/10 text-red-500' : 'bg-card text-slate-500'}`}>
             <AlertTriangle className="w-6 h-6" />
           </div>
           <div>
             <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Low Stock Alerts</div>
-            <div className={`text-2xl font-black ${lowStockCount > 0 ? 'text-red-500' : 'text-white'}`}>{lowStockCount} Items</div>
+            <div className={`text-2xl font-black ${lowStockCount > 0 ? 'text-red-500' : 'text-foreground'}`}>{lowStockCount} Items</div>
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@ const InventoryPage: React.FC = () => {
       <div className="bg-card rounded-[32px] border border-border shadow-sm p-4 mb-6">
         <Input 
           placeholder="Search inventory by product name or SKU..." 
-          className="bg-slate-900 border-none rounded-2xl h-12 text-white font-bold placeholder:text-slate-600"
+          className="bg-card border-none rounded-2xl h-12 text-foreground font-bold placeholder:text-slate-600"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
