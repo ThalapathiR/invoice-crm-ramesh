@@ -17,14 +17,17 @@ export class CompanyService {
   }
 
   async Get() {
-    const ResultData = await this._CacheService.Get(`${CacheEnum.Company}:*`);
-    if (ResultData.length > 0) {
+    const ResultData = await this._CacheService.Get(`${CacheEnum.Company}`);
+    if (ResultData && ResultData.length > 0) {
       return ResultData[0];
     }
     else {
       const CompanyData = await company.find();
-      await this._CacheService.Store(`${CacheEnum.Company}`, CompanyData);
-      return CompanyData[0];
+      if (CompanyData.length > 0) {
+        await this._CacheService.Store(`${CacheEnum.Company}`, CompanyData);
+        return CompanyData[0];
+      }
+      return null;
     }
   }
 
@@ -46,11 +49,16 @@ export class CompanyService {
     CompanyUpdateData.telephone_no = CompanyData.telephone_no;
     CompanyUpdateData.fax_no = CompanyData.fax_no;
     CompanyUpdateData.invoice_footer = CompanyData.invoice_footer;
+    CompanyUpdateData.custom_fields = CompanyData.custom_fields;
     CompanyUpdateData.updated_by_id = UserId;
     CompanyUpdateData.updated_on = new Date();
-    await company.update(Id, CompanyUpdateData);
+    await CompanyUpdateData.save();
+    
     this._AuditLogService.AuditEmitEvent({ PerformedType: company.name, ActionType: LogActionEnum.Update, PrimaryId: [CompanyUpdateData.id] });
-    await this._CacheService.Store(`${CacheEnum.Company}`, [{ ...CompanyUpdateData, id: Id }]);
+    
+    // Clear and update cache
+    await this._CacheService.Store(`${CacheEnum.Company}`, [CompanyUpdateData]);
+    
     return CompanyUpdateData;
   }
 
@@ -69,9 +77,10 @@ export class CompanyService {
     _CompanyData.telephone_no = CompanyData.telephone_no;
     _CompanyData.fax_no = CompanyData.fax_no;
     _CompanyData.invoice_footer = CompanyData.invoice_footer;
+    _CompanyData.custom_fields = CompanyData.custom_fields;
     _CompanyData.created_by_id = UserId;
     _CompanyData.created_on = new Date();
-    await company.insert(_CompanyData);
+    await _CompanyData.save();
     this._AuditLogService.AuditEmitEvent({ PerformedType: company.name, ActionType: LogActionEnum.Insert, PrimaryId: [_CompanyData.id] });
     await this._CacheService.Store(`${CacheEnum.Company}`, [_CompanyData]);
     return _CompanyData;

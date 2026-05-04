@@ -23,6 +23,7 @@ export class CompanyController extends JWTAuthController {
   @Patch('Update')
   async Update(@Body() CompanyData: CompanyModel, @CurrentUser() UserId: string) {
     if (CompanyData.id > "0") {
+      console.log("CompanyData", CompanyData)
       await this._CompanyService.Update(CompanyData.id, CompanyData, UserId);
     }
     else {

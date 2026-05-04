@@ -53,6 +53,29 @@ export class AuthService {
     return { api_token, user: payload };
   }
 
+  async GetFreshUser(UserId: string): Promise<any> {
+    const UserData = await user.findOne({ 
+      where: { id: UserId }, 
+      relations: ['user_role', 'store', 'store.currency'] 
+    });
+
+    if (!UserData) return null;
+
+    let companyData = UserData.store;
+    if (!companyData) {
+        const allCompanies = await company.find({ relations: ["currency"] });
+        companyData = allCompanies[0];
+    }
+
+    return {
+      email: UserData.email,
+      user_id: UserData.id,
+      user_role_id: UserData.user_role_id,
+      user_role_name: UserData.user_role?.name || 'User',
+      company: companyData
+    };
+  }
+
   async Register(data: RegisterModel): Promise<any> {
     const existingUser = await user.findOne({ where: { email: data.email } });
     if (existingUser) {

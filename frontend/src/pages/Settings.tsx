@@ -11,6 +11,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -19,11 +26,11 @@ import {
   Shield,
   Save,
   Check,
-  Phone,
   Bot,
   FileText,
   CheckCircle2,
   Loader2,
+  Printer,
 } from "lucide-react";
 import {
   Dialog,
@@ -40,6 +47,157 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { navigate } from "wouter/use-browser-location";
 import { queryClient } from "@/lib/queryClient";
+import { ThermalPrintService } from "@/service/thermalPrint.service";
+
+function PrinterSettingsCard() {
+  const { toast } = useToast();
+  const [ip, setIp] = useState("");
+  const [port, setPort] = useState("9100");
+  const [printerName, setPrinterName] = useState("");
+  const [mode, setMode] = useState<'rawbt' | 'network' | 'usb'>('network');
+  const [autoPrint, setAutoPrint] = useState(false);
+  const [testing, setTesting] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("printer_settings");
+    if (saved) {
+      const settings = JSON.parse(saved);
+      setIp(settings.ip || "");
+      setPort(settings.port || "9100");
+      setPrinterName(settings.printerName || "");
+      setMode(settings.connectionMode || 'network');
+      setAutoPrint(settings.autoPrint || false);
+    }
+  }, []);
+
+  const handleSave = () => {
+    localStorage.setItem("printer_settings", JSON.stringify({ 
+      ip, 
+      port, 
+      printerName,
+      connectionMode: mode, 
+      autoPrint 
+    }));
+    toast({ title: "Printer settings saved" });
+  };
+
+  const handleTestPrint = async () => {
+    setTesting(true);
+    const success = await ThermalPrintService.testPrint({
+      ip,
+      port,
+      printerName,
+      connectionMode: mode,
+      autoPrint
+    });
+    setTesting(false);
+    if (success) {
+      toast({ title: "Test print command sent" });
+    } else {
+      toast({ title: "Test print failed", variant: "destructive" });
+    }
+  };
+
+  return (
+    <Card className="glass-card border-border bg-card">
+      <CardHeader className="p-4 sm:p-6 pb-2">
+        <CardTitle className="text-lg sm:text-xl font-bold flex items-center gap-2">
+          <Printer className="h-5 w-5 text-primary" />
+          Thermal Printer Configuration
+        </CardTitle>
+        <CardDescription className="text-xs sm:text-sm">
+          Connect your Posiflex P8800E or other ESC/POS printers.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6 p-4 sm:p-6">
+        <div className="space-y-2">
+          <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Connection Mode</Label>
+          <Select value={mode} onValueChange={(val: any) => setMode(val)}>
+            <SelectTrigger className="glass-input rounded-xl h-11">
+              <SelectValue placeholder="Select mode..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="network">Network (Ethernet/LAN)</SelectItem>
+              <SelectItem value="usb">USB (Windows Shared)</SelectItem>
+              <SelectItem value="rawbt">RawBT (Android Mobile)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {mode === 'usb' ? (
+          <div className="space-y-2">
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Printer Share Name</Label>
+            <Input
+              placeholder="e.g. Posiflex"
+              className="glass-input rounded-xl h-11"
+              value={printerName}
+              onChange={(e) => setPrinterName(e.target.value)}
+            />
+            <p className="text-[10px] text-muted-foreground italic">
+              Share the printer in Windows and enter the share name here.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                {mode === 'rawbt' ? 'Phone IP Address' : 'Printer IP Address'}
+              </Label>
+              <Input
+                placeholder="e.g. 192.168.1.100"
+                className="glass-input rounded-xl h-11"
+                value={ip}
+                onChange={(e) => setIp(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Port</Label>
+              <Input
+                placeholder={mode === 'rawbt' ? "8080" : "9100"}
+                className="glass-input rounded-xl h-11"
+                value={port}
+                onChange={(e) => setPort(e.target.value)}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="flex items-center justify-between py-3 border-b border-border/10">
+          <div className="space-y-0.5">
+            <Label className="text-sm font-semibold">Auto-print Receipt</Label>
+            <p className="text-xs text-muted-foreground">
+              Automatically print after checkout
+            </p>
+          </div>
+          <Switch 
+            checked={autoPrint} 
+            onCheckedChange={setAutoPrint}
+            className="data-[state=checked]:bg-primary" 
+          />
+        </div>
+
+        <div className="flex gap-3">
+          <Button
+            onClick={handleSave}
+            className="flex-1 glossy-button-primary rounded-xl h-12 sm:h-10 px-8 font-bold"
+          >
+            <Save className="h-4 w-4 mr-2" />
+            Save Settings
+          </Button>
+          <Button
+            variant="outline"
+            onClick={handleTestPrint}
+            disabled={testing || (mode !== 'usb' && !ip) || (mode === 'usb' && !printerName)}
+            className="flex-1 glass-button rounded-xl h-12 sm:h-10 px-8 font-bold"
+          >
+            {testing ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Printer className="h-4 w-4 mr-2" />}
+            Test Print
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 
 export default function Settings() {
@@ -175,6 +333,12 @@ export default function Settings() {
             className="data-[state=active]:bg-zinc-800 rounded-full px-4 py-2.5 text-xs sm:text-sm text-muted-foreground data-[state=active]:text-foreground transition-all flex items-center gap-2 font-bold whitespace-nowrap shadow-sm border border-transparent data-[state=active]:border-primary/20"
           >
             <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Security
+          </TabsTrigger>
+          <TabsTrigger
+            value="printer"
+            className="data-[state=active]:bg-zinc-800 rounded-full px-4 py-2.5 text-xs sm:text-sm text-muted-foreground data-[state=active]:text-foreground transition-all flex items-center gap-2 font-bold whitespace-nowrap shadow-sm border border-transparent data-[state=active]:border-primary/20"
+          >
+            <Bot className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> Printer
           </TabsTrigger>
         </TabsList>
 
@@ -386,6 +550,9 @@ export default function Settings() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+          <TabsContent value="printer" className="space-y-4 sm:space-y-6 mt-0">
+            <PrinterSettingsCard />
           </TabsContent>
         </motion.div>
       </Tabs>

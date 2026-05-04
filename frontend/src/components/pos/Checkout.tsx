@@ -20,7 +20,8 @@ import TotalWeightDisplay from "./TotalWeightDisplay";
 import { toast } from 'sonner';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { CreditCard, Wallet, Banknote, ReceiptText, Building2, Smartphone } from 'lucide-react';
+import { CreditCard, Wallet, Banknote, ReceiptText, Building2, Smartphone, Printer } from 'lucide-react';
+import { ThermalPrintService } from '@/service/thermalPrint.service';
 
 const Checkout: React.FC = () => {
   const { items, subtotal, taxAmount, totalAmount, clearCart } = useCart();
@@ -84,22 +85,22 @@ const Checkout: React.FC = () => {
     doc.setFontSize(22);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(20, 20, 20);
-    doc.text(company.name || "ZUDIO", 105, 20, { align: "center" });
+    doc.text(company.name || "INVOICE", 105, 20, { align: "center" });
     
     doc.setFontSize(9);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(100, 100, 100);
-    doc.text(company.website || "Legal Entity Name", 105, 26, { align: "center" });
+    doc.text(company.website || "", 105, 26, { align: "center" });
     
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
-    doc.text(`Store Contact Number : ${company.telephone_no || "NA"}`, 105, 32, { align: "center" });
-    doc.text(`Place Of Supply : ${company.address || "Store Address"}`, 105, 37, { align: "center" });
+    doc.text(`Store Contact Number : ${company.telephone_no || ""}`, 105, 32, { align: "center" });
+    doc.text(`Place Of Supply : ${company.address || ""}`, 105, 37, { align: "center" });
     
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 0, 0);
-    doc.text(`GSTIN NO : ${company.uen_no || "33AAACL1838J1ZN"}`, 105, 43, { align: "center" });
+    doc.text(`GSTIN NO : ${company.uen_no || ""}`, 105, 43, { align: "center" });
 
     let currentY = 48;
     if (company.custom_fields && Array.isArray(company.custom_fields)) {
@@ -229,7 +230,20 @@ const Checkout: React.FC = () => {
 
       const res = await InvoiceService.Checkout(payload);
       toast.success("Transaction completed successfully!");
-      generatePDF(res.AddtionalData || res.result || res);
+      const invoiceData = res.AddtionalData || res.result || res;
+      generatePDF(invoiceData);
+      
+      // Auto-print thermal receipt if enabled
+      const printerSettings = JSON.parse(localStorage.getItem("printer_settings") || "{}");
+      if (printerSettings.autoPrint) {
+        ThermalPrintService.printReceipt({
+          ...invoiceData,
+          company: (user as any)?.company,
+          customer_name: customerName || customer?.name,
+          items: items
+        });
+      }
+
       clearCart();
       setPhone('');
       setCustomerName('');

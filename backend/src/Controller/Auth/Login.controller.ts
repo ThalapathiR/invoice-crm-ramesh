@@ -53,8 +53,8 @@ export class LoginController extends AuthBaseController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  async GetMe(@CurrentPayload() user: any) {
-    return user;
+  async GetMe(@CurrentPayload() payload: any) {
+    return await this._AuthService.GetFreshUser(payload.user_id);
   }
 
 }

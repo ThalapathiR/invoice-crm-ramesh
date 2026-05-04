@@ -36,7 +36,7 @@ import { useAuth } from "@/lib/auth";
 import { useBranding } from "@/lib/branding";
 
 // Navigation moved to src/config/navigation.ts
- 
+
 
 export const getNavSections = (nav: any[], bottomNav: any[]) => [
   {
@@ -196,7 +196,7 @@ export function Sidebar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="text-xl font-bold bg-gradient-to-r from-white/90 to-white/40 bg-clip-text text-transparent font-display whitespace-nowrap"
+                className="text-xl font-bold  text-black font-display whitespace-nowrap"
               >
                 {settings?.platformName || "Billing POS"}
               </motion.h1>
@@ -226,10 +226,10 @@ export function Sidebar() {
                     <Tooltip key={item.name}>
                       <TooltipTrigger asChild>
                         <div>
-                          <NavItem 
-                            item={item} 
-                            isActive={isActive} 
-                            isCollapsed={isCollapsed} 
+                          <NavItem
+                            item={item}
+                            isActive={isActive}
+                            isCollapsed={isCollapsed}
                             badgeCount={item.name === "Low Stock" ? lowStockCount : 0}
                           />
                         </div>
@@ -239,11 +239,11 @@ export function Sidebar() {
                       </TooltipContent>
                     </Tooltip>
                   ) : (
-                    <NavItem 
-                      key={item.name} 
-                      item={item} 
-                      isActive={isActive} 
-                      isCollapsed={isCollapsed} 
+                    <NavItem
+                      key={item.name}
+                      item={item}
+                      isActive={isActive}
+                      isCollapsed={isCollapsed}
                       badgeCount={item.name === "Low Stock" ? lowStockCount : 0}
                     />
                   );

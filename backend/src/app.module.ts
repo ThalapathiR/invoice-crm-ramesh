@@ -68,6 +68,8 @@ import { TenantUserRoleController } from "./Controller/Pos/TenantUserRole.contro
 import { EmployeeController } from "./Controller/Pos/Employee.controller";
 import { SyncController } from "./Controller/Pos/Sync.controller";
 import { GoogleSheetsService } from "./Service/GoogleSheets.service";
+import { PrinterController } from "./Controller/Pos/Printer.controller";
+import { PrinterService } from "./Service/Pos/Printer.service";
 
 @Module({
   imports: [
@@ -142,6 +144,7 @@ import { GoogleSheetsService } from "./Service/GoogleSheets.service";
     TenantUserRoleController,
     EmployeeController,
     SyncController,
+    PrinterController,
   ],
   providers: [
     AuthService,
@@ -170,6 +173,7 @@ import { GoogleSheetsService } from "./Service/GoogleSheets.service";
     ExpenseService,
     CustomerLedgerService,
     GoogleSheetsService,
+    PrinterService,
     {
       provide: APP_FILTER,
       useClass: ExceptionHelper,

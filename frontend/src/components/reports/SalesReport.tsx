@@ -7,14 +7,39 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Printer, Loader2 } from "lucide-react";
+import { ThermalPrintService } from "@/service/thermalPrint.service";
+import { InvoiceService } from "@/service/invoice.service";
+import { useAuth } from "@/lib/auth";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface SalesReportProps {
   data: any[];
 }
 
 const SalesReport: React.FC<SalesReportProps> = ({ data = [] }) => {
+  const { user } = useAuth();
+  const [printingId, setPrintingId] = useState<string | null>(null);
   const safeData = Array.isArray(data) ? data : [];
   const total = safeData.reduce((acc, item) => acc + (item.total_amount || 0), 0);
+
+  const handlePrint = async (invoiceId: string) => {
+    setPrintingId(invoiceId);
+    try {
+      const res: any = await InvoiceService.GetById(invoiceId);
+      const invoiceData = res.result || res;
+      await ThermalPrintService.printReceipt({
+        ...invoiceData,
+        company: (user as any)?.company
+      });
+    } catch (err) {
+      toast.error("Failed to fetch invoice details");
+    } finally {
+      setPrintingId(null);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -39,6 +64,7 @@ const SalesReport: React.FC<SalesReportProps> = ({ data = [] }) => {
               <TableHead className="text-slate-500 font-black text-[10px] uppercase tracking-widest">Subtotal</TableHead>
               <TableHead className="text-slate-500 font-black text-[10px] uppercase tracking-widest">GST</TableHead>
               <TableHead className="text-right text-slate-500 font-black text-[10px] uppercase tracking-widest">Grand Total</TableHead>
+              <TableHead className="text-right text-slate-500 font-black text-[10px] uppercase tracking-widest">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -54,6 +80,17 @@ const SalesReport: React.FC<SalesReportProps> = ({ data = [] }) => {
                 <TableCell className="text-muted-foreground">₹{(invoice.subtotal || 0).toLocaleString()}</TableCell>
                 <TableCell className="text-muted-foreground">₹{(invoice.tax_amount || 0).toLocaleString()}</TableCell>
                 <TableCell className="text-right font-black text-cyan-400">₹{(invoice.total_amount || 0).toLocaleString()}</TableCell>
+                <TableCell className="text-right">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-8 w-8 text-primary hover:bg-primary/10"
+                    onClick={() => handlePrint(invoice.id)}
+                    disabled={printingId === invoice.id}
+                  >
+                    {printingId === invoice.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Printer className="h-4 w-4" />}
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
