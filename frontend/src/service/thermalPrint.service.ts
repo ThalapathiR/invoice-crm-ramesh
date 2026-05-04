@@ -41,6 +41,23 @@ export class ThermalPrintService {
     return "-".repeat(this.LINE_WIDTH);
   }
 
+  private static wrapText(text: string, width: number = this.LINE_WIDTH): string {
+    const words = text.split(' ');
+    let lines = [];
+    let currentLine = '';
+
+    words.forEach(word => {
+      if ((currentLine + word).length <= width) {
+        currentLine += (currentLine === '' ? '' : ' ') + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    });
+    lines.push(currentLine);
+    return lines.join('\r\n');
+  }
+
   /**
    * Triggers the printer using a hidden iframe for RawBT (Mobile).
    */
@@ -100,73 +117,93 @@ export class ThermalPrintService {
       let receipt = "";
 
       // 1. Header Section
-      receipt += this.centerText(company.name || "RAMESH COLLECTION") + "\n";
-      if (company.website) receipt += this.centerText(company.website) + "\n";
-      if (company.address) receipt += this.centerText(company.address) + "\n";
-      if (company.state) receipt += this.centerText("State: " + company.state) + "\n";
-      if (company.telephone_no) receipt += this.centerText("Ph.No.: " + company.telephone_no) + "\n";
-      if (company.uen_no) receipt += this.centerText("GSTIN: " + company.uen_no) + "\n";
-      if (company.email) receipt += this.centerText("Email: " + company.email) + "\n";
+      receipt += this.centerText(company.name || "RAMESH COLLECTION") + "\r\n";
+      if (company.website) receipt += this.centerText(company.website) + "\r\n";
+      if (company.address) receipt += this.centerText(company.address) + "\r\n";
+      if (company.state) receipt += this.centerText("State: " + company.state) + "\r\n";
+      if (company.telephone_no) receipt += this.centerText("Ph.No.: " + company.telephone_no) + "\r\n";
+      if (company.uen_no) receipt += this.centerText("GSTIN: " + company.uen_no) + "\r\n";
+      if (company.email) receipt += this.centerText("Email: " + company.email) + "\r\n";
       
-      receipt += this.separator() + "\n";
-      receipt += this.centerText("Tax Invoice") + "\n";
-      receipt += (invoiceData.customer_name || invoiceData.customer?.name || "Cash Customer") + "\n";
+      receipt += this.separator() + "\r\n";
+      receipt += this.centerText("Tax Invoice") + "\r\n";
+      receipt += (invoiceData.customer_name || invoiceData.customer?.name || "Cash Customer") + "\r\n";
       
       const dateStr = new Date(invoiceData.created_at || Date.now()).toLocaleDateString();
-      receipt += this.formatLine("Date:", dateStr) + "\n";
-      receipt += this.formatLine("Invoice No:", invoiceData.invoice_number?.toString() || "N/A") + "\n";
-      receipt += "\n";
+      receipt += this.formatLine("Date:", dateStr) + "\r\n";
+      receipt += this.formatLine("Invoice No:", invoiceData.invoice_number?.toString() || "N/A") + "\r\n";
+      receipt += "\r\n";
 
       // 2. Table Header (42 chars width)
-      // #  Name               Qty  Price   Amount
-      // XX XXXXXXXXXXXXXXXXX  XXX  XXXXXX  XXXXXX
-      receipt += "#  Name               Qty  Price   Amount" + "\n";
-      receipt += this.separator() + "\n";
+      receipt += "#  Name               Qty  Price   Amount" + "\r\n";
+      receipt += this.separator() + "\r\n";
 
       // 3. Items
       let totalQty = 0;
       invoiceData.items?.forEach((item: any, index: number) => {
         const idx = (index + 1).toString().padStart(2, '0');
-        const name = (item.name || item.product?.name || "Item").substring(0, 18).padEnd(18, ' ');
-        const qty = item.quantity.toString().padStart(3, ' ');
-        const price = item.unit_price.toFixed(0).padStart(6, ' ');
-        const amount = (item.unit_price * item.quantity).toFixed(0).padStart(7, ' ');
+        const itemName = (item.name || item.product?.name || "Item").substring(0, 18).padEnd(18, ' ');
+        const qtyVal = item.quantity || 0;
+        const priceVal = item.unit_price ?? item.price ?? 0;
         
-        receipt += `${idx} ${name} ${qty} ${price} ${amount}\n`;
-        totalQty += item.quantity;
+        const qty = qtyVal.toString().padStart(3, ' ');
+        const price = Number(priceVal).toFixed(0).padStart(6, ' ');
+        const amount = (Number(priceVal) * qtyVal).toFixed(0).padStart(7, ' ');
+        
+        receipt += `${idx} ${itemName} ${qty} ${price} ${amount}\r\n`;
+        
+        // Add MRP / SP / Discount line if MRP exists and there is a discount
+        const mrpNum = Number(item.mrp ?? item.product?.mrp ?? 0);
+        const spNum = Number(priceVal);
+        if (mrpNum > spNum) {
+          const discVal = mrpNum - spNum;
+          const detailsLine = `MRP:${mrpNum.toFixed(0)} Price:${spNum.toFixed(0)} Discount:${discVal.toFixed(0)}`;
+          receipt += this.centerText(detailsLine) + "\r\n";
+        }
+        
+        totalQty += qtyVal;
       });
 
-      receipt += this.separator() + "\n";
+      receipt += this.separator() + "\r\n";
 
       // 4. Totals Section
-      receipt += this.formatLine(`Total Items: ${totalQty}`, (invoiceData.final_total || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
+      const totalSavings = (invoiceData.items || []).reduce((acc: number, item: any) => {
+        const m = item.mrp ?? item.product?.mrp ?? (item.price || 0);
+        const p = item.unit_price ?? item.price ?? 0;
+        return acc + (Math.max(0, m - p) * (item.quantity || 1));
+      }, 0);
+      receipt += this.formatLine(`Total Items: ${totalQty}`, (Number(invoiceData.final_total) || 0).toFixed(2)) + "\r\n";
       
-      receipt += this.formatLine("  Sub Total  :", (invoiceData.total_amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
+      receipt += this.formatLine("  Sub Total  :", (Number(invoiceData.total_amount) || 0).toFixed(2)) + "\r\n";
       
       if (invoiceData.discount_amount) {
-        receipt += this.formatLine("  Disc.      :", "-" + invoiceData.discount_amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
-        receipt += this.formatLine("  Total Disc.:", "-" + invoiceData.discount_amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
+        receipt += this.formatLine("  Disc.      :", "-" + Number(invoiceData.discount_amount).toFixed(2)) + "\r\n";
+        receipt += this.formatLine("  Total Disc.:", "-" + Number(invoiceData.discount_amount).toFixed(2)) + "\r\n";
       }
 
-      receipt += this.formatLine("  Total      :", (invoiceData.final_total || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
-      receipt += this.formatLine("  Received   :", (invoiceData.paid_amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
+      receipt += this.formatLine("  Total      :", (Number(invoiceData.final_total) || 0).toFixed(2)) + "\r\n";
+      receipt += this.formatLine("  Received   :", (Number(invoiceData.paid_amount) || 0).toFixed(2)) + "\r\n";
       
-      const balance = (invoiceData.final_total || 0) - (invoiceData.paid_amount || 0);
-      receipt += this.formatLine("  Balance    :", (balance > 0 ? balance : 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
+      const balance = (Number(invoiceData.final_total) || 0) - (Number(invoiceData.paid_amount) || 0);
+      receipt += this.formatLine("  Balance    :", (balance > 0 ? balance : 0).toFixed(2)) + "\r\n";
       
-      receipt += this.separator() + "\n";
+      receipt += this.separator() + "\r\n";
 
-      if (invoiceData.discount_amount) {
-        receipt += this.formatLine("You Saved    :", invoiceData.discount_amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })) + "\n";
-        receipt += this.separator() + "\n";
+      if (totalSavings > 0) {
+        receipt += this.formatLine("You Saved    :", totalSavings.toFixed(2)) + "\r\n";
+        receipt += this.separator() + "\r\n";
       }
+
+      console.log("Generated Receipt Payload:", receipt);
 
       // 5. Footer Section
-      receipt += "Terms & Conditions\n";
-      receipt += "Thank you for doing business\nwith us.\n";
-      receipt += "\n";
-      receipt += this.centerText("Powered By www.vyaparapp.in") + "\n";
-      receipt += "\n\n\n";
+      receipt += this.separator() + "\r\n";
+      receipt += "Terms & Conditions\r\n";
+      const footer = company.invoice_footer || "Thank you for doing business with us.";
+      receipt += this.wrapText(footer) + "\r\n";
+      receipt += "\r\n";
+      receipt += this.centerText("Powered By Billing POS") + "\r\n";
+      receipt += "\r\n\r\n\r\n\r\n";
 
       if (settings.connectionMode === 'rawbt') {
         this.triggerRawBT(settings.ip, settings.port, receipt);

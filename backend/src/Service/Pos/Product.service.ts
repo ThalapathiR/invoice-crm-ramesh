@@ -10,7 +10,7 @@ export class ProductService {
   constructor(
     private _AuditLogService: AuditLogService,
     private _GoogleSheetsService: GoogleSheetsService
-  ) {}
+  ) { }
 
   async GetAll(storeId?: string) {
     if (storeId && storeId !== "undefined" && storeId !== "null") {
@@ -34,11 +34,11 @@ export class ProductService {
     const qb = product.createQueryBuilder('product')
       .where('product.status = :status', { status: true })
       .andWhere('(product.name LIKE :q OR product.sku LIKE :q OR product.barcode LIKE :q)', { q: `%${query}%` });
-    
+
     if (storeId && storeId !== "undefined" && storeId !== "null") {
       qb.andWhere('product.store_id = :storeId', { storeId });
     }
-    
+
     return await qb.take(10).getMany();
   }
 
@@ -51,11 +51,12 @@ export class ProductService {
 
     const _product = new product();
     Object.assign(_product, data);
+    _product.mrp = data.mrp; // Explicit assignment
     _product.created_by_id = userId;
     _product.created_on = new Date();
     await _product.save();
     this._AuditLogService.AuditEmitEvent({ PerformedType: product.name, ActionType: LogActionEnum.Insert, PrimaryId: [_product.id] });
-    
+
     // Sync to Google Sheets
     this._GoogleSheetsService.appendData('Products', [
       new Date().toLocaleString(),
@@ -63,6 +64,7 @@ export class ProductService {
       _product.sku,
       _product.name,
       _product.category,
+      _product.mrp,
       _product.selling_price,
       _product.quantity_in_stock,
       userId
@@ -72,6 +74,8 @@ export class ProductService {
   }
 
   async Update(id: string, data: ProductModel, userId: string) {
+
+    console.log("Update Product Data:", data);
     const _product = await product.findOne({ where: { id } });
     if (!_product) throw new Error('Product not found');
 
@@ -84,6 +88,7 @@ export class ProductService {
     }
 
     Object.assign(_product, data);
+    _product.mrp = data.mrp; // Explicit assignment
     _product.updated_by_id = userId;
     _product.updated_on = new Date();
     await _product.save();

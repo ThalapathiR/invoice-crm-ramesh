@@ -6,6 +6,7 @@ import { AuditLogIdentity } from "@Helper/AuditLog.decorators";
 @Entity()
 @Unique(["barcode", "store_id"])
 export class product extends BaseTable {
+  // MRP Column added for discount tracking
   @Column()
   @Index()
   barcode: string;
@@ -25,6 +26,9 @@ export class product extends BaseTable {
 
   @Column({ nullable: true })
   category: string;
+
+  @Column({ type: "decimal", precision: 10, scale: 2, default: 0, transformer: { to: (v) => v, from: (v) => parseFloat(v) } })
+  mrp: number;
 
   @Column({ type: "decimal", precision: 10, scale: 2, transformer: { to: (v) => v, from: (v) => parseFloat(v) } })
   purchase_price: number;

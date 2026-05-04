@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as net from 'net';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as os from 'os';
 import { exec } from 'child_process';
 
 @Injectable()
@@ -15,10 +16,10 @@ export class PrinterService {
       
       const initPrinter = this.ESC + '@';
       const cutPaper = this.GS + 'V' + '\u0042' + '\u0000'; // Full cut
-      const fullText = initPrinter + text + '\n\n\n\n\n' + cutPaper;
+      const fullText = initPrinter + text + '\r\n\r\n\r\n\r\n\r\n' + cutPaper;
 
       client.connect(port, ip, () => {
-        client.write(fullText);
+        client.write(fullText, 'latin1');
         client.end();
         resolve({ success: true, message: 'Print command sent successfully to Network Printer' });
       });
@@ -41,20 +42,25 @@ export class PrinterService {
   async printRawUSB(printerName: string, text: string): Promise<{ success: boolean; message: string }> {
     return new Promise((resolve) => {
       try {
-        const initPrinter = this.ESC + '@';
         const cutPaper = this.GS + 'V' + '\u0042' + '\u0000';
-        const fullText = initPrinter + text + '\n\n\n\n\n' + cutPaper;
+        // Add more line breaks to ensure the buffer is flushed and visible
+        const fullText = '\r\n\r\n' + text + '\r\n\r\n\r\n\r\n\r\n' + cutPaper;
 
         const tempDir = path.join(process.cwd(), 'temp');
         if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
         
         const tempFilePath = path.join(tempDir, `print_${Date.now()}.bin`);
-        fs.writeFileSync(tempFilePath, Buffer.from(fullText, 'binary'));
+        fs.writeFileSync(tempFilePath, fullText, { encoding: 'latin1' });
 
-        // Windows command to send raw file to shared printer
-        const command = `copy /b "${tempFilePath}" "\\\\localhost\\${printerName}"`;
+        // Use Machine Hostname for the share path
+        const hostname = os.hostname();
+        const command = `copy /b "${tempFilePath}" "\\\\${hostname}\\${printerName}"`;
+        console.log("Executing USB Print Command:", command);
 
-        exec(command, (error) => {
+        exec(command, (error, stdout, stderr) => {
+          if (stdout) console.log("USB Print Stdout:", stdout);
+          if (stderr) console.error("USB Print Stderr:", stderr);
+          
           // Clean up
           if (fs.existsSync(tempFilePath)) fs.unlinkSync(tempFilePath);
 

@@ -34,6 +34,12 @@ export class ProductModel extends BaseModel {
   @Type(() => String)
   category: string;
 
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ required: false })
+  @Type(() => Number)
+  mrp: number;
+
   @IsNotEmpty({ message: 'Purchase price required' })
   @IsNumber()
   @ApiProperty({ required: true })

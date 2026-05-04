@@ -139,13 +139,26 @@ const Checkout: React.FC = () => {
     // 3. Items Table
     autoTable(doc, {
       startY: currentY + 18,
-      head: [['Item Description', 'Price', 'QTY/Unit', 'Net.Amt']],
-      body: items.map(item => [
-        { content: `${item.name}\nHSN: ${item.barcode || '62034990'}`, styles: { halign: 'left' } },
-        `Rs. ${item.price.toLocaleString()}`,
-        `${item.quantity} PC`,
-        `Rs. ${(item.price * item.quantity).toLocaleString()}`
-      ]),
+      head: [['Item Description', 'Unit Price', 'QTY', 'Total Amount']],
+      body: items.map(item => {
+        const mrpVal = Number(item.mrp || item.price || 0);
+        const spVal = Number(item.price || 0);
+        const discVal = Math.max(0, mrpVal - spVal);
+        
+        const description = discVal > 0 
+          ? `${item.name}\nMRP: Rs. ${mrpVal.toLocaleString()} | Selling Price: Rs. ${spVal.toLocaleString()} | Discount: Rs. ${discVal.toLocaleString()}`
+          : item.name;
+
+        return [
+          { 
+            content: description, 
+            styles: { halign: 'left' } 
+          },
+          `Rs. ${spVal.toLocaleString()}`,
+          `${item.quantity} PC`,
+          `Rs. ${(spVal * item.quantity).toLocaleString()}`
+        ];
+      }),
       theme: 'plain',
       headStyles: { 
         fillColor: [245, 245, 245], 
@@ -162,14 +175,25 @@ const Checkout: React.FC = () => {
     const finalY = (doc as any).lastAutoTable.finalY || currentY + 50;
 
     // 4. Totals
+    const totalSavings = items.reduce((acc, item) => acc + (Math.max(0, (item.mrp || item.price) - item.price) * item.quantity), 0);
+    
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.text(`Gross Total:`, 140, finalY + 10);
     doc.text(`Rs. ${totalAmount.toLocaleString()}`, 190, finalY + 10, { align: "right" });
     
+    if (totalSavings > 0) {
+      doc.setFontSize(9);
+      doc.setTextColor(16, 185, 129); // Emerald color
+      doc.text(`You Saved:`, 140, finalY + 16);
+      doc.text(`Rs. ${totalSavings.toLocaleString()}`, 190, finalY + 16, { align: "right" });
+      doc.setTextColor(0, 0, 0);
+    }
+
     doc.setFontSize(12);
-    doc.text(`Total Invoice Amount:`, 140, finalY + 18);
-    doc.text(`Rs. ${finalTotal.toLocaleString()}`, 190, finalY + 18, { align: "right" });
+    doc.setFont("helvetica", "bold");
+    doc.text(`Total Invoice Amount:`, 140, finalY + 24);
+    doc.text(`Rs. ${finalTotal.toLocaleString()}`, 190, finalY + 24, { align: "right" });
 
     // 5. Footer (Terms & Conditions)
     doc.setFontSize(7);
@@ -231,18 +255,15 @@ const Checkout: React.FC = () => {
       const res = await InvoiceService.Checkout(payload);
       toast.success("Transaction completed successfully!");
       const invoiceData = res.AddtionalData || res.result || res;
-      generatePDF(invoiceData);
+      // generatePDF(invoiceData); // Disabled PDF download as requested
       
-      // Auto-print thermal receipt if enabled
-      const printerSettings = JSON.parse(localStorage.getItem("printer_settings") || "{}");
-      if (printerSettings.autoPrint) {
-        ThermalPrintService.printReceipt({
-          ...invoiceData,
-          company: (user as any)?.company,
-          customer_name: customerName || customer?.name,
-          items: items
-        });
-      }
+      // Always print thermal receipt after successful transaction
+      ThermalPrintService.printReceipt({
+        ...invoiceData,
+        company: (user as any)?.company,
+        customer_name: customerName || customer?.name,
+        items: items
+      });
 
       clearCart();
       setPhone('');

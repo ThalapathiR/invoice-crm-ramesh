@@ -36,8 +36,9 @@ const productSchema = z.object({
   name: z.string().min(1, "Name is required"),
   barcode: z.string().min(1, "Barcode is required"),
   sku: z.string().min(1, "SKU is required"),
-  purchase_price: z.number().min(0),
-  selling_price: z.number().min(0),
+  purchase_price: z.preprocess((val) => Number(val), z.number().min(0)),
+  mrp: z.preprocess((val) => Number(val), z.number().min(0)),
+  selling_price: z.preprocess((val) => Number(val), z.number().min(0)),
   gst_percentage: z.number().min(0).max(100),
   category: z.string().min(1, "Category is required"),
   reorder_level: z.number().int().min(0).default(5),
@@ -67,6 +68,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
       barcode: '',
       sku: '',
       purchase_price: 0,
+      mrp: 0,
       selling_price: 0,
       gst_percentage: 12,
       category: '',
@@ -107,6 +109,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
     if (product) {
       form.reset({
         ...product,
+        mrp: Number(product.mrp || 0),
+        purchase_price: Number(product.purchase_price || 0),
+        selling_price: Number(product.selling_price || 0),
         variants: [{ 
           size: product.size || '', 
           color: product.color || '', 
@@ -119,6 +124,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
         barcode: '',
         sku: '',
         purchase_price: 0,
+        mrp: 0,
         selling_price: 0,
         gst_percentage: 12,
         category: '',
@@ -229,10 +235,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
 
               <FormField
                 control={form.control}
-                name="selling_price"
+                name="mrp"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Selling Price (₹)</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">MRP (₹)</FormLabel>
                     <FormControl>
                       <Input type="number" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} onChange={e => field.onChange(Number(e.target.value))} />
                     </FormControl>
@@ -240,6 +246,29 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                   </FormItem>
                 )}
               />
+
+              <div className="flex gap-4">
+                <FormField
+                  control={form.control}
+                  name="selling_price"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Selling Price (₹)</FormLabel>
+                      <FormControl>
+                        <Input type="number" className="h-12 rounded-2xl bg-card border-border text-foreground" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="flex-1 space-y-2">
+                  <Label className="text-[10px] uppercase tracking-widest font-black text-muted-foreground">Discount (₹)</Label>
+                  <div className="h-12 rounded-2xl bg-slate-100/10 border border-border flex items-center px-4 font-black text-green-500">
+                    {Math.max(0, (form.watch('mrp') || 0) - (form.watch('selling_price') || 0))}
+                  </div>
+                </div>
+              </div>
 
               <FormField
                 control={form.control}

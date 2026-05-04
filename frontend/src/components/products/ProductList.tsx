@@ -38,7 +38,8 @@ const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDelete })
             <TableHead>SKU</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Category</TableHead>
-            <TableHead className="text-right">Price (Sell)</TableHead>
+            <TableHead className="text-right">MRP</TableHead>
+            <TableHead className="text-right">Selling Price</TableHead>
             <TableHead className="text-center">Stock</TableHead>
             <TableHead className="w-[150px] text-right">Actions</TableHead>
           </TableRow>
@@ -59,7 +60,8 @@ const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDelete })
                   {product.category}
                 </span>
               </TableCell>
-              <TableCell className="column-price text-right text-lg">₹{product.selling_price.toLocaleString()}</TableCell>
+              <TableCell className="text-right text-muted-foreground line-through text-sm">₹{(product.mrp ?? 0).toLocaleString()}</TableCell>
+              <TableCell className="column-price text-right text-lg font-black text-primary">₹{product.selling_price.toLocaleString()}</TableCell>
               <TableCell className="text-center">
                 <span className={
                   product.quantity_in_stock <= 0 ? 'badge-neutral' :
