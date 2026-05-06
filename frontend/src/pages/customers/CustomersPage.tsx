@@ -21,6 +21,8 @@ const CustomersPage: React.FC = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const fetchCustomers = async () => {
     setIsLoading(true);
@@ -73,6 +75,16 @@ const CustomersPage: React.FC = () => {
 
     return matchesQuery && matchesDate;
   });
+
+  // Pagination Logic
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, startDate, endDate]);
+
+  const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCustomers = filteredCustomers.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleAddCustomer = () => {
     setEditingCustomer(null);
@@ -179,10 +191,72 @@ const CustomersPage: React.FC = () => {
       </div>
 
       <CustomerList
-        customers={filteredCustomers}
+        customers={currentCustomers}
         onEdit={handleEditCustomer}
         onShowHistory={handleShowHistory}
       />
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-8 px-4">
+          <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+            Showing {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredCustomers.length)} of {filteredCustomers.length} Customers
+          </div>
+          <div className="flex items-center gap-1">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="rounded-xl border-border bg-card hover:bg-muted font-bold h-9 text-xs"
+            >
+              Previous
+            </Button>
+            
+            <div className="flex items-center gap-1 px-2">
+              {[...Array(totalPages)].map((_, i) => {
+                const pageNum = i + 1;
+                // Only show a few page buttons
+                if (
+                  pageNum === 1 || 
+                  pageNum === totalPages || 
+                  (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)
+                ) {
+                  return (
+                    <Button
+                      key={pageNum}
+                      variant={currentPage === pageNum ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={`w-9 h-9 rounded-xl font-black text-xs ${
+                        currentPage === pageNum 
+                        ? 'bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20' 
+                        : 'border-border bg-card hover:bg-muted text-muted-foreground'
+                      }`}
+                    >
+                      {pageNum}
+                    </Button>
+                  );
+                }
+                if (pageNum === currentPage - 2 || pageNum === currentPage + 2) {
+                  return <span key={pageNum} className="text-muted-foreground/30 px-1 font-black">...</span>;
+                }
+                return null;
+              })}
+            </div>
+
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="rounded-xl border-border bg-card hover:bg-muted font-bold h-9 text-xs"
+            >
+              Next
+            </Button>
+          </div>
+        </div>
+      )}
 
       <CustomerForm
         isOpen={isFormOpen}
