@@ -39,6 +39,7 @@ export class AnalyticsService {
         total_sp: totalSP,
         total_cp: totalCost,
         discount: inv.discount_amount,
+        payment_method: inv.payment_method,
         profit: profit
       };
     });

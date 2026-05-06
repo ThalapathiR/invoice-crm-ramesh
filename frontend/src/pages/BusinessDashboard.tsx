@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { CommonService } from '@/service/commonservice.page';
-import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, AreaChart, Area, BarChart, Bar
 } from 'recharts';
-import { 
-  TrendingUp, Users, ShoppingBag, Banknote, Calendar, 
+import {
+  TrendingUp, Users, ShoppingBag, Banknote, Calendar,
   ArrowUpRight, ArrowDownRight, Package, CreditCard, Wallet, Box,
   ChevronRight, ArrowRight, DollarSign, Receipt, Filter
 } from 'lucide-react';
@@ -75,53 +75,52 @@ const BusinessDashboard: React.FC = () => {
   const COLORS = ['#22D3EE', '#22C55E', '#FACC15', '#EF4444', '#8B5CF6', '#F97316'];
 
   const kpis = [
-    { 
-      title: "Revenue", 
-      value: `₹${stats?.totalRevenue?.toLocaleString() || 0}`, 
-      icon: Banknote, 
-      color: "bg-cyan-500/20 text-cyan-500", 
-      trend: "Total in range", 
-      isUp: true 
+    {
+      title: "Revenue",
+      value: `₹${stats?.totalRevenue?.toLocaleString() || 0}`,
+      icon: Banknote,
+      color: "bg-cyan-500/20 text-cyan-500",
+      isUp: true
     },
-    { 
-      title: "Net Profit", 
-      value: `₹${stats?.totalProfit?.toLocaleString() || 0}`, 
-      icon: TrendingUp, 
-      color: "bg-emerald-500/20 text-emerald-500", 
-      trend: `${((stats?.totalProfit / (stats?.totalRevenue || 1)) * 100).toFixed(1)}% Margin`, 
-      isUp: (stats?.totalProfit || 0) >= 0 
+    {
+      title: "Net Profit",
+      value: `₹${stats?.totalProfit?.toLocaleString() || 0}`,
+      icon: TrendingUp,
+      color: "bg-emerald-500/20 text-emerald-500",
+      trend: `${((stats?.totalProfit / (stats?.totalRevenue || 1)) * 100).toFixed(1)}% Margin`,
+      isUp: (stats?.totalProfit || 0) >= 0
     },
-    { 
-      title: "Expenses", 
-      value: `₹${stats?.totalExpenses?.toLocaleString() || 0}`, 
-      icon: Receipt, 
-      color: "bg-rose-500/20 text-rose-500", 
-      trend: "Total spent", 
-      isUp: false 
+    {
+      title: "Expenses",
+      value: `₹${stats?.totalExpenses?.toLocaleString() || 0}`,
+      icon: Receipt,
+      color: "bg-rose-500/20 text-rose-500",
+      trend: "Total spent",
+      isUp: false
     },
-    { 
-      title: "Customers", 
-      value: stats?.totalCustomers || 0, 
-      icon: Users, 
-      color: "bg-amber-500/20 text-amber-500", 
-      trend: "Active base", 
-      isUp: true 
+    {
+      title: "Customers",
+      value: stats?.totalCustomers || 0,
+      icon: Users,
+      color: "bg-amber-500/20 text-amber-500",
+      trend: "Active base",
+      isUp: true
     },
-    { 
-      title: "Invoices", 
-      value: stats?.totalInvoices || 0, 
-      icon: ShoppingBag, 
-      color: "bg-blue-500/20 text-blue-500", 
-      trend: "In range", 
-      isUp: true 
+    {
+      title: "Invoices",
+      value: stats?.totalInvoices || 0,
+      icon: ShoppingBag,
+      color: "bg-blue-500/20 text-blue-500",
+      trend: "In range",
+      isUp: true
     },
-    { 
-      title: "Inventory Value", 
-      value: `₹${stats?.totalInvestment?.toLocaleString() || 0}`, 
-      icon: Box, 
-      color: "bg-slate-500/20 text-muted-foreground", 
-      trend: "Current asset", 
-      isUp: true 
+    {
+      title: "Inventory Value",
+      value: `₹${stats?.totalInvestment?.toLocaleString() || 0}`,
+      icon: Box,
+      color: "bg-slate-500/20 text-muted-foreground",
+      trend: "Current asset",
+      isUp: true
     },
   ];
 
@@ -138,26 +137,26 @@ const BusinessDashboard: React.FC = () => {
             <p className="text-muted-foreground text-sm font-medium mt-1">Deep dive into your store's performance metrics</p>
           </div>
         </div>
-        
+
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="flex items-center gap-2 bg-muted p-2 rounded-xl border border-border backdrop-blur-md">
-            <Input 
-              type="date" 
-              value={startDate} 
+            <Input
+              type="date"
+              value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="bg-transparent border-none text-foreground font-black h-10 w-36 text-xs"
+              className="bg-transparent border-none text-foreground font-black h-10 w-40 text-xs"
             />
             <div className="flex items-center text-muted-foreground font-black text-[10px] uppercase tracking-widest">TO</div>
-            <Input 
-              type="date" 
-              value={endDate} 
+            <Input
+              type="date"
+              value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="bg-transparent border-none text-foreground font-black h-10 w-36 text-xs"
+              className="bg-transparent border-none text-foreground font-black h-10 w-40 text-xs"
             />
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="bg-white/5 border-white/10 text-foreground hover:bg-white/10 rounded-xl w-10 h-10" 
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-white/5 border-white/10 text-foreground hover:bg-white/10 rounded-xl w-10 h-10"
               onClick={fetchDashboardData}
             >
               <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
@@ -170,7 +169,7 @@ const BusinessDashboard: React.FC = () => {
       {/* KPI Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
         {kpis.map((kpi, i) => (
-          <motion.div 
+          <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -212,36 +211,36 @@ const BusinessDashboard: React.FC = () => {
               <AreaChart data={trend}>
                 <defs>
                   <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#556EE6" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#556EE6" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#556EE6" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#556EE6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" strokeOpacity={0.1} />
-                <XAxis 
-                  dataKey="date" 
-                  axisLine={false} 
-                  tickLine={false} 
+                <XAxis
+                  dataKey="date"
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fontSize: 10, fontWeight: 900, fill: 'currentColor', opacity: 0.5 }}
                   dy={10}
                 />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fontSize: 10, fontWeight: 900, fill: 'currentColor', opacity: 0.5 }}
                   tickFormatter={(val) => `₹${val}`}
                 />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ backgroundColor: 'var(--color-card)', borderRadius: '12px', border: '1px solid var(--color-border)', fontWeight: 'bold', color: 'var(--color-foreground)' }}
                   itemStyle={{ color: 'var(--color-primary)' }}
                   formatter={(value) => [`₹${value}`, 'Revenue']}
                 />
-                <Area 
-                  type="monotone" 
-                  dataKey="amount" 
-                  stroke="#556EE6" 
+                <Area
+                  type="monotone"
+                  dataKey="amount"
+                  stroke="#556EE6"
                   strokeWidth={4}
-                  fillOpacity={1} 
-                  fill="url(#colorAmount)" 
+                  fillOpacity={1}
+                  fill="url(#colorAmount)"
                   animationDuration={2000}
                 />
               </AreaChart>
@@ -277,7 +276,7 @@ const BusinessDashboard: React.FC = () => {
                   ))}
                   {expenses.length === 0 && <Cell fill="currentColor" opacity={0.1} stroke="none" />}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ backgroundColor: 'var(--color-card)', borderRadius: '12px', border: '1px solid var(--color-border)' }}
                 />
               </PieChart>
@@ -309,7 +308,7 @@ const BusinessDashboard: React.FC = () => {
               <ShoppingBag className="w-5 h-5 text-blue-500" />
             </div>
           </div>
-          
+
           <div className="space-y-4">
             {topProducts.length > 0 ? topProducts.map((product, idx) => (
               <div key={idx} className="group flex items-center justify-between p-4 rounded-xl bg-muted border border-border hover:border-primary/20 hover:bg-slate-50 transition-all">
@@ -344,7 +343,7 @@ const BusinessDashboard: React.FC = () => {
               <Users className="w-5 h-5 text-amber-500" />
             </div>
           </div>
-          
+
           <div className="space-y-4">
             {topCustomers.length > 0 ? topCustomers.map((customer, idx) => (
               <div key={idx} className="group flex items-center justify-between p-4 rounded-xl bg-muted border border-border hover:border-amber-500/20 hover:bg-slate-50 transition-all">
@@ -372,7 +371,7 @@ const BusinessDashboard: React.FC = () => {
       {/* Payment Modes Analysis */}
       <div className="bg-card p-8 rounded-xl border border-border shadow-sm overflow-hidden relative">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full -mr-48 -mt-48 blur-[100px]" />
-        
+
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative z-10">
           <div>
             <h3 className="text-2xl font-black text-foreground">Payment Distribution</h3>
@@ -392,20 +391,20 @@ const BusinessDashboard: React.FC = () => {
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={breakdown}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" strokeOpacity={0.1} />
-              <XAxis 
-                dataKey="name" 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{ fontSize: 10, fontBlack: 900, fill: 'currentColor', opacity: 0.5 }} 
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 10, fontBlack: 900, fill: 'currentColor', opacity: 0.5 }}
               />
               <YAxis hide />
-              <Tooltip 
+              <Tooltip
                 cursor={{ fill: 'currentColor', opacity: 0.1 }}
                 contentStyle={{ backgroundColor: 'var(--color-card)', borderRadius: '12px', border: '1px solid var(--color-border)' }}
               />
-              <Bar 
-                dataKey="value" 
-                radius={[6, 6, 6, 6]} 
+              <Bar
+                dataKey="value"
+                radius={[6, 6, 6, 6]}
                 barSize={60}
               >
                 {breakdown.map((entry, index) => (

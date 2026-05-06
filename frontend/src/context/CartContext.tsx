@@ -41,10 +41,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: product.id, 
         name: product.name, 
         quantity, 
-        price: product.selling_price, 
-        mrp: product.mrp || product.selling_price || 0,
-        purchase_price: product.purchase_price || 0,
-        gst_percentage: product.gst_percentage,
+        price: Number(product.selling_price || product.price || 0), 
+        mrp: Number(product.mrp || product.selling_price || product.price || 0),
+        purchase_price: Number(product.purchase_price || 0),
+        gst_percentage: Number(product.gst_percentage || 0),
         discount_type: 'PERCENTAGE',
         discount_value: 0
       }];
@@ -103,7 +103,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [items]);
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clearCart, subtotal, taxAmount, totalAmount }}>
+    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, updateDiscount, clearCart, subtotal, taxAmount, totalAmount }}>
       {children}
     </CartContext.Provider>
   );

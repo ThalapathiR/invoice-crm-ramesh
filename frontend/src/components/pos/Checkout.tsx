@@ -4,23 +4,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select";
 import { InvoiceService } from '@/service/invoice.service';
 import { CustomerService } from '@/service/customer.service';
-import { BankService } from '@/service/bank.service';
 import { useAuth } from '@/lib/auth';
-import { format } from "date-fns";
 import TotalWeightDisplay from "./TotalWeightDisplay";
 import { toast } from 'sonner';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { CreditCard, Wallet, Banknote, ReceiptText, Building2, Smartphone, Printer } from 'lucide-react';
+import { 
+  ReceiptText, 
+  Banknote, 
+  Wallet, 
+  CreditCard 
+} from 'lucide-react';
 import { ThermalPrintService } from '@/service/thermalPrint.service';
 
 const Checkout: React.FC = () => {
@@ -72,10 +68,10 @@ const Checkout: React.FC = () => {
     }
   };
 
-  const percentDiscount = subtotal * discount / 100;
+  const percentDiscount = (Number(subtotal) || 0) * discount / 100;
   const flatDiscount = discountAmount;
   const totalDiscount = percentDiscount + flatDiscount;
-  const finalTotal = Math.max(0, totalAmount - totalDiscount);
+  const finalTotal = Math.max(0, (Number(totalAmount) || 0) - totalDiscount);
 
   const generatePDF = (invoiceData: any) => {
     const doc = new jsPDF();
@@ -359,36 +355,7 @@ const Checkout: React.FC = () => {
             </div>
           </div>
 
-          {(paymentMethod === 'UPI' || paymentMethod === 'Card') && (
-            <div className="space-y-3 animate-in fade-in slide-in-from-top-2">
-              <div>
-                <Label className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-2 block">Settlement Bank</Label>
-                <Select value={bankAccountId} onValueChange={setBankAccountId}>
-                  <SelectTrigger className="rounded-xl bg-card border-border text-foreground">
-                    <SelectValue placeholder="Select Bank..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {banks.map(bank => (
-                      <SelectItem key={bank.id} value={bank.id}>{bank.bank_name} ({bank.account_number.slice(-4)})</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-2 block">Transaction / UPI Ref</Label>
-                <div className="relative">
-                  <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
-                  <Input 
-                    placeholder="Enter Ref Number..." 
-                    value={upiReference}
-                    onChange={(e) => setUpiReference(e.target.value)}
-                    className="h-10 pl-10 rounded-xl bg-card border-border text-xs text-foreground"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
+          {/* Payment received input remains */}
           <div>
             <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-3 block">Payment Received</Label>
             <div className="relative">
@@ -408,8 +375,6 @@ const Checkout: React.FC = () => {
               </p>
             )}
           </div>
-
-
 
           <div>
             <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-3 block">Special Discount</Label>
@@ -489,20 +454,31 @@ const Checkout: React.FC = () => {
           )}
         </div>
         
-        <div className="pt-4 border-t border-border flex justify-between items-end">
-          <TotalWeightDisplay items={items} />
-          <div className="text-right space-y-1">
-            <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest">Grand Total</p>
-            <p className="text-5xl font-black text-foreground leading-none">₹{finalTotal.toLocaleString()}</p>
+        <div className="pt-6 border-t border-border flex justify-between items-center bg-emerald-500/5 -mx-8 px-8 py-6 mb-2 border-y border-emerald-500/10">
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <p className="text-[11px] font-black text-emerald-600 uppercase tracking-[0.2em] leading-none">Customer Saved</p>
+            </div>
+            <p className="text-3xl font-black text-emerald-600 leading-none drop-shadow-sm">₹{((items.reduce((acc, item) => acc + (Math.max(0, (Number(item.mrp) || Number(item.price) || 0) - (Number(item.price) || 0)) * (item.quantity || 1)), 0)) + totalDiscount).toLocaleString()}</p>
+            <p className="text-[9px] font-bold text-emerald-600/60 uppercase tracking-widest">Today's Total Savings</p>
           </div>
+          <div className="text-right space-y-2">
+            <p className="text-muted-foreground font-black text-[11px] uppercase tracking-[0.25em] leading-none opacity-70">Total Payable</p>
+            <p className="text-8xl font-black text-foreground leading-none tracking-tighter drop-shadow-md">₹{finalTotal.toLocaleString()}</p>
+          </div>
+        </div>
+        <div className="flex justify-end mb-4 pr-1">
+          <TotalWeightDisplay items={items} />
         </div>
 
         <Button 
-          className="w-full h-16 rounded-2xl text-xl font-black shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 mt-4" 
+          className="w-full h-20 rounded-[24px] text-2xl font-black shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] flex flex-col gap-0.5" 
           onClick={handleCheckout} 
           disabled={items.length === 0 || isProcessing}
         >
-          {isProcessing ? "PROCESSING..." : "FINALIZE BILL"}
+          <span>{isProcessing ? "PROCESSING..." : "FINALIZE BILL"}</span>
+          <span className="text-[10px] opacity-70 font-bold">GENERATE RECEIPT & PRINT</span>
         </Button>
       </div>
     </div>
