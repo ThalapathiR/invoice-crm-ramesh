@@ -19,17 +19,17 @@ export const StickerService = {
 
       // 2. Add Price
       doc.setFontSize(11);
-      doc.text(`MRP: Rs. ${product.selling_price}`, 25, 11, { align: 'center' });
+      doc.text(`Price: Rs. ${product.selling_price}`, 25, 11, { align: 'center' });
 
       // 3. Generate 1D Barcode using bwipjs API
       // Using Code128 which is standard for retail
       const barcodeUrl = `https://bwipjs-api.metafloor.com/?bcid=code128&text=${encodeURIComponent(product.barcode)}&scale=2&rotate=N&includetext=true`;
-      
+
       // Load image and add to PDF
       // Note: We use a helper to load the image as jsPDF's addImage requires it to be loaded
       const img = new Image();
       img.crossOrigin = "anonymous";
-      
+
       await new Promise((resolve, reject) => {
         img.onload = resolve;
         img.onerror = reject;
