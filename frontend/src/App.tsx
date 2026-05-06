@@ -77,6 +77,14 @@ function DashboardWrapper() {
   if (isLoading) return <SuspenseLoader />;
   const normalizedRole = user?.role?.toLowerCase()?.replace(/\s+/g, '_') || "";
   if (normalizedRole === "super_admin") return <Redirect to="/admin" />;
+  
+  // Check granular permissions for dashboard
+  const perms = (user as any)?.permissions || {};
+  if (normalizedRole !== "tenant" && !perms.view_dashboard) {
+    if (perms.access_pos) return <Redirect to="/pos" />;
+    return <Redirect to="/settings" />;
+  }
+  
   return <AppRoute component={Routes.BusinessDashboard} />;
 }
 

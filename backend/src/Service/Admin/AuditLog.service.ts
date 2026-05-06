@@ -145,7 +145,7 @@ export class AuditLogService {
         '1' AS performed_ipaddress,
         '11f' AS performed_coordinates
     FROM
-        ${table} AS main
+        "${table}" AS main
     LEFT JOIN
         "user" AS usr
     ON usr.id::text = COALESCE(main.updated_by_id, main.created_by_id)::text

@@ -48,7 +48,7 @@ const BillProfitPage: React.FC = () => {
     if (user) fetchData();
   }, [user, startDate, endDate]);
 
-  const filteredData = data.filter(item => 
+  const filteredData = data.filter(item =>
     paymentMethod === 'ALL' || item.payment_method === paymentMethod
   );
 
@@ -63,18 +63,18 @@ const BillProfitPage: React.FC = () => {
         </div>
         <div className="flex flex-col md:flex-row gap-2 bg-white/10 p-2 rounded-2xl backdrop-blur-md border border-white/10">
           <div className="flex gap-2">
-            <Input 
-              type="date" 
-              value={startDate} 
+            <Input
+              type="date"
+              value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="bg-transparent border-none text-foreground font-bold h-10 w-40 [color-scheme:dark]"
+              className="bg-transparent border-none text-foreground font-black h-10 w-40 text-xs"
             />
             <div className="flex items-center text-foreground/40 font-black">TO</div>
-            <Input 
-              type="date" 
-              value={endDate} 
+            <Input
+              type="date"
+              value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="bg-transparent border-none text-foreground font-bold h-10 w-40 [color-scheme:dark]"
+              className="bg-transparent border-none text-foreground font-black h-10 w-40 text-xs"
             />
           </div>
           <div className="h-10 w-px bg-white/20 hidden md:block mx-2" />
@@ -105,7 +105,7 @@ const BillProfitPage: React.FC = () => {
           <p className="text-[10px] uppercase tracking-widest font-black text-slate-500 mb-2">Total Bills</p>
           <h3 className="text-4xl font-black text-foreground">{filteredData.length}</h3>
         </div>
-        
+
         <div className="bg-card rounded-[32px] p-8 border border-border shadow-sm relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity text-muted-foreground">
             <TrendingUp size={80} />
@@ -153,11 +153,10 @@ const BillProfitPage: React.FC = () => {
                   </TableCell>
                   <TableCell className="font-bold text-muted-foreground">{inv.customer_name}</TableCell>
                   <TableCell>
-                    <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${
-                      inv.payment_method === 'Cash' ? 'bg-amber-500/10 text-amber-500' :
+                    <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${inv.payment_method === 'Cash' ? 'bg-amber-500/10 text-amber-500' :
                       inv.payment_method === 'UPI' ? 'bg-blue-500/10 text-blue-500' :
-                      'bg-purple-500/10 text-purple-500'
-                    }`}>
+                        'bg-purple-500/10 text-purple-500'
+                      }`}>
                       {inv.payment_method || 'Cash'}
                     </span>
                   </TableCell>

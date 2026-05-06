@@ -32,7 +32,13 @@ export default function Login() {
       if (normalizedRole === "super_admin") {
         setLocation("/admin");
       } else {
-        setLocation("/dashboard");
+        const perms = (user as any)?.permissions || {};
+        if (normalizedRole !== "tenant" && !perms.view_dashboard) {
+          if (perms.access_pos) setLocation("/pos");
+          else setLocation("/settings");
+        } else {
+          setLocation("/dashboard");
+        }
       }
     }
   }, [user, loading, setLocation]);
@@ -61,7 +67,13 @@ export default function Login() {
       if (loggedInUser && normalizedRole === "super_admin") {
         setLocation("/admin");
       } else {
-        setLocation("/dashboard");
+        const perms = (loggedInUser as any)?.permissions || {};
+        if (normalizedRole !== "tenant" && !perms.view_dashboard) {
+          if (perms.access_pos) setLocation("/pos");
+          else setLocation("/settings");
+        } else {
+          setLocation("/dashboard");
+        }
       }
     } catch (err: any) {
       if (err.message && err.message.includes("EMAIL_NOT_VERIFIED")) {

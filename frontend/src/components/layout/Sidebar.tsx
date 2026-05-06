@@ -164,8 +164,31 @@ export function Sidebar() {
   const filteredSections = navSections.map(section => ({
     ...section,
     items: section.items.filter(item => {
+      // 1. Check fixed system roles
       const normalizedUserRole = user?.role?.toLowerCase()?.replace(/\s+/g, '_') || "";
-      if (item.roles && !item.roles.includes(normalizedUserRole || "")) return false;
+      if (item.roles && !item.roles.includes(normalizedUserRole)) return false;
+
+      // 2. Check granular permissions for custom roles (like 'sales man')
+      // System roles bypass granular checks for core features
+      if (user?.role === "super_admin" || user?.role === "tenant") return true;
+
+      if (item.permission) {
+        const userPermissions = (user as any)?.permissions;
+        
+        // Handle array of permissions
+        if (Array.isArray(userPermissions)) {
+          if (!userPermissions.includes(item.permission)) return false;
+        } 
+        // Handle object/JSON of permissions (e.g. { "View Dashboard": true })
+        else if (userPermissions && typeof userPermissions === 'object') {
+          if (!userPermissions[item.permission]) return false;
+        }
+        // If permissions field exists but format is unknown, or doesn't match
+        else {
+          return false;
+        }
+      }
+
       return true;
     })
   })).filter(section => section.items.length > 0);

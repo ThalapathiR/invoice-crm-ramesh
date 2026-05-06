@@ -47,6 +47,7 @@ export class AuthService {
       user_id: UserData.id,
       user_role_id: UserData.user_role_id,
       user_role_name: UserData.user_role?.name || 'User',
+      permissions: UserData.user_role?.permission || [],
       company: companyData
     };
     const api_token = this._JwtService.sign(payload);
@@ -72,6 +73,7 @@ export class AuthService {
       user_id: UserData.id,
       user_role_id: UserData.user_role_id,
       user_role_name: UserData.user_role?.name || 'User',
+      permissions: UserData.user_role?.permission || [],
       company: companyData
     };
   }
