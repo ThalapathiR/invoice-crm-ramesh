@@ -123,7 +123,7 @@ export class ThermalPrintService {
       if (company.state) receipt += this.centerText("State: " + company.state) + "\r\n";
       if (company.telephone_no) receipt += this.centerText("Ph.No.: " + company.telephone_no) + "\r\n";
       if (company.uen_no) receipt += this.centerText("GSTIN: " + company.uen_no) + "\r\n";
-      if (company.email) receipt += this.centerText("Email: " + company.email) + "\r\n";
+      if (company.email) receipt += this.centerText("Email: " + "rameshcollection890@gmail.com") + "\r\n";
 
       receipt += this.separator() + "\r\n";
       receipt += this.centerText("Tax Invoice") + "\r\n";

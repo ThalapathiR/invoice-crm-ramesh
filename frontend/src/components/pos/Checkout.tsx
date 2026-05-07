@@ -11,11 +11,11 @@ import TotalWeightDisplay from "./TotalWeightDisplay";
 import { toast } from 'sonner';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { 
-  ReceiptText, 
-  Banknote, 
-  Wallet, 
-  CreditCard 
+import {
+  ReceiptText,
+  Banknote,
+  Wallet,
+  CreditCard
 } from 'lucide-react';
 import { ThermalPrintService } from '@/service/thermalPrint.service';
 
@@ -32,7 +32,7 @@ const Checkout: React.FC = () => {
   const [customerName, setCustomerName] = useState('');
   const [customer, setCustomer] = useState<any>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-   const [errors, setErrors] = useState<{ phone?: boolean; name?: boolean }>({});
+  const [errors, setErrors] = useState<{ phone?: boolean; name?: boolean }>({});
   const { user } = useAuth();
   const phoneRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLDivElement>(null);
@@ -76,23 +76,23 @@ const Checkout: React.FC = () => {
   const generatePDF = (invoiceData: any) => {
     const doc = new jsPDF();
     const company = (user as any)?.company || {};
-    
+
     // 1. Header (Centered Retail Style)
     doc.setFontSize(22);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(20, 20, 20);
     doc.text(company.name || "INVOICE", 105, 20, { align: "center" });
-    
+
     doc.setFontSize(9);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(100, 100, 100);
     doc.text(company.website || "", 105, 26, { align: "center" });
-    
+
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.text(`Store Contact Number : ${company.telephone_no || ""}`, 105, 32, { align: "center" });
     doc.text(`Place Of Supply : ${company.address || ""}`, 105, 37, { align: "center" });
-    
+
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 0, 0);
@@ -113,7 +113,7 @@ const Checkout: React.FC = () => {
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.text("TAX INVOICE", 105, currentY + 10, { align: "center" });
-    
+
     doc.setDrawColor(200, 200, 200);
     doc.line(20, currentY + 14, 190, currentY + 14);
 
@@ -121,12 +121,12 @@ const Checkout: React.FC = () => {
     currentY += 22;
     doc.setFontSize(9);
     doc.setTextColor(60, 60, 60);
-    
+
     // Left side
     doc.text(`INVOICE NO. : ${invoiceData.invoice_number}`, 20, currentY);
     doc.text(`COUNTER : 1`, 20, currentY + 5);
-    doc.text(`CUSTOMER ID : ${customer?.id ? customer.id.substring(0,8).toUpperCase() : 'WALK-IN'}`, 20, currentY + 10);
-    
+    doc.text(`CUSTOMER ID : ${customer?.id ? customer.id.substring(0, 8).toUpperCase() : 'WALK-IN'}`, 20, currentY + 10);
+
     // Right side
     doc.text(`${new Date().toLocaleString()}`, 190, currentY, { align: "right" });
     doc.text(`CASHIER : ${user?.name || 'ADMIN'}`, 190, currentY + 5, { align: "right" });
@@ -140,15 +140,15 @@ const Checkout: React.FC = () => {
         const mrpVal = Number(item.mrp || item.price || 0);
         const spVal = Number(item.price || 0);
         const discVal = Math.max(0, mrpVal - spVal);
-        
-        const description = discVal > 0 
+
+        const description = discVal > 0
           ? `${item.name}\nMRP: Rs. ${mrpVal.toLocaleString()} | Selling Price: Rs. ${spVal.toLocaleString()} | Discount: Rs. ${discVal.toLocaleString()}`
           : item.name;
 
         return [
-          { 
-            content: description, 
-            styles: { halign: 'left' } 
+          {
+            content: description,
+            styles: { halign: 'left' }
           },
           `Rs. ${spVal.toLocaleString()}`,
           `${item.quantity} PC`,
@@ -156,9 +156,9 @@ const Checkout: React.FC = () => {
         ];
       }),
       theme: 'plain',
-      headStyles: { 
-        fillColor: [245, 245, 245], 
-        textColor: [0, 0, 0], 
+      headStyles: {
+        fillColor: [245, 245, 245],
+        textColor: [0, 0, 0],
         fontStyle: 'bold',
         fontSize: 8,
         lineWidth: 0.1,
@@ -172,12 +172,12 @@ const Checkout: React.FC = () => {
 
     // 4. Totals
     const totalSavings = items.reduce((acc, item) => acc + (Math.max(0, (item.mrp || item.price) - item.price) * item.quantity), 0);
-    
+
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.text(`Gross Total:`, 140, finalY + 10);
     doc.text(`Rs. ${totalAmount.toLocaleString()}`, 190, finalY + 10, { align: "right" });
-    
+
     if (totalSavings > 0) {
       doc.setFontSize(9);
       doc.setTextColor(16, 185, 129); // Emerald color
@@ -204,7 +204,7 @@ const Checkout: React.FC = () => {
 
   const handleCheckout = async () => {
     if (items.length === 0) return;
-    
+
     const newErrors = {
       phone: !phone.trim(),
       name: !customerName.trim() && !customer?.name
@@ -252,7 +252,7 @@ const Checkout: React.FC = () => {
       toast.success("Transaction completed successfully!");
       const invoiceData = res.AddtionalData || res.result || res;
       // generatePDF(invoiceData); // Disabled PDF download as requested
-      
+
       // Always print thermal receipt after successful transaction
       ThermalPrintService.printReceipt({
         ...invoiceData,
@@ -291,9 +291,9 @@ const Checkout: React.FC = () => {
         <div className="space-y-3" ref={phoneRef}>
           <Label htmlFor="phone" className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black">Customer Connection</Label>
           <div className="relative">
-            <Input 
-              id="phone" 
-              placeholder="Enter mobile number..." 
+            <Input
+              id="phone"
+              placeholder="Enter mobile number..."
               value={phone}
               onChange={handlePhoneChange}
               className={`h-12 px-5 rounded-xl bg-card border-border focus:bg-background transition-all text-foreground ${errors.phone ? 'border-red-500 ring-2 ring-red-500/20' : ''}`}
@@ -301,8 +301,8 @@ const Checkout: React.FC = () => {
             {errors.phone && <p className="text-[10px] text-red-500 font-bold mt-1 ml-1 animate-in fade-in slide-in-from-top-1">Phone number is mandatory</p>}
           </div>
           <div className="space-y-1" ref={nameRef}>
-            <Input 
-              placeholder="Customer Name" 
+            <Input
+              placeholder="Customer Name"
               value={customerName || customer?.name || ''}
               onChange={(e) => {
                 setCustomerName(e.target.value);
@@ -342,11 +342,10 @@ const Checkout: React.FC = () => {
                 <button
                   key={method.id}
                   onClick={() => setPaymentMethod(method.id)}
-                  className={`flex flex-col items-center justify-center h-20 rounded-2xl border-2 transition-all gap-1 ${
-                    paymentMethod === method.id 
-                    ? 'border-primary bg-primary/10 text-primary shadow-[0_0_20px_rgba(34,211,238,0.2)]' 
+                  className={`flex flex-col items-center justify-center h-20 rounded-2xl border-2 transition-all gap-1 ${paymentMethod === method.id
+                    ? 'border-primary bg-primary/10 text-primary shadow-[0_0_20px_rgba(34,211,238,0.2)]'
                     : 'border-border bg-card text-slate-500 hover:border-slate-700'
-                  }`}
+                    }`}
                 >
                   <method.icon className="w-5 h-5" />
                   <span className="text-[10px] font-black uppercase tracking-widest">{method.label}</span>
@@ -360,7 +359,7 @@ const Checkout: React.FC = () => {
             <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-3 block">Payment Received</Label>
             <div className="relative">
               <Banknote className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
-              <Input 
+              <Input
                 type="number"
                 placeholder={`Full Amount (₹${finalTotal.toLocaleString()})`}
                 value={paidAmount || ''}
@@ -380,25 +379,24 @@ const Checkout: React.FC = () => {
             <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-3 block">Special Discount</Label>
             <div className="flex gap-2 mb-3">
               {[5, 10, 20].map(pct => (
-                <button 
+                <button
                   key={pct}
                   onClick={() => { setDiscount(pct); setDiscountAmount(0); }}
-                  className={`flex-1 py-2 rounded-xl text-[10px] font-black transition-all ${
-                    discount === pct ? 'bg-primary text-foreground shadow-[0_0_15px_rgba(34,211,238,0.3)]' : 'bg-card text-slate-500 hover:bg-muted border border-border'
-                  }`}
+                  className={`flex-1 py-2 rounded-xl text-[10px] font-black transition-all ${discount === pct ? 'bg-primary text-foreground shadow-[0_0_15px_rgba(34,211,238,0.3)]' : 'bg-card text-slate-500 hover:bg-muted border border-border'
+                    }`}
                 >
                   {pct}% OFF
                 </button>
               ))}
-              <button 
+              <button
                 onClick={() => { setDiscount(0); setDiscountAmount(0); }}
                 className="px-3 py-2 rounded-xl bg-muted text-muted-foreground text-[10px] font-black hover:bg-slate-700 border border-slate-700"
               >
                 Reset
               </button>
             </div>
-            <Input 
-              type="number" 
+            <Input
+              type="number"
               value={discount || ''}
               onChange={(e) => setDiscount(Number(e.target.value))}
               placeholder="Custom %"
@@ -407,19 +405,18 @@ const Checkout: React.FC = () => {
             <Label className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-black mb-2 block">Flat Amount Discount (₹)</Label>
             <div className="flex gap-2 mb-3">
               {[50, 100, 200, 500].map(amt => (
-                <button 
+                <button
                   key={amt}
                   onClick={() => { setDiscountAmount(amt); setDiscount(0); }}
-                  className={`flex-1 py-2 rounded-xl text-[10px] font-black transition-all ${
-                    discountAmount === amt ? 'bg-emerald-500 text-foreground shadow-[0_0_15px_rgba(16,185,129,0.3)]' : 'bg-card text-slate-500 hover:bg-muted border border-border'
-                  }`}
+                  className={`flex-1 py-2 rounded-xl text-[10px] font-black transition-all ${discountAmount === amt ? 'bg-emerald-500 text-foreground shadow-[0_0_15px_rgba(16,185,129,0.3)]' : 'bg-card text-slate-500 hover:bg-muted border border-border'
+                    }`}
                 >
                   ₹{amt}
                 </button>
               ))}
             </div>
-            <Input 
-              type="number" 
+            <Input
+              type="number"
               value={discountAmount || ''}
               onChange={(e) => setDiscountAmount(Number(e.target.value))}
               placeholder="Enter custom amount..."
@@ -453,7 +450,7 @@ const Checkout: React.FC = () => {
             </div>
           )}
         </div>
-        
+
         <div className="pt-6 border-t border-border flex justify-between items-center bg-emerald-500/5 -mx-8 px-8 py-6 mb-2 border-y border-emerald-500/10">
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2">
@@ -465,16 +462,16 @@ const Checkout: React.FC = () => {
           </div>
           <div className="text-right space-y-2">
             <p className="text-muted-foreground font-black text-[11px] uppercase tracking-[0.25em] leading-none opacity-70">Total Payable</p>
-            <p className="text-8xl font-black text-foreground leading-none tracking-tighter drop-shadow-md">₹{finalTotal.toLocaleString()}</p>
+            <p className="text-5xl font-black text-foreground leading-none tracking-tighter drop-shadow-md">₹{finalTotal.toLocaleString()}</p>
           </div>
         </div>
         <div className="flex justify-end mb-4 pr-1">
           <TotalWeightDisplay items={items} />
         </div>
 
-        <Button 
-          className="w-full h-20 rounded-[24px] text-2xl font-black shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] flex flex-col gap-0.5" 
-          onClick={handleCheckout} 
+        <Button
+          className="w-full h-20 rounded-[24px] text-2xl font-black shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] flex flex-col gap-0.5"
+          onClick={handleCheckout}
           disabled={items.length === 0 || isProcessing}
         >
           <span>{isProcessing ? "PROCESSING..." : "FINALIZE BILL"}</span>
