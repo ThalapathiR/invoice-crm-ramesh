@@ -289,11 +289,12 @@ export class InvoiceService {
 
   async GetRecentReturns() {
     return await stock_movement.createQueryBuilder('movement')
+      .addSelect('movement.created_on')
       .leftJoinAndSelect('movement.product', 'product')
       .where('movement.movement_type = :type', { type: 'IN' })
       .andWhere('movement.reference_id IS NOT NULL')
       .orderBy('movement.created_on', 'DESC')
-      .take(50)
+      .limit(50)
       .getMany();
   }
 
