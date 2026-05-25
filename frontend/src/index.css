@@ -10,7 +10,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Skote Light Theme Tokens */
-  --color-background: #F8F8FB;
+  --color-background: #F8F9FA;
   --color-foreground: #495057;
   --color-heading: #495057;
   --color-text-light: #74788D;
@@ -21,16 +21,16 @@
   --color-popover: #FFFFFF;
   --color-popover-foreground: #495057;
 
-  --color-primary: #556EE6;
+  --color-primary: #04B077;
   --color-primary-foreground: #FFFFFF;
 
   --color-secondary: #F6F6F6;
-  --color-secondary-foreground: #556EE6;
+  --color-secondary-foreground: #04B077;
 
   --color-muted: #F6F6F6;
   --color-muted-foreground: #74788D;
 
-  --color-accent: #556EE6;
+  --color-accent: #04B077;
   --color-accent-foreground: #FFFFFF;
 
   --color-success: #34C38F;
@@ -40,10 +40,10 @@
 
   --color-border: #EFF2F7;
   --color-input: #FFFFFF;
-  --color-ring: rgba(85, 110, 230, 0.25);
+  --color-ring: rgba(4, 176, 119, 0.25);
 
   /* Chart & Analytics Palette - Skote Style */
-  --color-chart-1: #556EE6;
+  --color-chart-1: #04B077;
   --color-chart-2: #34C38F;
   --color-chart-3: #F1B44C;
   --color-chart-4: #50A5F1;
@@ -54,19 +54,19 @@
   --font-mono: 'SFMono-Regular', Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* Multi-Theme Design System - Adapted for Skote */
-  --color-brand-primary: #556EE6;
+  --color-brand-primary: #04B077;
   --color-brand-secondary: #34C38F;
   --color-brand-even: #FFFFFF;
-  --color-brand-price: #556EE6;
+  --color-brand-price: #04B077;
   --color-brand-stock-low: #F46A6A;
-  --color-brand-bg: #F8F8FB;
+  --color-brand-bg: #F8F9FA;
   --color-brand-dark-gray: #495057;
   --color-brand-hover: #F6F6F6;
   
   --color-theme-teal: #34C38F;
   --color-theme-teal-header: #2ca97b;
-  --color-theme-blue: #556EE6;
-  --color-theme-blue-header: #495fc7;
+  --color-theme-blue: #04B077;
+  --color-theme-blue-header: #038b5e;
   --color-theme-purple: #74788D;
   --color-theme-purple-header: #65697a;
   --color-theme-coral: #F46A6A;
@@ -125,15 +125,15 @@
     --color-card: #2A3042;
     --color-card-foreground: #A6B0CF;
 
-    --color-primary: #556EE6;
+    --color-primary: #04B077;
     --color-primary-foreground: #FFFFFF;
 
-    --color-accent: #556EE6;
+    --color-accent: #04B077;
     --color-accent-foreground: #FFFFFF;
 
     --color-border: #32394E;
     --color-input: #2A3042;
-    --color-ring: rgba(85, 110, 230, 0.5);
+    --color-ring: rgba(4, 176, 119, 0.5);
     --color-muted: #32394E;
     --color-muted-foreground: #74788D;
   }
@@ -153,7 +153,7 @@
     
     /* Subtle background texture for Skote feel */
     background-image: 
-      radial-gradient(at 0% 0%, rgba(85, 110, 230, 0.03) 0px, transparent 50%),
+      radial-gradient(at 0% 0%, rgba(4, 176, 119, 0.03) 0px, transparent 50%),
       radial-gradient(at 100% 0%, rgba(52, 195, 143, 0.03) 0px, transparent 50%);
     
     background-attachment: fixed;
@@ -163,8 +163,8 @@
   /* Deep Skote dark mesh */
   :root.dark body {
     background-image: 
-      radial-gradient(at 0% 0%, rgba(85, 110, 230, 0.05) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(85, 110, 230, 0.02) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, rgba(4, 176, 119, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(4, 176, 119, 0.02) 0px, transparent 50%);
   }
 
   h1,

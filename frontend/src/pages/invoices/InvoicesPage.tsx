@@ -86,7 +86,7 @@ const InvoicesPage: React.FC = () => {
           </div>
           <div>
             <h1 className="text-3xl font-black text-foreground tracking-tight">Invoice Template</h1>
-            <p className="text-blue-100/80 font-medium">Customize your billing layout and store details</p>
+            <p className="text-slate-400 font-medium">Customize your billing layout and store details</p>
           </div>
         </div>
       </div>

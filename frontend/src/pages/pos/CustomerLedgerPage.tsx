@@ -123,7 +123,7 @@ const CustomerLedgerPage: React.FC = () => {
             </div>
             Customer Khata Ledger
           </h1>
-          <p className="text-blue-100/80 font-medium ml-1">Track outstanding dues and payment history</p>
+          <p className="text-slate-400 font-medium ml-1">Track outstanding dues and payment history</p>
         </div>
         <div className="flex gap-2">
           {selectedCustomerId && (

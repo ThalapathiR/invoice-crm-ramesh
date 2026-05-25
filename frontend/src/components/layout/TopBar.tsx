@@ -371,7 +371,7 @@ export function TopBar({ isAdmin = false }: { isAdmin?: boolean }) {
         <div className="flex items-center gap-3 pl-2 ml-2 border-l border-[#f0e8e2] dark:border-[#f0e8e2]/10">
           <div className="hidden md:flex flex-col items-end mr-1">
             <span className="text-sm font-bold text-foreground leading-tight">
-              {user?.company?.name || (user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : user?.firstName || user?.username || "User")}
+              {user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : (user?.firstName || user?.username || user?.company?.name || "User")}
             </span>
             <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-tight">
               {user?.role?.replace('_', ' ') || "Member"}

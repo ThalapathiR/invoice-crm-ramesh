@@ -41,45 +41,52 @@ import { cn } from "@/lib/utils";
 
 const PERMISSION_GROUPS = [
   {
-    id: "dashboard",
-    name: "Dashboard & Analytics",
-    icon: BarChart3,
+    id: "platform",
+    name: "Platform",
+    icon: Layout,
     permissions: [
-      { id: "view_dashboard", name: "View Dashboard" },
-      { id: "view_analytics", name: "View Business Analytics" },
-      { id: "view_pnl", name: "View P&L Reports" }
+      { id: "view_dashboard", name: "Dashboard" }
     ]
   },
   {
-    id: "sales",
-    name: "Sales & POS",
+    id: "pos_billing",
+    name: "POS & Billing",
     icon: ShoppingBag,
     permissions: [
-      { id: "access_pos", name: "Access POS Terminal" },
-      { id: "create_invoice", name: "Create Invoices" },
-      { id: "edit_invoice", name: "Edit/Cancel Invoices" },
-      { id: "apply_discount", name: "Apply Custom Discounts" }
+      { id: "access_pos", name: "POS Terminal" },
+      { id: "manage_products", name: "Products" },
+      { id: "manage_categories", name: "Categories" },
+      { id: "manage_sizes", name: "Sizes" },
+      { id: "view_customers", name: "Customers" },
+      { id: "view_inventory", name: "Inventory" },
+      { id: "access_invoices", name: "Invoice Center" },
+      { id: "manage_roles", name: "User Roles" }
     ]
   },
   {
-    id: "inventory",
-    name: "Inventory Management",
+    id: "financial_management",
+    name: "Financial Management",
     icon: Database,
     permissions: [
-      { id: "view_inventory", name: "View Inventory" },
-      { id: "manage_products", name: "Add/Edit Products" },
-      { id: "manage_stock", name: "Update Stock Levels" },
-      { id: "manage_categories", name: "Manage Categories/Sizes" }
+      { id: "manage_banks", name: "Bank Accounts" },
+      { id: "manage_expense_categories", name: "Expense Master" },
+      { id: "access_expenses", name: "Expenses" },
+      { id: "view_ledger", name: "Customer Khata" }
     ]
   },
   {
-    id: "customers",
-    name: "Customer Management",
-    icon: Users,
+    id: "analysis_reports",
+    name: "Analysis & Reports",
+    icon: BarChart3,
     permissions: [
-      { id: "view_customers", name: "View Customer List" },
-      { id: "manage_customers", name: "Add/Edit Customers" },
-      { id: "view_ledger", name: "View Customer Ledger" }
+      { id: "view_bill_profit", name: "Bill Profit" },
+      { id: "view_pnl", name: "Business P&L" },
+      { id: "view_item_profit", name: "Item Performance" },
+      { id: "view_stock_summary", name: "Stock Valuation" },
+      { id: "view_low_stock", name: "Low Stock" },
+      { id: "view_category_report", name: "Category Report" },
+      { id: "view_batch_report", name: "Batch Report" },
+      { id: "view_serial_report", name: "Serial Report" }
     ]
   },
   {
@@ -87,9 +94,8 @@ const PERMISSION_GROUPS = [
     name: "System Settings",
     icon: SettingsIcon,
     permissions: [
-      { id: "manage_banks", name: "Manage Bank Accounts" },
-      { id: "manage_team", name: "Manage Team & Roles" },
-      { id: "system_config", name: "Change Store Settings" }
+      { id: "manage_employees", name: "Manage Employees" },
+      { id: "system_config", name: "Store Settings" }
     ]
   }
 ];

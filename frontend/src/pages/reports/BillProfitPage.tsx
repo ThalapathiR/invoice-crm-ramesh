@@ -59,7 +59,7 @@ const BillProfitPage: React.FC = () => {
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-black text-foreground tracking-tight">Bill Profit Analysis</h1>
-          <p className="text-blue-100/80 font-medium">Detailed profit calculation for every independent bill</p>
+          <p className="text-slate-400 font-medium">Detailed profit calculation for every independent bill</p>
         </div>
         <div className="flex flex-col md:flex-row gap-2 bg-white/10 p-2 rounded-2xl backdrop-blur-md border border-white/10">
           <div className="flex gap-2">

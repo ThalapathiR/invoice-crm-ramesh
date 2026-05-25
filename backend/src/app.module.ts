@@ -91,6 +91,7 @@ import { PrinterService } from "./Service/Pos/Printer.service";
         password: _ConfigService.get("Database.Password"),
         database: _ConfigService.get("Database.Name"),
         synchronize: _ConfigService.get("Database.Sync"),
+        ssl: _ConfigService.get("Database.SSL") ? { rejectUnauthorized: false } : false,
         keepConnectionAlive: true,
         entities: [__dirname + "/Database/**/*.{ts,js}"],
         logger: "advanced-console",

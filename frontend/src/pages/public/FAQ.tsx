@@ -233,7 +233,7 @@ export default function FAQ() {
               Pricing & Plans
             </Badge>
             <h2 className="text-4xl md:text-4xl font-black text-foreground mb-8 tracking-tighter">Choose Your Path to Efficiency</h2>
-            <p className="text-xl text-blue-100/60 max-w-2xl mx-auto font-medium">
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
               Transparent plans designed to scale with your business needs.
             </p>
           </div>
@@ -265,7 +265,7 @@ export default function FAQ() {
                   <h3 className={`text-2xl font-black tracking-tight mb-3 ${plan.popular ? "text-slate-900" : "text-foreground"}`}>
                     {plan.name}
                   </h3>
-                  <p className={`text-sm font-semibold leading-relaxed ${plan.popular ? "text-slate-500" : "text-blue-100/40"}`}>
+                  <p className={`text-sm font-semibold leading-relaxed ${plan.popular ? "text-slate-500" : "text-slate-400"}`}>
                     {plan.tagline}
                   </p>
                 </div>
@@ -276,7 +276,7 @@ export default function FAQ() {
                       {plan.price === "Custom" ? "Custom" : `$${plan.price}`}
                     </span>
                     {plan.price !== "Custom" && (
-                      <span className={`text-sm font-bold uppercase tracking-widest ${plan.popular ? "text-muted-foreground" : "text-blue-100/20"}`}>/mo</span>
+                      <span className={`text-sm font-bold uppercase tracking-widest ${plan.popular ? "text-muted-foreground" : "text-slate-400"}`}>/mo</span>
                     )}
                   </div>
                 </div>
@@ -285,7 +285,7 @@ export default function FAQ() {
                   {plan.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-3">
                       <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${plan.popular ? "text-primary" : "text-emerald-500"}`} />
-                      <span className={`text-sm font-semibold tracking-tight ${plan.popular ? "text-slate-600" : "text-blue-100/60"}`}>
+                      <span className={`text-sm font-semibold tracking-tight ${plan.popular ? "text-slate-600" : "text-slate-400"}`}>
                         {feature}
                       </span>
                     </div>

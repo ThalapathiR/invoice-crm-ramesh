@@ -133,7 +133,7 @@ const BankAccountsPage: React.FC = () => {
             </div>
             Bank Accounts
           </h1>
-          <p className="text-blue-100/80 font-medium ml-1">Manage your business bank accounts and UPI IDs</p>
+          <p className="text-slate-400 font-medium ml-1">Manage your business bank accounts and UPI IDs</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchItems} disabled={isLoading}>

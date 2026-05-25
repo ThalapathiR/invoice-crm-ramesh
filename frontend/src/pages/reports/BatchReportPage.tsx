@@ -41,7 +41,7 @@ const BatchReportPage: React.FC = () => {
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-black text-foreground tracking-tight">Batch Tracking (FIFO)</h1>
-          <p className="text-blue-100/80 font-medium">Inventory segmented by purchase lots and individual cost prices</p>
+          <p className="text-slate-400 font-medium">Inventory segmented by purchase lots and individual cost prices</p>
         </div>
         <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchData}>
           <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />

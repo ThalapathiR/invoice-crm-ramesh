@@ -9,6 +9,7 @@ export default () => ({
     Seed: process.env.DB_SEED,
     Sync: process.env.DB_SYNC == "true",
     LOG: process.env.DB_LOG == "true",
+    SSL: process.env.DB_SSL == "true",
   },
   Encryption: {
     SecertKey: process.env.SECERT_KEY,

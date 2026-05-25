@@ -105,7 +105,7 @@ const AdminCustomersPage: React.FC = () => {
             <Users className="w-8 h-8 text-primary animate-pulse" />
             Global Customers
           </h1>
-          <p className="text-blue-100/80 font-medium">Super Admin Control: Managing all customers across {stats.totalTenants} tenants</p>
+          <p className="text-slate-400 font-medium">Super Admin Control: Managing all customers across {stats.totalTenants} tenants</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={fetchGlobalCustomers} disabled={isLoading}>

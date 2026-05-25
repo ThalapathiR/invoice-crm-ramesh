@@ -136,7 +136,7 @@ const CustomersPage: React.FC = () => {
       <div className="page-header-brand flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-black text-foreground tracking-tight">Customer Relationship</h1>
-          <p className="text-blue-100/80 font-medium">Manage your customer database and purchase history</p>
+          <p className="text-slate-400 font-medium">Manage your customer database and purchase history</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="icon" className="bg-white/10 border-white/20 text-foreground hover:bg-white/20 rounded-xl" onClick={handleSyncStats} disabled={isLoading} title="Sync Statistics">
