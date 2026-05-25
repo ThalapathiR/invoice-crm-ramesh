@@ -16,13 +16,13 @@ import {
   TabsTrigger 
 } from "@/components/ui/tabs";
 
-const POSContent: React.FC = () => {
+const POSContent: React.FC<{ tabId: string }> = ({ tabId }) => {
   const { user } = useAuth();
   const { addItem, items, clearCart } = useCart();
   const [showScanner, setShowScanner] = useState(false);
   const [heldCarts, setHeldCarts] = useState<any[]>(() => {
     try {
-      const saved = localStorage.getItem('pos_held_carts');
+      const saved = localStorage.getItem(`pos_held_carts_${tabId}`);
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -30,8 +30,8 @@ const POSContent: React.FC = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem('pos_held_carts', JSON.stringify(heldCarts));
-  }, [heldCarts]);
+    localStorage.setItem(`pos_held_carts_${tabId}`, JSON.stringify(heldCarts));
+  }, [heldCarts, tabId]);
 
   const handleProductFound = React.useCallback((product: any) => {
     addItem(product, 1);
@@ -218,10 +218,43 @@ const POSContent: React.FC = () => {
 };
 
 const POSPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('tab-1');
+  
+  const tabs = [
+    { id: 'tab-1', label: 'Counter 1' },
+    { id: 'tab-2', label: 'Counter 2' },
+    { id: 'tab-3', label: 'Counter 3' },
+    { id: 'tab-4', label: 'Counter 4' },
+  ];
+
   return (
-    <CartProvider>
-      <POSContent />
-    </CartProvider>
+    <div className="flex flex-col min-h-screen bg-background">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex-1 flex flex-col">
+        <div className="bg-card border-b border-border px-6 pt-4 flex gap-4">
+          <TabsList className="bg-transparent gap-2 h-auto p-0">
+            {tabs.map(tab => (
+              <TabsTrigger 
+                key={tab.id} 
+                value={tab.id}
+                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg rounded-t-xl rounded-b-none px-8 py-3 font-black text-sm transition-all border border-b-0 border-transparent data-[state=active]:border-border"
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+
+        {tabs.map(tab => (
+          <TabsContent key={tab.id} value={tab.id} className="m-0 border-none p-0 outline-none flex-1">
+            {activeTab === tab.id && (
+              <CartProvider storageKey={`pos_cart_${tab.id}`}>
+                <POSContent tabId={tab.id} />
+              </CartProvider>
+            )}
+          </TabsContent>
+        ))}
+      </Tabs>
+    </div>
   );
 };
 

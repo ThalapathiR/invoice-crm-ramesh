@@ -26,10 +26,10 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode, storageKey?: string }> = ({ children, storageKey = 'pos_cart' }) => {
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
-      const saved = localStorage.getItem('pos_cart');
+      const saved = localStorage.getItem(storageKey);
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -37,8 +37,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   React.useEffect(() => {
-    localStorage.setItem('pos_cart', JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem(storageKey, JSON.stringify(items));
+  }, [items, storageKey]);
 
   const addItem = (product: any, quantity: number) => {
     setItems(prev => {
