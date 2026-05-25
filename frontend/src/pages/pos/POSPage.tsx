@@ -20,7 +20,18 @@ const POSContent: React.FC = () => {
   const { user } = useAuth();
   const { addItem, items, clearCart } = useCart();
   const [showScanner, setShowScanner] = useState(false);
-  const [heldCarts, setHeldCarts] = useState<any[]>([]);
+  const [heldCarts, setHeldCarts] = useState<any[]>(() => {
+    try {
+      const saved = localStorage.getItem('pos_held_carts');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('pos_held_carts', JSON.stringify(heldCarts));
+  }, [heldCarts]);
 
   const handleProductFound = React.useCallback((product: any) => {
     addItem(product, 1);
