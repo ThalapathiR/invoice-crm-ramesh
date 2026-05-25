@@ -202,7 +202,7 @@ const Checkout: React.FC = () => {
     doc.save(`Invoice_${invoiceData.invoice_number}.pdf`);
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (skipPrint: boolean = false) => {
     if (items.length === 0) return;
 
     const newErrors = {
@@ -253,13 +253,17 @@ const Checkout: React.FC = () => {
       const invoiceData = res.AddtionalData || res.result || res;
       // generatePDF(invoiceData); // Disabled PDF download as requested
 
-      // Always print thermal receipt after successful transaction
-      ThermalPrintService.printReceipt({
-        ...invoiceData,
-        company: (user as any)?.company,
-        customer_name: customerName || customer?.name,
-        items: items
-      });
+      if (!skipPrint) {
+        // Always print thermal receipt after successful transaction
+        ThermalPrintService.printReceipt({
+          ...invoiceData,
+          company: (user as any)?.company,
+          customer_name: customerName || customer?.name,
+          items: items
+        });
+      } else {
+        toast.info("Sale recorded. No receipt printed.", { icon: "🤫" });
+      }
 
       clearCart();
       setPhone('');
@@ -469,14 +473,25 @@ const Checkout: React.FC = () => {
           <TotalWeightDisplay items={items} />
         </div>
 
-        <Button
-          className="w-full h-20 rounded-[24px] text-2xl font-black shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] flex flex-col gap-0.5"
-          onClick={handleCheckout}
-          disabled={items.length === 0 || isProcessing}
-        >
-          <span>{isProcessing ? "PROCESSING..." : "FINALIZE BILL"}</span>
-          <span className="text-[10px] opacity-70 font-bold">GENERATE RECEIPT & PRINT</span>
-        </Button>
+        <div className="flex gap-4">
+          <Button
+            variant="outline"
+            className="w-1/3 h-20 rounded-[24px] text-sm font-black transition-all hover:bg-slate-100 dark:hover:bg-slate-800 flex flex-col gap-0.5 border-2 border-slate-200"
+            onClick={() => handleCheckout(true)}
+            disabled={items.length === 0 || isProcessing}
+          >
+            <span>{isProcessing ? "WAIT..." : "NO BILL"}</span>
+            <span className="text-[8px] opacity-70 font-bold uppercase tracking-widest text-muted-foreground">Silent Sale</span>
+          </Button>
+          <Button
+            className="w-2/3 h-20 rounded-[24px] text-xl font-black shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] flex flex-col gap-0.5"
+            onClick={() => handleCheckout(false)}
+            disabled={items.length === 0 || isProcessing}
+          >
+            <span>{isProcessing ? "PROCESSING..." : "FINALIZE BILL"}</span>
+            <span className="text-[10px] opacity-70 font-bold text-primary-foreground">GENERATE RECEIPT & PRINT</span>
+          </Button>
+        </div>
       </div>
     </div>
   );
