@@ -3,7 +3,7 @@ import { CurrentUser } from '@Helper/Common.helper';
 import { ApiTags } from '@nestjs/swagger';
 import { InvoiceService } from '@Service/Pos/Invoice.service';
 import { ResponseEnum } from '@Helper/Enum/ResponseEnum';
-import { CreateInvoiceModel } from '@Model/Pos/Invoice.model';
+import { CreateInvoiceModel, ReturnInvoiceModel } from '@Model/Pos/Invoice.model';
 import { JWTAuthController } from '@Controller/JWTAuth.controller';
 
 @Controller({ path: "Invoice", version: '1' })
@@ -19,6 +19,19 @@ export class InvoiceController extends JWTAuthController {
     return this.SendResponse(ResponseEnum.Success, "Invoice created successfully", result);
   }
 
+  @Post('Return')
+  async ReturnInvoice(@Body() data: ReturnInvoiceModel, @CurrentUser() userId: string) {
+    const result = await this._InvoiceService.ProcessReturn(data, userId);
+    return this.SendResponse(ResponseEnum.Success, "Return processed successfully", result);
+  }
+
+  @Get('RecentReturns')
+  async RecentReturns() {
+    const data = await this._InvoiceService.GetRecentReturns();
+    return this.SendResponseData(data);
+  }
+
+
   @Get('List')
   async List(@Query('storeId') storeId: string) {
     const data = await this._InvoiceService.GetAll(storeId);
@@ -28,6 +41,12 @@ export class InvoiceController extends JWTAuthController {
   @Get('ById/:Id')
   async ById(@Param('Id') Id: string) {
     const data = await this._InvoiceService.GetById(Id);
+    return this.SendResponseData(data);
+  }
+
+  @Get('ByInvoiceNumber/:invoiceNumber')
+  async ByInvoiceNumber(@Param('invoiceNumber') invoiceNumber: string) {
+    const data = await this._InvoiceService.GetByInvoiceNumber(invoiceNumber);
     return this.SendResponseData(data);
   }
 

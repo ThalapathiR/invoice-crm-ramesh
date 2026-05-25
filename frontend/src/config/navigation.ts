@@ -18,12 +18,14 @@ import {
   Wallet,
   CreditCard,
   ShieldCheck,
-  UserCog
+  UserCog,
+  RotateCcw
 } from "lucide-react";
 
 export const allNavigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, permission: "view_dashboard" },
   { name: "POS Terminal", href: "/pos", icon: ShoppingCart, permission: "access_pos" },
+  { name: "Sales Returns", href: "/pos/returns", icon: RotateCcw, permission: "access_pos" },
   { name: "Products", href: "/products", icon: Shirt, permission: "manage_products" },
   { name: "Categories", href: "/categories", icon: Layers, permission: "manage_categories" },
   { name: "Sizes", href: "/sizes", icon: Ruler, permission: "manage_sizes" },

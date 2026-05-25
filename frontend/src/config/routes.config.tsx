@@ -17,6 +17,7 @@ export const AdminErrorLog = lazy(() => import("@/pages/admin/AdminErrorLog"));
 export const AdminCustomersPage = lazy(() => import("@/pages/admin/AdminCustomersPage"));
 
 export const POSPage = lazy(() => import("@/pages/pos/POSPage"));
+export const SalesReturnPage = lazy(() => import("@/pages/pos/SalesReturnPage"));
 export const ProductsPage = lazy(() => import("@/pages/products/ProductsPage"));
 export const CustomersPage = lazy(() => import("@/pages/customers/CustomersPage"));
 export const InventoryPage = lazy(() => import("@/pages/inventory/InventoryPage"));

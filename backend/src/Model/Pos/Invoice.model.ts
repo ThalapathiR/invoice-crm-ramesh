@@ -84,3 +84,30 @@ export class CreateInvoiceModel {
   @ApiProperty({ type: [InvoiceItemModel] })
   items: InvoiceItemModel[];
 }
+
+export class ReturnItemModel {
+  @IsNotEmpty()
+  @ApiProperty()
+  product_id: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty()
+  quantity: number;
+}
+
+export class ReturnInvoiceModel {
+  @IsNotEmpty()
+  @ApiProperty()
+  invoice_id: string;
+
+  @IsOptional()
+  @ApiProperty({ required: false })
+  reason?: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ReturnItemModel)
+  @ApiProperty({ type: [ReturnItemModel] })
+  items: ReturnItemModel[];
+}

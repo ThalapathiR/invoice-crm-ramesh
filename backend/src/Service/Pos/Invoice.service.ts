@@ -9,7 +9,7 @@ import { product_batch } from '@Database/Table/Pos/product_batch';
 import { product_serial, SerialStatus } from '@Database/Table/Pos/product_serial';
 import { bank_account } from '@Database/Table/Pos/bank_account';
 import { customer_ledger, LedgerType } from '@Database/Table/Pos/customer_ledger';
-import { CreateInvoiceModel } from '@Model/Pos/Invoice.model';
+import { CreateInvoiceModel, ReturnInvoiceModel } from '@Model/Pos/Invoice.model';
 import { AuditLogService } from '../Admin/AuditLog.service';
 import { LogActionEnum } from '@Helper/Enum/AuditLogEnum';
 import { GoogleSheetsService } from '../GoogleSheets.service';
@@ -267,6 +267,16 @@ export class InvoiceService {
       .getOne();
   }
 
+  async GetByInvoiceNumber(invoiceNumber: string) {
+    return await invoice.createQueryBuilder('invoice')
+      .addSelect('invoice.created_on')
+      .leftJoinAndSelect('invoice.customer', 'customer')
+      .leftJoinAndSelect('invoice.items', 'items')
+      .leftJoinAndSelect('items.product', 'product')
+      .where('invoice.invoice_number = :invoiceNumber', { invoiceNumber })
+      .getOne();
+  }
+
   async GetByCustomer(customerId: string) {
     return await invoice.createQueryBuilder('invoice')
       .addSelect('invoice.created_on')
@@ -275,5 +285,86 @@ export class InvoiceService {
       .where('invoice.customer_id = :customerId', { customerId })
       .orderBy('invoice.created_on', 'DESC')
       .getMany();
+  }
+
+  async GetRecentReturns() {
+    return await stock_movement.createQueryBuilder('movement')
+      .leftJoinAndSelect('movement.product', 'product')
+      .where('movement.movement_type = :type', { type: 'IN' })
+      .andWhere('movement.reference_id IS NOT NULL')
+      .orderBy('movement.created_on', 'DESC')
+      .take(50)
+      .getMany();
+  }
+
+  async ProcessReturn(data: ReturnInvoiceModel, userId: string) {
+    const queryRunner = this._DataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const inv = await queryRunner.manager.findOne(invoice, { where: { id: data.invoice_id }, relations: ['items'] });
+      if (!inv) throw new Error('Invoice not found');
+
+      let totalRefund = 0;
+
+      for (const returnItem of data.items) {
+        const invoiceItem = inv.items.find(i => i.product_id === returnItem.product_id);
+        if (!invoiceItem) throw new Error(`Product ${returnItem.product_id} not found in this invoice`);
+        if (returnItem.quantity > invoiceItem.quantity) throw new Error(`Cannot return more than purchased for product ${returnItem.product_id}`);
+
+        const prod = await queryRunner.manager.findOne(product, { where: { id: returnItem.product_id } });
+        if (!prod) continue;
+
+        // Increase stock
+        prod.quantity_in_stock = Number(prod.quantity_in_stock) + returnItem.quantity;
+        await queryRunner.manager.save(prod);
+
+        // Stock movement log
+        const movement = new stock_movement();
+        movement.product_id = prod.id;
+        movement.movement_type = 'IN';
+        movement.quantity = returnItem.quantity;
+        movement.reference_id = inv.id;
+        movement.created_by_id = userId;
+        movement.created_on = new Date();
+        await queryRunner.manager.save(movement);
+
+        // Refund calc based on proportional price (including tax & discount)
+        const unitRefundAmount = invoiceItem.total_price / invoiceItem.quantity;
+        totalRefund += unitRefundAmount * returnItem.quantity;
+      }
+
+      // Update Customer Ledger & Balance
+      if (inv.customer_id) {
+        const cust = await queryRunner.manager.findOne(customer, { where: { id: inv.customer_id } });
+        if (cust) {
+          cust.current_balance = Number(cust.current_balance) - totalRefund;
+          await queryRunner.manager.save(cust);
+
+          // Create Ledger Entry for Return
+          const ledger = new customer_ledger();
+          ledger.customer_id = inv.customer_id;
+          ledger.invoice_id = inv.id;
+          ledger.type = LedgerType.RETURN;
+          ledger.debit = 0;
+          ledger.credit = totalRefund;
+          ledger.balance = cust.current_balance;
+          ledger.notes = `Return processed for Invoice ${inv.invoice_number}`;
+          ledger.created_by_id = userId;
+          ledger.created_on = new Date();
+          await queryRunner.manager.save(ledger);
+        }
+      }
+
+      await queryRunner.commitTransaction();
+      this._AuditLogService.AuditEmitEvent({ PerformedType: invoice.name, ActionType: LogActionEnum.Update, PrimaryId: [inv.id] });
+      return { success: true, refundAmount: totalRefund };
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

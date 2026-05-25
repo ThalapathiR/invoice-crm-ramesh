@@ -145,6 +145,9 @@ function Router() {
         <Route path="/pos">
           <AppRoute component={Routes.POSPage} />
         </Route>
+        <Route path="/pos/returns">
+          <AppRoute component={Routes.SalesReturnPage} />
+        </Route>
         <Route path="/products">
           <AppRoute component={Routes.ProductsPage} />
         </Route>
