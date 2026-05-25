@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend"
   },
   "dependencies": {
     "electron": "^31.0.0",
