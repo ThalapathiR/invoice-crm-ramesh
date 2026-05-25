@@ -15,11 +15,19 @@ export const StickerService = {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8);
       const name = product.name.length > 30 ? product.name.substring(0, 27) + "..." : product.name;
-      doc.text(name, 25, 6, { align: 'center' });
+      doc.text(name, 25, 5, { align: 'center' });
 
-      // 2. Add Price & MRP
-      doc.setFontSize(7);
-      doc.text(`MRP: Rs.${product.mrp || product.selling_price}  |  Price: Rs.${product.selling_price}`, 25, 10, { align: 'center' });
+      // 2. Add MRP (smaller, regular font)
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(80); // Gray out MRP slightly
+      doc.text(`MRP: Rs. ${product.mrp || product.selling_price}`, 25, 9, { align: 'center' });
+
+      // 3. Add Selling Price (larger, bold)
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.setTextColor(0); // Black
+      doc.text(`Our Price: Rs. ${product.selling_price}`, 25, 13.5, { align: 'center' });
 
       // 3. Generate 1D Barcode using bwipjs API
       // Using Code128 which is standard for retail
@@ -36,7 +44,8 @@ export const StickerService = {
         img.src = barcodeUrl;
       });
 
-      doc.addImage(img, 'PNG', 5, 12, 40, 11);
+      // Shift barcode down to accommodate larger price text
+      doc.addImage(img, 'PNG', 5, 14.5, 40, 9.5);
 
       // Open print dialog directly
       doc.autoPrint();
