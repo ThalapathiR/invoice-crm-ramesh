@@ -33,7 +33,7 @@ export class ProductService {
   async Search(query: string, storeId: string) {
     const qb = product.createQueryBuilder('product')
       .where('product.status = :status', { status: true })
-      .andWhere('(product.name LIKE :q OR product.sku LIKE :q OR product.barcode LIKE :q)', { q: `%${query}%` });
+      .andWhere('(product.name ILIKE :q OR product.sku ILIKE :q OR product.barcode ILIKE :q)', { q: `%${query}%` });
 
     if (storeId && storeId !== "undefined" && storeId !== "null") {
       qb.andWhere('product.store_id = :storeId', { storeId });
